@@ -21,6 +21,9 @@
                 <entry key="isVolumeOfJournal" value-ref="isVolumeOfJournalMap"/>
                 <entry key="isIssueOfJournalVolume" value-ref="isIssueOfJournalVolumeMap"/>
                 <entry key="isJournalIssueOfPublication" value-ref="isJournalIssueOfPublicationMap"/>
+                <!-- BEGIN: Sistedes -->
+                <entry key="isAuthorOfSeminar" value-ref="isAuthorOfSeminarMap"/>
+                <!-- END: Sistedes -->
             </map>
         </property>
     </bean>
@@ -254,4 +257,25 @@
         <property name="virtualMetadataConfiguration" ref="volumeJournal_uuid"/>
     </bean>
     <bean class="org.dspace.content.virtual.UUIDValue" id="volumeJournal_uuid"/>
+
+    <!-- BEGIN: Sistedes -->
+    <util:map id="isAuthorOfSeminarMap">
+        <entry key="dc.contributor.author" value-ref="seminarAuthor_author"/>
+    </util:map>
+
+    <bean class="org.dspace.content.virtual.Concatenate" id="seminarAuthor_author">
+        <property name="fields">
+            <util:list>
+                <value>person.familyName</value>
+                <value>person.givenName</value>
+                <value>organization.legalName</value>
+            </util:list>
+        </property>
+        <property name="separator">
+            <value>, </value>
+        </property>
+        <property name="useForPlace" value="true"/>
+        <property name="populateWithNameVariant" value="true"/>
+    </bean>
+    <!-- END: Sistedes -->
 </beans>
