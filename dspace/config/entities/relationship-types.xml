@@ -130,9 +130,36 @@
         </rightCardinality>
         <copyToRight>true</copyToRight>
     </type>
+    <!-- BEGIN: Sistedes -->
     <type>
-        <leftType>Seminar</leftType>
-        <rightType>Person</rightType>
+        <leftType>Publicación</leftType>
+        <rightType>Autor</rightType>
+        <leftwardType>isAuthorOfPaper</leftwardType>
+        <rightwardType>isPaperOfAuthor</rightwardType>
+        <leftCardinality>
+            <min>0</min>
+        </leftCardinality>
+        <rightCardinality>
+            <min>0</min>
+        </rightCardinality>
+        <copyToLeft>true</copyToLeft>
+    </type>
+    <type>
+        <leftType>Resumen</leftType>
+        <rightType>Autor</rightType>
+        <leftwardType>isAuthorOfAbstract</leftwardType>
+        <rightwardType>isAbstractOfAuthor</rightwardType>
+        <leftCardinality>
+            <min>0</min>
+        </leftCardinality>
+        <rightCardinality>
+            <min>0</min>
+        </rightCardinality>
+        <copyToLeft>true</copyToLeft>
+    </type>
+    <type>
+        <leftType>Seminario</leftType>
+        <rightType>Autor</rightType>
         <leftwardType>isAuthorOfSeminar</leftwardType>
         <rightwardType>isSeminarOfAuthor</rightwardType>
         <leftCardinality>
@@ -143,4 +170,5 @@
         </rightCardinality>
         <copyToLeft>true</copyToLeft>
     </type>
+    <!-- END: Sistedes -->
 </relationships>
