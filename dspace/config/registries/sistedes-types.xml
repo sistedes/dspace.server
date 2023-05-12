@@ -69,7 +69,7 @@
     <dc-type>
         <schema>bds</schema>
         <element>edition</element>
-        <qualifier>locatio</qualifier>
+        <qualifier>location</qualifier>
         <scope_note>City where the edition in which the publication was presented was held, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
     </dc-type>
 
