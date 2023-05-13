@@ -132,7 +132,7 @@
     </type>
     <!-- BEGIN: Sistedes -->
     <type>
-        <leftType>Publicación</leftType>
+        <leftType>Artículo</leftType>
         <rightType>Autor</rightType>
         <leftwardType>isAuthorOfPaper</leftwardType>
         <rightwardType>isPaperOfAuthor</rightwardType>
