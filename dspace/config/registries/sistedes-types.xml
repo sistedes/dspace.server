@@ -87,4 +87,43 @@
         <scope_note>Full name of the proceedings in which the publication was published, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
     </dc-type>
 
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfPaper</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" AUTHORS that the current PAPER links to via a relationship. In other words, this stores all relationships pointing from the current PAPER to any AUTHOR where the AUTHOR is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfPaper</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current PAPER via a "latest" relationship. In other words, this stores all relationships pointing to the current PAPER from an AUTHOR, implying that the PAPER is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfAbstract</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" AUTHORS that the current ABSTRACT links to via a relationship. In other words, this stores all relationships pointing from the current ABSTRACT to any AUTHOR where the AUTHOR is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfAbstract</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current ABSTRACT via a "latest" relationship. In other words, this stores all relationships pointing to the current ABSTRACT from an AUTHOR, implying that the ABSTRACT is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfSeminar</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" AUTHORS that the current SEMINAR links to via a relationship. In other words, this stores all relationships pointing from the current SEMINAR to any AUTHOR where the AUTHOR is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfSeminar</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current SEMINAR via a "latest" relationship. In other words, this stores all relationships pointing to the current SEMINAR from an AUTHOR, implying that the SEMINAR is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
 </dspace-dc-types>

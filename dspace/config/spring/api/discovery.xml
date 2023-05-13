@@ -186,6 +186,11 @@
                 <ref bean="searchFilterFileDescriptionInOriginalBundle" />
                 <ref bean="searchFilterEntityType"/>
                 <ref bean="searchFilterIsAuthorOfPublicationRelation"/>
+                <!-- BEGIN Sistedes -->
+                <ref bean="searchFilterIsAuthorOfPaperRelation"/>
+                <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
+                <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <!-- END Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
                 <ref bean="searchFilterIsPublicationOfJournalIssueRelation"/>
@@ -334,6 +339,11 @@
                 <ref bean="searchFilterFileDescriptionInOriginalBundle" />
                 <ref bean="searchFilterEntityType"/>
                 <ref bean="searchFilterIsAuthorOfPublicationRelation"/>
+                <!-- BEGIN Sistedes -->
+                <ref bean="searchFilterIsAuthorOfPaperRelation"/>
+                <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
+                <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <!-- END Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
                 <ref bean="searchFilterIsPublicationOfJournalIssueRelation"/>
@@ -473,6 +483,11 @@
                 <ref bean="searchFilterFileDescriptionInOriginalBundle" />
                 <ref bean="searchFilterEntityType"/>
                 <ref bean="searchFilterIsAuthorOfPublicationRelation"/>
+                <!-- BEGIN Sistedes -->
+                <ref bean="searchFilterIsAuthorOfPaperRelation"/>
+                <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
+                <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <!-- END Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
                 <ref bean="searchFilterIsPublicationOfJournalIssueRelation"/>
@@ -615,6 +630,11 @@
                 <ref bean="searchFilterFileDescriptionInOriginalBundle" />
                 <ref bean="searchFilterEntityType"/>
                 <ref bean="searchFilterIsAuthorOfPublicationRelation"/>
+                <!-- BEGIN Sistedes -->
+                <ref bean="searchFilterIsAuthorOfPaperRelation"/>
+                <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
+                <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <!-- END Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
                 <ref bean="searchFilterIsPublicationOfJournalIssueRelation"/>
@@ -751,6 +771,11 @@
                 <ref bean="searchFilterFileDescriptionInOriginalBundle" />
                 <ref bean="searchFilterEntityType"/>
                 <ref bean="searchFilterIsAuthorOfPublicationRelation"/>
+                <!-- BEGIN Sistedes -->
+                <ref bean="searchFilterIsAuthorOfPaperRelation"/>
+                <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
+                <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <!-- END Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
                 <ref bean="searchFilterIsPublicationOfJournalIssueRelation"/>
@@ -1238,6 +1263,11 @@
                 <ref bean="searchFilterFileDescriptionInOriginalBundle" />
                 <ref bean="searchFilterEntityType"/>
                 <ref bean="searchFilterIsAuthorOfPublicationRelation"/>
+                <!-- BEGIN Sistedes -->
+                <ref bean="searchFilterIsAuthorOfPaperRelation"/>
+                <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
+                <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <!-- END Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
                 <ref bean="searchFilterIsPublicationOfJournalIssueRelation"/>
@@ -1308,6 +1338,11 @@
                 <ref bean="searchFilterFileDescriptionInOriginalBundle" />
                 <ref bean="searchFilterEntityType"/>
                 <ref bean="searchFilterIsAuthorOfPublicationRelation"/>
+                <!-- BEGIN Sistedes -->
+                <ref bean="searchFilterIsAuthorOfPaperRelation"/>
+                <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
+                <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <!-- END Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
                 <ref bean="searchFilterIsPublicationOfJournalIssueRelation"/>
@@ -2368,6 +2403,42 @@
         <property name="isOpenByDefault" value="false"/>
         <property name="pageSize" value="10"/>
     </bean>
+
+    <!-- BEGIN Sistedes -->
+    <bean id="searchFilterIsAuthorOfPaperRelation" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
+        <property name="indexFieldName" value="isAuthorOfPaper"/>
+        <property name="metadataFields">
+            <list>
+                <value>relation.isAuthorOfPaper.latestForDiscovery</value>
+            </list>
+        </property>
+        <property name="isOpenByDefault" value="false"/>
+        <property name="pageSize" value="10"/>
+    </bean>
+    
+    <bean id="searchFilterIsAuthorOfAbstractRelation" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
+        <property name="indexFieldName" value="isAuthorOfAbstract"/>
+        <property name="metadataFields">
+            <list>
+                <value>relation.isAuthorOfAbstract.latestForDiscovery</value>
+            </list>
+        </property>
+        <property name="isOpenByDefault" value="false"/>
+        <property name="pageSize" value="10"/>
+    </bean>
+
+        
+    <bean id="searchFilterIsAuthorOfSeminarRelation" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
+        <property name="indexFieldName" value="isAuthorOfSeminar"/>
+        <property name="metadataFields">
+            <list>
+                <value>relation.isAuthorOfSeminar.latestForDiscovery</value>
+            </list>
+        </property>
+        <property name="isOpenByDefault" value="false"/>
+        <property name="pageSize" value="10"/>
+    </bean>
+    <!-- END Sistedes -->
 
     <bean id="searchFilterIsProjectOfPublicationRelation" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
         <property name="indexFieldName" value="isProjectOfPublication"/>
