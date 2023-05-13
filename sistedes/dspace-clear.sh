@@ -9,8 +9,6 @@ sudo -u postgres psql --username=postgres dspace -c "CREATE EXTENSION pgcrypto;"
 rm -rf $server/assetstore/*
 /opt/dspace-fix-permissions.sh
 /opt/dspace-create-admin.sh
-"$server/bin/dspace" initialize-entities -f "$server/config/entities/relationship-types.xml"
 systemctl start tomcat9.service
-# This should not be needed in the future, since the Sistedes metadata should be configured when running "ant fresh_install"
-# sleep 20
-#"$server/bin/dspace" dsrun org.dspace.administer.MetadataImporter -f "$server/config/registries/sistedes-types.xml"
+"$server/bin/dspace" initialize-entities -f "$server/config/entities/relationship-types.xml"
+

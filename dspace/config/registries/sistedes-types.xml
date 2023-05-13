@@ -7,7 +7,7 @@
 
     <dc-schema>
         <name>bds</name>
-        <namespace>https://biblioteca.sistedes.es/Publication</namespace>
+        <namespace>https://biblioteca.sistedes.es/SistedesMetadata</namespace>
     </dc-schema>
 
     <dc-type>
