@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE relationships SYSTEM "relationship-types.dtd">
+
+<relationships>
+
+    <type>
+        <leftType>Artículo</leftType>
+        <rightType>Autor</rightType>
+        <leftwardType>isAuthorOfPaper</leftwardType>
+        <rightwardType>isPaperOfAuthor</rightwardType>
+        <leftCardinality>
+            <min>0</min>
+        </leftCardinality>
+        <rightCardinality>
+            <min>0</min>
+        </rightCardinality>
+        <copyToLeft>true</copyToLeft>
+    </type>
+    <type>
+        <leftType>Resumen</leftType>
+        <rightType>Autor</rightType>
+        <leftwardType>isAuthorOfAbstract</leftwardType>
+        <rightwardType>isAbstractOfAuthor</rightwardType>
+        <leftCardinality>
+            <min>0</min>
+        </leftCardinality>
+        <rightCardinality>
+            <min>0</min>
+        </rightCardinality>
+        <copyToLeft>true</copyToLeft>
+    </type>
+    <type>
+        <leftType>Seminario</leftType>
+        <rightType>Autor</rightType>
+        <leftwardType>isAuthorOfSeminar</leftwardType>
+        <rightwardType>isSeminarOfAuthor</rightwardType>
+        <leftCardinality>
+            <min>0</min>
+        </leftCardinality>
+        <rightCardinality>
+            <min>0</min>
+        </rightCardinality>
+        <copyToLeft>true</copyToLeft>
+    </type>
+</relationships>

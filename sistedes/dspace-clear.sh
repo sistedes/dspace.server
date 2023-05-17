@@ -10,5 +10,5 @@ rm -rf $server/assetstore/*
 /opt/dspace-fix-permissions.sh
 /opt/dspace-create-admin.sh
 systemctl start tomcat9.service
-"$server/bin/dspace" initialize-entities -f "$server/config/entities/relationship-types.xml"
+"$server/bin/dspace" initialize-entities -f "$server/config/entities/sistedes-relationship.xml"
 
