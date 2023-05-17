@@ -47,6 +47,13 @@
 
     <dc-type>
         <schema>bds</schema>
+        <element>conference</element>
+        <qualifier>acronym</qualifier>
+        <scope_note>Acronym of the conference in which the publication was presented, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>bds</schema>
         <element>edition</element>
         <qualifier>name</qualifier>
         <scope_note>Full name of the edition in which the publication was presented, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
