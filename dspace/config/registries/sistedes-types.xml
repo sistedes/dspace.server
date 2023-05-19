@@ -6,94 +6,97 @@
     </dspace-header>
 
     <dc-schema>
-        <name>bds</name>
-        <namespace>https://biblioteca.sistedes.es/SistedesMetadata</namespace>
+        <name>bs</name>
+        <namespace>https://biblioteca.sistedes.es/Conference</namespace>
     </dc-schema>
 
+    <!-- Some publication information may reuse/extend existing elements of Dublin Core, especially those related with authors -->
     <dc-type>
-        <schema>bds</schema>
-        <element>contributor</element>
-        <qualifier>author</qualifier>
-        <scope_note>Full author name, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <schema>dc</schema>
+        <element>identifier</element>
+        <qualifier>sistedes</qualifier>
+        <scope_note>Manually assigned identifier in the context of Sistedes. It must be a handle in the 11705 prefix.</scope_note>
     </dc-type>
 
     <dc-type>
-        <schema>bds</schema>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>signature</qualifier>
+        <scope_note>Signature of the author, as specified in the publication. It may differ from 'dc.author.name' due to 'name variants'.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>dc</schema>
         <element>contributor</element>
         <qualifier>email</qualifier>
-        <scope_note>Author e-mail, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <scope_note>Author e-mail, as specified in the publication (if any).</scope_note>
     </dc-type>
 
     <dc-type>
-        <schema>bds</schema>
+        <schema>dc</schema>
         <element>contributor</element>
         <qualifier>affiliation</qualifier>
-        <scope_note>Author affiliation, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <scope_note>Author affiliation, as specified in the publication.</scope_note>
     </dc-type>
 
     <dc-type>
-        <schema>bds</schema>
+        <schema>dc</schema>
         <element>contributor</element>
         <qualifier>bio</qualifier>
-        <scope_note>Author biography, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <scope_note>Author biography, as specified in the publication (if any). It may be used in publications such as seminars, or keynotes, where the biography of the author at a given moment is relevant.</scope_note>
     </dc-type>
 
+    <!-- In Sistedes, conferences and editions are treated as Communities, thus, we must embed such information directly in the publication's metadata -->
     <dc-type>
-        <schema>bds</schema>
+        <schema>bs</schema>
         <element>conference</element>
         <qualifier>name</qualifier>
-        <scope_note>Name of the conference in which the publication was presented, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <scope_note>Name of the conference in which the publication was presented.</scope_note>
     </dc-type>
 
     <dc-type>
-        <schema>bds</schema>
+        <schema>bs</schema>
         <element>conference</element>
         <qualifier>acronym</qualifier>
-        <scope_note>Acronym of the conference in which the publication was presented, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <scope_note>Acronym of the conference in which the publication was presented.</scope_note>
     </dc-type>
 
     <dc-type>
-        <schema>bds</schema>
+        <schema>bs</schema>
         <element>edition</element>
         <qualifier>name</qualifier>
-        <scope_note>Full name of the edition in which the publication was presented, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <scope_note>Full name of the edition in which the publication was presented.</scope_note>
     </dc-type>
 
     <dc-type>
-        <schema>bds</schema>
-        <element>edition</element>
-        <qualifier>year</qualifier>
-        <scope_note>Year of the edition in which the publication was presented, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
-    </dc-type>
-
-    <dc-type>
-        <schema>bds</schema>
+        <schema>bs</schema>
         <element>edition</element>
         <qualifier>date</qualifier>
-        <scope_note>Full date of the edition in which the publication was presented, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <scope_note>Full date of the edition in which the publication was presented.</scope_note>
     </dc-type>
 
     <dc-type>
-        <schema>bds</schema>
+        <schema>bs</schema>
         <element>edition</element>
         <qualifier>location</qualifier>
-        <scope_note>City where the edition in which the publication was presented was held, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <scope_note>City where the edition in which the publication was presented was held.</scope_note>
     </dc-type>
 
     <dc-type>
-        <schema>bds</schema>
+        <schema>bs</schema>
         <element>proceedings</element>
-        <qualifier>editors</qualifier>
-        <scope_note>Strip specifying the editors of the proceedings in which the publication was published, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <qualifier>editor</qualifier>
+        <scope_note>Editor of the proceedings in which the publication was published.</scope_note>
     </dc-type>
 
     <dc-type>
-        <schema>bds</schema>
+        <schema>bs</schema>
         <element>proceedings</element>
         <qualifier>name</qualifier>
-        <scope_note>Full name of the proceedings in which the publication was published, as specified in the original WordPress-based Sistedes Digital Library</scope_note>
+        <scope_note>Full name of the proceedings in which the publication was published.</scope_note>
     </dc-type>
 
+    <!-- We also need to extend the http://dspace.org/relation namespace, since relationships between custom entity types are correctly managed -->
     <dc-type>
         <schema>relation</schema>
         <element>isAuthorOfPaper</element>
