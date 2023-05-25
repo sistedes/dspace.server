@@ -1348,6 +1348,310 @@
             </row>
         </form>
 
+        <!-- BEGIN: Sistedes -->
+        <form name="authorStep">
+            <row>
+                <field>
+                    <dc-schema>person</dc-schema>
+                    <dc-element>familyName</dc-element>
+                    <label>Apellidos</label>
+                    <input-type>onebox</input-type>
+                    <hint>Introduzca el nombre del autor</hint>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>person</dc-schema>
+                    <dc-element>givenName</dc-element>
+                    <label>Nombre</label>
+                    <input-type>onebox</input-type>
+                    <hint>Introduzca el nombre del autor</hint>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>person</dc-schema>
+                    <dc-element>email</dc-element>
+                    <label>E-mail</label>
+                    <input-type>onebox</input-type>
+                    <hint>Introduzca el e-mail del autor</hint>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>person</dc-schema>
+                    <dc-element>identifier</dc-element>
+                    <dc-qualifier>orcid</dc-qualifier>
+                    <label>Orcid</label>
+                    <input-type>onebox</input-type>
+                    <hint>Introduzca el ORCID del autor</hint>
+                </field>
+            </row>
+            <!--
+                Currently, relation-fields without a linked-metadata-field tag inside
+                are not properly refreshed when the entity is edited in the submission
+                form. Thus, when authors are created we only define their metadata. The
+                cross-relationships can be defined afterwards.
+            <row>
+                <relation-field>
+                    <relationship-type>isPaperOfAuthor</relationship-type>
+                    <search-configuration>paper</search-configuration>
+                    <label>Paper</label>
+                    <hint>Importe un artículo</hint>
+                    <repeatable>true</repeatable>
+                </relation-field>
+            </row>
+            <row>
+                <relation-field>
+                    <relationship-type>isAbstractOfAuthor</relationship-type>
+                    <search-configuration>abstract</search-configuration>
+                    <label>Abstract</label>
+                    <hint>Importe un resumen</hint>
+                    <repeatable>true</repeatable>
+                </relation-field>
+            </row>
+            <row>
+                <relation-field>
+                    <relationship-type>isSeminarOfAuthor</relationship-type>
+                    <search-configuration>seminar</search-configuration>
+                    <label>Seminar</label>
+                    <hint>Importe un seminario</hint>
+                    <repeatable>true</repeatable>
+                </relation-field>
+            </row>
+            -->
+        </form>
+        
+        <form name="seminarPublicationAuthoring">
+            <row>
+                <relation-field>
+                    <relationship-type>isAuthorOfSeminar</relationship-type>
+                    <search-configuration>author</search-configuration>
+                    <repeatable>true</repeatable>
+                    <label>Autor</label>
+                    <hint>Seleccione un autor de los autores registrados en la Biblioteca.</hint>
+                    <required>Debe seleccionar un autor de los autores registrados en la Biblioteca. No puede especificar su nombre como texto en esta casilla directamente.</required>
+                    <regex>(?!.*)</regex>
+                    <linked-metadata-field>
+                        <dc-schema>dc</dc-schema>
+                        <dc-element>contributor</dc-element>
+                        <dc-qualifier>author</dc-qualifier>
+                        <input-type>onebox</input-type>
+                    </linked-metadata-field>
+                </relation-field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>bds</dc-schema>
+                    <dc-element>contributor</dc-element>
+                    <dc-qualifier>bio</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Biografía (HTML)</label>
+                    <input-type>textarea</input-type>
+                    <hint>Introduzca una breve nota bibliográfica sobre el autor.</hint>
+                    <required></required>
+                </field>
+            </row>
+        </form>
+        <form name="seminarPublicationMetadata">
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>title</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Título</label>
+                    <input-type>onebox</input-type>
+                    <style>col-sm-10</style>
+                    <hint>Introduzca el título del seminario.</hint>
+                    <required>Los seminarios deben tener un título.</required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>identifier</dc-element>
+                    <dc-qualifier>sistedes</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Identificador de Sistedes</label>
+                    <input-type>onebox</input-type>
+                    <style>col-sm-2</style>
+                    <hint>Indique un handle público en la forma 11705/SEM/SEMXXX (donde XXX es el número de seminario) como identificador en la Biblioteca Digital de Sistedes.</hint>
+                    <regex>11705/SEM/SEM[0-9]{3}</regex>
+                    <required>Se require un handle como identificador público en Sistedes.</required>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>description</dc-element>
+                    <dc-qualifier>abstract</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Resumen (HTML)</label>
+                    <input-type>textarea</input-type>
+                    <hint>Introduzca un resumen del seminario.</hint>
+                    <required></required>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>subject</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>Palabras clave</label>
+                    <input-type>onebox</input-type>
+                    <!--<style>col-sm-6</style>-->
+                    <hint>Especifique las palabras clave.</hint>
+                    <required></required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>date</dc-element>
+                    <dc-qualifier>issued</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Fecha de celebración</label>
+                    <input-type>onebox</input-type>
+                    <hint>Indique la fecha y hora de celebración del seminario en el formato YYYY-MM-DD HH:mm.</hint>
+                    <regex>202\d-[01]?\d-[0-3]?\d\s+[0-2]\d:[0-6]\d</regex>
+                    <required>Indique una fecha y hora válidas.</required>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>publisher</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Editorial</label>
+                    <input-type value-pairs-name="sistedes_publisher">dropdown</input-type>
+                    <hint>Indique quién publica el seminario.</hint>
+                    <required>Los seminarios deben incluir Sistedes como publicador.</required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>relation</dc-element>
+                    <dc-qualifier>ispartof</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Publicado en</label>
+                    <style>col-sm-6</style>
+                    <input-type value-pairs-name="ispartof_seminar">dropdown</input-type>
+                    <hint>Indique a qué serie de eventos de Sistedes pertenece el seminario.</hint>
+                    <required>Los seminarios deben formar parte de los Seminarios Sistedes.</required>
+                </field>
+            </row>
+        </form>
+        <form name="bulletinPublicationMetadata">
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>title</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Título</label>
+                    <input-type>onebox</input-type>
+                    <style>col-sm-10</style>
+                    <hint>Introduzca el título del boletín.</hint>
+                    <required>Los boletines deben tener un título.</required>
+                    <regex>Boletín nº [0-9]+ - ((enero)|(febrero)|(marzo)|(abril)|(mayo)|(junio)|(julio)|(agosto)|(septiembre)|(octubre)|(noviembre)|(diciembre)) de 20[0-9]{2}</regex>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>identifier</dc-element>
+                    <dc-qualifier>sistedes</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Identificador de Sistedes</label>
+                    <input-type>onebox</input-type>
+                    <style>col-sm-2</style>
+                    <hint>Indique un handle público en la forma 11705/BOLETIN/YYYY/XXX (donde YYYY es el año y XXX es el número de boletín) como identificador en la Biblioteca Digital de Sistedes.</hint>
+                    <regex>11705/BOLETIN/20[0-9]{2}/[0-9]{3}</regex>
+                    <required>Se require un handle como identificador público en Sistedes.</required>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>description</dc-element>
+                    <dc-qualifier>abstract</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Resumen (HTML)</label>
+                    <input-type>textarea</input-type>
+                    <hint>Introduzca un resumen del seminario.</hint>
+                    <required></required>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>subject</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>Palabras clave</label>
+                    <input-type>onebox</input-type>
+                    <!--<style>col-sm-6</style>-->
+                    <hint>Especifique las palabras clave.</hint>
+                    <required></required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>date</dc-element>
+                    <dc-qualifier>issued</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Fecha de celebración</label>
+                    <input-type>onebox</input-type>
+                    <hint>Indique la fecha de publicación del boletín en el formato YYYY-MM-DD.</hint>
+                    <regex>202\d-[01]?\d-[0-3]?\d</regex>
+                    <required>Indique una fecha y hora válidas.</required>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>publisher</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Editorial</label>
+                    <input-type value-pairs-name="sistedes_publisher">dropdown</input-type>
+                    <hint>Indique quién publica el boletín.</hint>
+                    <required>Los boletines deben incluir Sistedes como publicador.</required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>relation</dc-element>
+                    <dc-qualifier>ispartof</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Publicado en</label>
+                    <style>col-sm-6</style>
+                    <input-type value-pairs-name="ispartof_bulletin">dropdown</input-type>
+                    <hint>Indique a qué colección de documentos de Sistedes pertenece el boletín.</hint>
+                    <required>Los boletines deben formar parte de los Boletines de Sistedes.</required>
+                </field>
+            </row>
+        </form>
+        <form name="sistedesLicense">
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>rights</dc-element>
+                    <dc-qualifier>license</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Licencia</label>
+                    <input-type value-pairs-name="sistedes_license_types">dropdown</input-type>
+                    <hint>Indique la licencia.</hint>
+                    <required>Es necesario especificar una licencia</required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>rights</dc-element>
+                    <dc-qualifier>uri</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>URI de la licencia</label>
+                    <input-type value-pairs-name="sistedes_license_uri">dropdown</input-type>
+                    <hint>Indique una URI para la licencia</hint>
+                    <required>Es necesario especificar la URI de la licencia</required>
+                </field>
+            </row>
+        </form>
+        <!-- END: Sistedes -->
+
     </form-definitions>
 
 
@@ -1985,7 +2289,39 @@
                 <stored-value>FundingOrganization</stored-value>
             </pair>
         </value-pairs>
+        <!-- BEGIN: Sistedes -->
+        <value-pairs value-pairs-name="sistedes_publisher" dc-term="publisher">
+            <pair>
+                <displayed-value>Sistedes</displayed-value>
+                <stored-value>Sistedes</stored-value>
+            </pair>
+        </value-pairs>
+        <value-pairs value-pairs-name="ispartof_seminar" dc-term="ispartof">
+            <pair>
+                <displayed-value>Seminarios Sistedes</displayed-value>
+                <stored-value>Seminarios Sistedes</stored-value>
+            </pair>
+        </value-pairs>
+        <value-pairs value-pairs-name="ispartof_bulletin" dc-term="ispartof">
+            <pair>
+                <displayed-value>Boletines Sistedes</displayed-value>
+                <stored-value>Boletines Sistedes</stored-value>
+            </pair>
+        </value-pairs>
+        <value-pairs value-pairs-name="sistedes_license_types" dc-term="license">
+            <pair>
+                <displayed-value>Atribución-NoComercial-SinDerivadas 4.0 Internacional (CC BY-NC-ND 4.0)</displayed-value>
+                <stored-value>CC BY-NC-ND 4.0</stored-value>
+            </pair>
+        </value-pairs>
+        <value-pairs value-pairs-name="sistedes_license_uri" dc-term="license_uri">
+            <pair>
+                <displayed-value>Atribución-NoComercial-SinDerivadas 4.0 Internacional (CC BY-NC-ND 4.0)</displayed-value>
+                <stored-value>CC BY-NC-ND 4.0</stored-value>
+            </pair>
+        </value-pairs>
 
+        <!-- END: Sistedes -->
     </form-value-pairs>
 
 </input-forms>

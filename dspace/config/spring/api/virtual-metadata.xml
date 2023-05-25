@@ -36,6 +36,11 @@
                 <entry key="Publication" value="f.entityType=Publication,equals"/>
                 <entry key="Person" value="f.entityType=Person,equals"/>
                 <entry key="Journal" value="f.entityType=Journal,equals"/>
+                <!-- BEGIN: Sistedes -->
+                <entry key="Paper" value="f.entityType=Artículo,equals"/>
+                <entry key="Abstract" value="f.entityType=Resumen,equals"/>
+                <entry key="Seminar" value="f.entityType=Seminario,equals"/>
+                <!-- END: Sistedes -->
             </map>
         </property>
     </bean>
