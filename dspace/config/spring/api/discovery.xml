@@ -115,10 +115,10 @@
                 <entry key="eperson_claims" value-ref="eperson_claims"/>
                 
                 <!-- BEGIN: Sistedes -->
-                <entry key="author" value-ref="author"/>
-                <entry key="paper" value-ref="paper"/>
-                <entry key="abstract" value-ref="abstract"/>
-                <entry key="seminar" value-ref="seminar"/>
+                <entry key="author" value-ref="authorRelationships"/>
+                <entry key="paper" value-ref="paperRelationships"/>
+                <entry key="abstract" value-ref="abstractRelationships"/>
+                <entry key="seminar" value-ref="seminarRelationships"/>
                 <!-- END: Sistedes -->
             </map>
         </property>
