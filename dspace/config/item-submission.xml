@@ -47,6 +47,13 @@
         <name-map collection-handle="123456789/29" submission-name="JournalVolume"/>
         <name-map collection-handle="123456789/30" submission-name="JournalIssue"/>
         -->
+        <!-- BEGIN: Sistedes -->
+        <!-- 
+        <name-map collection-handle="11705/2" submission-name="Author"/>
+        <name-map collection-handle="11705/3" submission-name="Seminar"/>
+        <name-map collection-handle="11705/50" submission-name="Bulletin"/>
+        -->
+        <!-- END: Sistedes -->
         <!-- These configurations enable default submission forms per Entity type 
             
             The  collection-entity-type will be the entity-type attribute associated with a collection,
@@ -66,7 +73,11 @@
         <name-map collection-entity-type="JournalVolume" submission-name="JournalVolume"/>
         <name-map collection-entity-type="JournalIssue" submission-name="JournalIssue"/>
          -->
-
+        <!-- BEGIN: Sistedes -->
+        <name-map collection-entity-type="Autor" submission-name="Author"/>
+        <name-map collection-entity-type="Seminario" submission-name="Seminar"/>
+        <name-map collection-entity-type="Boletín" submission-name="Bulletin"/>
+        <!-- END: Sistedes -->
     </submission-map>
 
 
@@ -235,6 +246,35 @@
             <processing-class>org.dspace.app.rest.submit.step.ShowIdentifiersStep</processing-class>
             <type>identifiers</type>
         </step-definition>
+
+        <!-- BEGIN: Sistedes -->
+        <step-definition id="authorStep" mandatory="true">
+            <heading>submit.progressbar.describe.stepone</heading>
+            <processing-class>org.dspace.app.rest.submit.step.DescribeStep</processing-class>
+            <type>submission-form</type>
+        </step-definition>
+        <step-definition id="seminarPublicationAuthoring" mandatory="true">
+            <heading>submit.progressbar.describe.stepone</heading>
+            <processing-class>org.dspace.app.rest.submit.step.DescribeStep</processing-class>
+            <type>submission-form</type>
+        </step-definition>
+        <step-definition id="seminarPublicationMetadata" mandatory="true">
+            <heading>submit.progressbar.describe.steptwo</heading>
+            <processing-class>org.dspace.app.rest.submit.step.DescribeStep</processing-class>
+            <type>submission-form</type>
+        </step-definition>
+        <step-definition id="bulletinPublicationMetadata" mandatory="true">
+            <heading>submit.progressbar.describe.steptwo</heading>
+            <processing-class>org.dspace.app.rest.submit.step.DescribeStep</processing-class>
+            <type>submission-form</type>
+        </step-definition>
+        <step-definition id="sistedesLicense" mandatory="true">
+            <heading>submit.progressbar.CClicense</heading>
+            <processing-class>org.dspace.app.rest.submit.step.DescribeStep</processing-class>
+            <type>submission-form</type>
+        </step-definition>
+        <!-- END: Sistedes -->
+
     </step-definitions>
 
     <!-- The submission-definitions map lays out the detailed definition of -->
@@ -306,8 +346,8 @@
         <submission-process name="Person">
             <step id="collection"/>
             <step id="personStep"/>
-            <step id="upload"/>
             <step id="license"/>
+            <step id="upload"/>
         </submission-process>
 
         <!--
@@ -392,6 +432,26 @@
             <step id="collection"/>
             <step id="openAIREOrganizationForm"/>
         </submission-process>
+
+        <!-- BEGIN: Sistedes -->
+        <submission-process name="Author">
+            <step id="authorStep"/>
+        </submission-process>
+        <submission-process name="Seminar">
+            <!--<step id="collection"/>-->
+            <step id="seminarPublicationAuthoring"/>
+            <step id="seminarPublicationMetadata"/>
+            <step id="upload"/>
+            <step id="sistedesLicense"/>
+        </submission-process>
+        <submission-process name="Bulletin">
+            <!--<step id="collection"/>-->
+            <step id="bulletinPublicationMetadata"/>
+            <step id="upload"/>
+            <step id="sistedesLicense"/>
+        </submission-process>
+        <!-- END: Sistedes -->
+
     </submission-definitions>
 
 </item-submission>

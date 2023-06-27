@@ -21,6 +21,11 @@
                 <entry key="isVolumeOfJournal" value-ref="isVolumeOfJournalMap"/>
                 <entry key="isIssueOfJournalVolume" value-ref="isIssueOfJournalVolumeMap"/>
                 <entry key="isJournalIssueOfPublication" value-ref="isJournalIssueOfPublicationMap"/>
+                <!-- BEGIN: Sistedes -->
+                <entry key="isAuthorOfPaper" value-ref="isAuthorOfPaperMap"/>
+                <entry key="isAuthorOfAbstract" value-ref="isAuthorOfAbstractMap"/>
+                <entry key="isAuthorOfSeminar" value-ref="isAuthorOfSeminarMap"/>
+                <!-- END: Sistedes -->
             </map>
         </property>
     </bean>
@@ -31,6 +36,11 @@
                 <entry key="Publication" value="f.entityType=Publication,equals"/>
                 <entry key="Person" value="f.entityType=Person,equals"/>
                 <entry key="Journal" value="f.entityType=Journal,equals"/>
+                <!-- BEGIN: Sistedes -->
+                <entry key="Paper" value="f.entityType=Artículo,equals"/>
+                <entry key="Abstract" value="f.entityType=Resumen,equals"/>
+                <entry key="Seminar" value="f.entityType=Seminario,equals"/>
+                <!-- END: Sistedes -->
             </map>
         </property>
     </bean>
@@ -254,4 +264,60 @@
         <property name="virtualMetadataConfiguration" ref="volumeJournal_uuid"/>
     </bean>
     <bean class="org.dspace.content.virtual.UUIDValue" id="volumeJournal_uuid"/>
+
+    <!-- BEGIN: Sistedes -->
+    <util:map id="isAuthorOfPaperMap">
+        <entry key="dc.contributor.author" value-ref="paperAuthor_author"/>
+    </util:map>
+    <bean class="org.dspace.content.virtual.Concatenate" id="paperAuthor_author">
+        <property name="fields">
+            <util:list>
+                <value>person.familyName</value>
+                <value>person.givenName</value>
+                <value>organization.legalName</value>
+            </util:list>
+        </property>
+        <property name="separator">
+            <value>, </value>
+        </property>
+        <property name="useForPlace" value="true"/>
+        <property name="populateWithNameVariant" value="true"/>
+    </bean>
+    
+    <util:map id="isAuthorOfAbstractMap">
+        <entry key="dc.contributor.author" value-ref="abstractAuthor_author"/>
+    </util:map>
+    <bean class="org.dspace.content.virtual.Concatenate" id="abstractAuthor_author">
+        <property name="fields">
+            <util:list>
+                <value>person.familyName</value>
+                <value>person.givenName</value>
+                <value>organization.legalName</value>
+            </util:list>
+        </property>
+        <property name="separator">
+            <value>, </value>
+        </property>
+        <property name="useForPlace" value="true"/>
+        <property name="populateWithNameVariant" value="true"/>
+    </bean>
+
+    <util:map id="isAuthorOfSeminarMap">
+        <entry key="dc.contributor.author" value-ref="seminarAuthor_author"/>
+    </util:map>
+    <bean class="org.dspace.content.virtual.Concatenate" id="seminarAuthor_author">
+        <property name="fields">
+            <util:list>
+                <value>person.familyName</value>
+                <value>person.givenName</value>
+                <value>organization.legalName</value>
+            </util:list>
+        </property>
+        <property name="separator">
+            <value>, </value>
+        </property>
+        <property name="useForPlace" value="true"/>
+        <property name="populateWithNameVariant" value="true"/>
+    </bean>
+    <!-- END: Sistedes -->
 </beans>

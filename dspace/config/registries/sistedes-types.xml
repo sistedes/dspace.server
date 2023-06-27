@@ -1,0 +1,139 @@
+<dspace-dc-types>
+
+    <dspace-header>
+        <title>Sistedes Types Registry</title>
+        <contributor.author>Abel Gómez</contributor.author>
+    </dspace-header>
+
+    <dc-schema>
+        <name>bs</name>
+        <namespace>https://biblioteca.sistedes.es/Conference</namespace>
+    </dc-schema>
+
+    <!-- Some publication information may reuse/extend existing elements of Dublin Core, especially those related with authors -->
+    <dc-type>
+        <schema>dc</schema>
+        <element>identifier</element>
+        <qualifier>sistedes</qualifier>
+        <scope_note>Manually assigned identifier in the context of Sistedes. It must be a handle in the 11705 prefix.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>signature</qualifier>
+        <scope_note>Signature of the author, as specified in the publication. It may differ from 'dc.author.name' due to 'name variants'.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>email</qualifier>
+        <scope_note>Author e-mail, as specified in the publication (if any).</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>affiliation</qualifier>
+        <scope_note>Author affiliation, as specified in the publication.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>bio</qualifier>
+        <scope_note>Author biography, as specified in the publication (if any). It may be used in publications such as seminars, or keynotes, where the biography of the author at a given moment is relevant.</scope_note>
+    </dc-type>
+
+    <!-- In Sistedes, conferences and editions are treated as Communities, thus, we must embed such information directly in the publication's metadata -->
+    <dc-type>
+        <schema>bs</schema>
+        <element>conference</element>
+        <qualifier>name</qualifier>
+        <scope_note>Name of the conference in which the publication was presented.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>bs</schema>
+        <element>conference</element>
+        <qualifier>acronym</qualifier>
+        <scope_note>Acronym of the conference in which the publication was presented.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>bs</schema>
+        <element>edition</element>
+        <qualifier>name</qualifier>
+        <scope_note>Full name of the edition in which the publication was presented.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>bs</schema>
+        <element>edition</element>
+        <qualifier>date</qualifier>
+        <scope_note>Full date of the edition in which the publication was presented.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>bs</schema>
+        <element>edition</element>
+        <qualifier>location</qualifier>
+        <scope_note>City where the edition in which the publication was presented was held.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>bs</schema>
+        <element>proceedings</element>
+        <qualifier>editor</qualifier>
+        <scope_note>Editor of the proceedings in which the publication was published.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>bs</schema>
+        <element>proceedings</element>
+        <qualifier>name</qualifier>
+        <scope_note>Full name of the proceedings in which the publication was published.</scope_note>
+    </dc-type>
+
+    <!-- We also need to extend the http://dspace.org/relation namespace, since relationships between custom entity types are correctly managed -->
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfPaper</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" AUTHORS that the current PAPER links to via a relationship. In other words, this stores all relationships pointing from the current PAPER to any AUTHOR where the AUTHOR is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfPaper</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current PAPER via a "latest" relationship. In other words, this stores all relationships pointing to the current PAPER from an AUTHOR, implying that the PAPER is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfAbstract</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" AUTHORS that the current ABSTRACT links to via a relationship. In other words, this stores all relationships pointing from the current ABSTRACT to any AUTHOR where the AUTHOR is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfAbstract</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current ABSTRACT via a "latest" relationship. In other words, this stores all relationships pointing to the current ABSTRACT from an AUTHOR, implying that the ABSTRACT is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfSeminar</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" AUTHORS that the current SEMINAR links to via a relationship. In other words, this stores all relationships pointing from the current SEMINAR to any AUTHOR where the AUTHOR is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfSeminar</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current SEMINAR via a "latest" relationship. In other words, this stores all relationships pointing to the current SEMINAR from an AUTHOR, implying that the SEMINAR is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+</dspace-dc-types>

@@ -46,3 +46,6 @@ rebel.xml
 
 ## Ignore jenv configuration
 .java-version
+
+## Ignore mergetool backup files
+*.orig
