@@ -1371,6 +1371,17 @@
             <row>
                 <field>
                     <dc-schema>person</dc-schema>
+                    <dc-element>affiliation</dc-element>
+                    <dc-qualifier>name</dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>Afiliación</label>
+                    <input-type>onebox</input-type>
+                    <hint>Introduzca la afiliación de este autor</hint>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>person</dc-schema>
                     <dc-element>email</dc-element>
                     <label>E-mail</label>
                     <input-type>onebox</input-type>
@@ -1431,6 +1442,7 @@
                     <label>Autor</label>
                     <hint>Seleccione un autor de los autores registrados en la Biblioteca.</hint>
                     <required>Debe seleccionar un autor de los autores registrados en la Biblioteca. No puede especificar su nombre como texto en esta casilla directamente.</required>
+					<!--
                     <regex>(?!.*)</regex>
                     <linked-metadata-field>
                         <dc-schema>dc</dc-schema>
@@ -1438,6 +1450,7 @@
                         <dc-qualifier>author</dc-qualifier>
                         <input-type>onebox</input-type>
                     </linked-metadata-field>
+					-->
                 </relation-field>
             </row>
             <row>

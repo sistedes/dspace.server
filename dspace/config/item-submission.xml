@@ -435,17 +435,18 @@
 
         <!-- BEGIN: Sistedes -->
         <submission-process name="Author">
+		    <step id="collection"/>
             <step id="authorStep"/>
         </submission-process>
         <submission-process name="Seminar">
-            <!--<step id="collection"/>-->
+            <step id="collection"/>
             <step id="seminarPublicationAuthoring"/>
             <step id="seminarPublicationMetadata"/>
             <step id="upload"/>
             <step id="sistedesLicense"/>
         </submission-process>
         <submission-process name="Bulletin">
-            <!--<step id="collection"/>-->
+            <step id="collection"/>
             <step id="bulletinPublicationMetadata"/>
             <step id="upload"/>
             <step id="sistedesLicense"/>
