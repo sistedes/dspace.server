@@ -1459,7 +1459,7 @@
             </row>
             <row>
                 <field>
-                    <dc-schema>bds</dc-schema>
+                    <dc-schema>dc</dc-schema>
                     <dc-element>contributor</dc-element>
                     <dc-qualifier>bio</dc-qualifier>
                     <repeatable>false</repeatable>
