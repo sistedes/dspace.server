@@ -1401,7 +1401,7 @@
             <!--
                 Although relation-fields without a linked-metadata-field tag inside
                 are seem to be fixed in DSpace 7.6, this still does not work, and fields 
-				below are not properly refreshed when the entity is edited in the submission
+                below are not properly refreshed when the entity is edited in the submission
                 form. Thus, when authors are created we only define their metadata. The
                 cross-relationships can be defined afterwards.
             <row>
@@ -1444,9 +1444,9 @@
                     <hint>Seleccione un autor de los autores registrados en la Biblioteca.</hint>
                     <required>Debe seleccionar un autor de los autores registrados en la Biblioteca. No puede especificar su nombre como texto en esta casilla directamente.</required>
                     <!--
-					Theoretically, from DSpace 7.6 on, this workaround below 
-					should be no longer needed
-					
+                    Theoretically, from DSpace 7.6 on, this workaround below 
+                    should be no longer needed
+                    
                     <regex>(?!.*)</regex>
                     <linked-metadata-field>
                         <dc-schema>dc</dc-schema>
