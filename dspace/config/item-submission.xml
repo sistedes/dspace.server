@@ -76,7 +76,7 @@
         <!-- BEGIN: Sistedes -->
         <name-map collection-entity-type="Autor" submission-name="Author"/>
         <name-map collection-entity-type="Seminario" submission-name="Seminar"/>
-        <name-map collection-entity-type="Boletín" submission-name="Bulletin"/>
+        <name-map collection-entity-type="BoletÃ­n" submission-name="Bulletin"/>
         <!-- END: Sistedes -->
     </submission-map>
 
