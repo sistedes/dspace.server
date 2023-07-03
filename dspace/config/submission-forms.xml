@@ -1353,8 +1353,8 @@
             <row>
                 <field>
                     <dc-schema>person</dc-schema>
-                    <dc-element>familyName</dc-element>
-                    <label>Apellidos</label>
+                    <dc-element>givenName</dc-element>
+                    <label>Nombre</label>
                     <input-type>onebox</input-type>
                     <hint>Introduzca el nombre del autor</hint>
                 </field>
@@ -1362,10 +1362,10 @@
             <row>
                 <field>
                     <dc-schema>person</dc-schema>
-                    <dc-element>givenName</dc-element>
-                    <label>Nombre</label>
+                    <dc-element>familyName</dc-element>
+                    <label>Apellidos</label>
                     <input-type>onebox</input-type>
-                    <hint>Introduzca el nombre del autor</hint>
+                    <hint>Introduzca los apellidos del autor</hint>
                 </field>
             </row>
             <row>
