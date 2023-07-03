@@ -1494,6 +1494,8 @@
                     <hint>Indique un handle público en la forma 11705/SEM/SEMXXX (donde XXX es el número de seminario) como identificador en la Biblioteca Digital de Sistedes.</hint>
                     <regex>11705/SEM/SEM[0-9]{3}</regex>
                     <required>Se require un handle como identificador público en Sistedes.</required>
+                    <visibility>workflow</visibility>
+                    <readonly>readonly</readonly>
                 </field>
             </row>
             <row>
@@ -1581,6 +1583,8 @@
                     <hint>Indique un handle público en la forma 11705/BOLETIN/YYYY/XXX (donde YYYY es el año y XXX es el número de boletín) como identificador en la Biblioteca Digital de Sistedes.</hint>
                     <regex>11705/BOLETIN/20[0-9]{2}/[0-9]{3}</regex>
                     <required>Se require un handle como identificador público en Sistedes.</required>
+                    <visibility>workflow</visibility>
+                    <readonly>readonly</readonly>
                 </field>
             </row>
             <row>
