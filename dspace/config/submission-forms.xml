@@ -1616,7 +1616,7 @@
                     <dc-element>date</dc-element>
                     <dc-qualifier>issued</dc-qualifier>
                     <repeatable>false</repeatable>
-                    <label>Fecha de celebración</label>
+                    <label>Fecha de publicación</label>
                     <input-type>onebox</input-type>
                     <hint>Indique la fecha de publicación del boletín en el formato YYYY-MM-DD.</hint>
                     <regex>202\d-[01]?\d-[0-3]?\d</regex>
