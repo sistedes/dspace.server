@@ -25,6 +25,7 @@
                 <entry key="isAuthorOfPaper" value-ref="isAuthorOfPaperMap"/>
                 <entry key="isAuthorOfAbstract" value-ref="isAuthorOfAbstractMap"/>
                 <entry key="isAuthorOfSeminar" value-ref="isAuthorOfSeminarMap"/>
+                <entry key="isAuthorOfBulletin" value-ref="isAuthorOfBulletinMap"/>
                 <!-- END: Sistedes -->
             </map>
         </property>
@@ -40,6 +41,7 @@
                 <entry key="Paper" value="f.entityType=Artículo,equals"/>
                 <entry key="Abstract" value="f.entityType=Resumen,equals"/>
                 <entry key="Seminar" value="f.entityType=Seminario,equals"/>
+                <entry key="Bulletin" value="f.entityType=Bulletin,equals"/>
                 <!-- END: Sistedes -->
             </map>
         </property>
@@ -306,6 +308,24 @@
         <entry key="dc.contributor.author" value-ref="seminarAuthor_author"/>
     </util:map>
     <bean class="org.dspace.content.virtual.Concatenate" id="seminarAuthor_author">
+        <property name="fields">
+            <util:list>
+                <value>person.familyName</value>
+                <value>person.givenName</value>
+                <value>organization.legalName</value>
+            </util:list>
+        </property>
+        <property name="separator">
+            <value>, </value>
+        </property>
+        <property name="useForPlace" value="true"/>
+        <property name="populateWithNameVariant" value="true"/>
+    </bean>
+
+    <util:map id="isAuthorOfBulletinMap">
+        <entry key="dc.contributor.author" value-ref="bulletinAuthor_author"/>
+    </util:map>
+    <bean class="org.dspace.content.virtual.Concatenate" id="bulletinAuthor_author">
         <property name="fields">
             <util:list>
                 <value>person.familyName</value>

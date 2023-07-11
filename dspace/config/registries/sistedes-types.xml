@@ -136,4 +136,16 @@
         <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current SEMINAR via a "latest" relationship. In other words, this stores all relationships pointing to the current SEMINAR from an AUTHOR, implying that the SEMINAR is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
     </dc-type>
 
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfBulletin</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" AUTHORS that the current BULLETIN links to via a relationship. In other words, this stores all relationships pointing from the current BULLETIN to any AUTHOR where the AUTHOR is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfBulletin</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current BULLETIN via a "latest" relationship. In other words, this stores all relationships pointing to the current BULLETIN from an AUTHOR, implying that the BULLETIN is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
 </dspace-dc-types>
