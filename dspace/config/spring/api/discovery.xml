@@ -120,7 +120,7 @@
                 <entry key="artículo" value-ref="paper"/>
                 <entry key="artículo-relationships" value-ref="paperRelationships"/>
                 <entry key="resumen" value-ref="abstract"/>
-                <entry key="resumen-relationships" value-ref="abstract"/>
+                <entry key="resumen-relationships" value-ref="abstractRelationships"/>
                 <entry key="seminario" value-ref="seminar"/>
                 <entry key="seminario-relationships" value-ref="seminarRelationships"/>
                 <entry key="boletín" value-ref="bulletin"/>
@@ -200,6 +200,7 @@
                 <ref bean="searchFilterIsAuthorOfPaperRelation"/>
                 <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
                 <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <ref bean="searchFilterIsAuthorOfBulletinRelation"/>
                 <!-- END: Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
@@ -357,6 +358,7 @@
                 <ref bean="searchFilterIsAuthorOfPaperRelation"/>
                 <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
                 <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <ref bean="searchFilterIsAuthorOfBulletinRelation"/>
                 <!-- END: Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
@@ -501,6 +503,7 @@
                 <ref bean="searchFilterIsAuthorOfPaperRelation"/>
                 <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
                 <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <ref bean="searchFilterIsAuthorOfBulletinRelation"/>
                 <!-- END: Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
@@ -648,6 +651,7 @@
                 <ref bean="searchFilterIsAuthorOfPaperRelation"/>
                 <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
                 <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
+                <ref bean="searchFilterIsAuthorOfBulletinRelation"/>
                 <!-- END: Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
@@ -1449,7 +1453,7 @@
             <list>
                 <!--Only find items, communities and collections-->
                 <!-- NOTE: NOT filtered on latestVersion = true -->
-                <value>search.resourcetype:Item AND entityType_keyword:Author</value>
+                <value>search.resourcetype:Item AND entityType_keyword:Autor</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -1468,7 +1472,7 @@
         <property name="spellCheckEnabled" value="true"/>
     </bean>
 
-        <bean id="authorRelationships" class="org.dspace.discovery.configuration.DiscoveryConfiguration" scope="prototype">
+    <bean id="authorRelationships" class="org.dspace.discovery.configuration.DiscoveryConfiguration" scope="prototype">
         <property name="id" value="authorRelationships"/>
         <property name="indexAlways" value="true"/>
         <!--Which sidebar facets are to be displayed-->
