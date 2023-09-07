@@ -112,6 +112,19 @@
 
     <dc-type>
         <schema>relation</schema>
+        <element>isPaperOfAuthor</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" PAPERS that the current AUTHOR links to via a relationship. In other words, this stores all relationships pointing from the current AUTHOR to any PAPER where the PAPER is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isPaperOfAuthor</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of PAPERS which link to the current AUTHOR via a "latest" relationship. In other words, this stores all relationships pointing to the current AUTHOR from a PAPER, implying that the AUTHOR is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
         <element>isAuthorOfAbstract</element>
         <scope_note>(Sistedes specific) Contains all uuids of the "latest" AUTHORS that the current ABSTRACT links to via a relationship. In other words, this stores all relationships pointing from the current ABSTRACT to any AUTHOR where the AUTHOR is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
     </dc-type>
@@ -121,6 +134,20 @@
         <element>isAuthorOfAbstract</element>
         <qualifier>latestForDiscovery</qualifier>
         <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current ABSTRACT via a "latest" relationship. In other words, this stores all relationships pointing to the current ABSTRACT from an AUTHOR, implying that the ABSTRACT is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAbstractOfAuthor</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" ABSTRACTS that the current AUTHOR links to via a relationship. In other words, this stores all relationships pointing from the current AUTHOR to any ABSTRACT where the ABSTRACT is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAbstractOfAuthor</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of ABSTRACTS which link to the current AUTHOR via a "latest" relationship. In other words, this stores all relationships pointing to the current AUTHOR from a ABSTRACT, implying that the AUTHOR is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
     </dc-type>
 
     <dc-type>
@@ -138,6 +165,19 @@
 
     <dc-type>
         <schema>relation</schema>
+        <element>isSeminarOfAuthor</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" SEMINARS that the current AUTHOR links to via a relationship. In other words, this stores all relationships pointing from the current AUTHOR to any SEMINAR where the SEMINAR is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isSeminarOfAuthor</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of SEMINARS which link to the current AUTHOR via a "latest" relationship. In other words, this stores all relationships pointing to the current AUTHOR from a SEMINAR, implying that the AUTHOR is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
         <element>isAuthorOfBulletin</element>
         <scope_note>(Sistedes specific) Contains all uuids of the "latest" AUTHORS that the current BULLETIN links to via a relationship. In other words, this stores all relationships pointing from the current BULLETIN to any AUTHOR where the AUTHOR is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
     </dc-type>
@@ -147,5 +187,18 @@
         <element>isAuthorOfBulletin</element>
         <qualifier>latestForDiscovery</qualifier>
         <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current BULLETIN via a "latest" relationship. In other words, this stores all relationships pointing to the current BULLETIN from an AUTHOR, implying that the BULLETIN is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+    
+    <dc-type>
+        <schema>relation</schema>
+        <element>isBulletinOfAuthor</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" BULLETINS that the current AUTHOR links to via a relationship. In other words, this stores all relationships pointing from the current AUTHOR to any BULLETIN where the BULLETIN is marked as "latest". Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isBulletinOfAuthor</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of BULLETINS which link to the current AUTHOR via a "latest" relationship. In other words, this stores all relationships pointing to the current AUTHOR from a BULLETIN, implying that the AUTHOR is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
     </dc-type>
 </dspace-dc-types>
