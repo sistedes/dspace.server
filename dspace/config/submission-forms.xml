@@ -1528,10 +1528,9 @@
                     <dc-qualifier>issued</dc-qualifier>
                     <repeatable>false</repeatable>
                     <label>Fecha de celebración</label>
-                    <input-type>onebox</input-type>
-                    <hint>Indique la fecha y hora de celebración del seminario en el formato YYYY-MM-DD HH:mm.</hint>
-                    <regex>202\d-[01]?\d-[0-3]?\d\s+[0-2]\d:[0-6]\d</regex>
-                    <required>Indique una fecha y hora válidas.</required>
+                    <input-type>date</input-type>
+                    <hint>Indique la fecha de celebración del seminario.</hint>
+                    <required>Indique una fecha válida.</required>
                 </field>
             </row>
             <row>
@@ -1617,9 +1616,8 @@
                     <dc-qualifier>issued</dc-qualifier>
                     <repeatable>false</repeatable>
                     <label>Fecha de publicación</label>
-                    <input-type>onebox</input-type>
-                    <hint>Indique la fecha de publicación del boletín en el formato YYYY-MM-DD.</hint>
-                    <regex>202\d-[01]?\d-[0-3]?\d</regex>
+                    <input-type>date</input-type>
+                    <hint>Indique la fecha de publicación del boletín.</hint>
                     <required>Indique una fecha y hora válidas.</required>
                 </field>
             </row>
