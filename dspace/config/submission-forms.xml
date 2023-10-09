@@ -1569,7 +1569,7 @@
                     <style>col-sm-10</style>
                     <hint>Introduzca el título del boletín.</hint>
                     <required>Los boletines deben tener un título.</required>
-                    <regex>Boletín nº [0-9]+ - ((enero)|(febrero)|(marzo)|(abril)|(mayo)|(junio)|(julio)|(agosto)|(septiembre)|(octubre)|(noviembre)|(diciembre)) de 20[0-9]{2}</regex>
+                    <!--<regex>Boletín nº [0-9]+ - ((enero)|(febrero)|(marzo)|(abril)|(mayo)|(junio)|(julio)|(agosto)|(septiembre)|(octubre)|(noviembre)|(diciembre)) de 20[0-9]{2}</regex>-->
                 </field>
                 <field>
                     <dc-schema>dc</dc-schema>
