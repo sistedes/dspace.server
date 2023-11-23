@@ -1443,6 +1443,7 @@
                     <label>Autor</label>
                     <hint>Seleccione un autor de los autores registrados en la Biblioteca.</hint>
                     <required>Debe seleccionar un autor de los autores registrados en la Biblioteca. No puede especificar su nombre como texto en esta casilla directamente.</required>
+                    <visibility>workflow</visibility>
                     <!--
                     Theoretically, from DSpace 7.6 on, this workaround below 
                     should be no longer needed
@@ -1461,9 +1462,41 @@
                 <field>
                     <dc-schema>dc</dc-schema>
                     <dc-element>contributor</dc-element>
+                    <dc-qualifier>signature</dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>Nombre completo</label>
+                    <input-type>onebox</input-type>
+                    <hint>Introduzca el nombre del autor en la forma "Apellidos, Nombre"</hint>
+                    <required>Los seminarios han de tener al menos un autor</required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>contributor</dc-element>
+                    <dc-qualifier>affiliation</dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>Afiliación</label>
+                    <input-type>onebox</input-type>
+                    <hint>Introduzca la afiliación de este autor</hint>
+                    <required>Los autores han de tener una afiliación</required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>contributor</dc-element>
+                    <dc-qualifier>email</dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>E-mail</label>
+                    <input-type>onebox</input-type>
+                    <hint>Introduzca el e-mail del autor</hint>
+                    <required>Los autores han de tener un e-mail</required>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>contributor</dc-element>
                     <dc-qualifier>bio</dc-qualifier>
                     <repeatable>false</repeatable>
-                    <label>Biografía (HTML)</label>
+                    <label>Biografía (HTML o Markdown)</label>
                     <input-type>textarea</input-type>
                     <hint>Introduzca una breve nota bibliográfica sobre el autor.</hint>
                     <required></required>
@@ -1504,7 +1537,7 @@
                     <dc-element>description</dc-element>
                     <dc-qualifier>abstract</dc-qualifier>
                     <repeatable>false</repeatable>
-                    <label>Resumen (HTML)</label>
+                    <label>Resumen (HTML o Markdown)</label>
                     <input-type>textarea</input-type>
                     <hint>Introduzca un resumen del seminario.</hint>
                     <required></required>
@@ -1592,7 +1625,7 @@
                     <dc-element>description</dc-element>
                     <dc-qualifier>abstract</dc-qualifier>
                     <repeatable>false</repeatable>
-                    <label>Resumen (HTML)</label>
+                    <label>Resumen (HTML o Markdown)</label>
                     <input-type>textarea</input-type>
                     <hint>Introduzca un resumen del seminario.</hint>
                     <required></required>
