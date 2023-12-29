@@ -1467,7 +1467,8 @@
                     <label>Nombre completo</label>
                     <input-type>onebox</input-type>
                     <hint>Introduzca el nombre del autor en la forma "Apellidos, Nombre"</hint>
-                    <required>Los seminarios han de tener al menos un autor</required>
+                    <required>Los seminarios han de tener al menos un autor, escrito en la forma "Apellidos, Nombre"</required>
+                    <regex>.*,.*</regex>
                 </field>
                 <field>
                     <dc-schema>dc</dc-schema>
