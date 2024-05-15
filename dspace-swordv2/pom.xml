@@ -45,6 +45,11 @@
                     <groupId>org.glassfish.jersey.core</groupId>
                     <artifactId>jersey-common</artifactId>
                 </exclusion>
+                <!-- Exclude geronimo-javamail, since it collides with jakarta.mail -->
+                <exclusion>
+					<groupId>org.apache.geronimo.specs</groupId>
+					<artifactId>geronimo-javamail_1.4_spec</artifactId>
+				</exclusion>
             </exclusions>
         </dependency>
 
