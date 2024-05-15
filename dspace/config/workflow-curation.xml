@@ -9,7 +9,12 @@
  <!-- taskset name 'none' indicates that there is no taskset to perform.     -->
 
  <taskset-map>
+   <!-- BEGIN: Sistedes -->
+   <!--
    <mapping collection-handle="default" taskset="none" />
+   -->
+   <mapping collection-handle="default" taskset="sistedes" />
+   <!-- END: Sistedes -->
  </taskset-map>
 
  <!-- Tasksets specify curation tasks to be automatically performed at       -->
@@ -62,7 +67,7 @@
  <!-- administrator if the task encounters an error in processing            -->
 
  <tasksets>
-     
+   
    <taskset name="cautious">
      <flowstep name="step1">
        <task name="vscan">
@@ -73,6 +78,18 @@
        </task>
      </flowstep>
    </taskset>
+
+    <!-- BEGIN: Sistedes -->    
+    <taskset name="sistedes">
+      <flowstep name="editstep">
+        <task name="filtermedia">
+          <notify on="success">$siteadmin</notify>
+          <notify on="fail">$siteadmin</notify>
+          <notify on="error">$siteadmin</notify>
+        </task>
+      </flowstep>
+    </taskset>
+   <!-- END: Sistedes -->    
 
     <!-- We require an empty taskset to match "none" mappings.  DO NOT REMOVE! -->
     <taskset name='none'/>
