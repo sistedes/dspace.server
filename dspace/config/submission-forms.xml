@@ -2369,11 +2369,10 @@
         </value-pairs>
         <value-pairs value-pairs-name="sistedes_license_uri" dc-term="license_uri">
             <pair>
-                <displayed-value>Atribución-NoComercial-SinDerivadas 4.0 Internacional (CC BY-NC-ND 4.0)</displayed-value>
-                <stored-value>CC BY-NC-ND 4.0</stored-value>
+                <displayed-value>https://creativecommons.org/licenses/by-nc-nd/4.0/</displayed-value>
+                <stored-value>https://creativecommons.org/licenses/by-nc-nd/4.0/</stored-value>
             </pair>
         </value-pairs>
-
         <!-- END: Sistedes -->
     </form-value-pairs>
 
