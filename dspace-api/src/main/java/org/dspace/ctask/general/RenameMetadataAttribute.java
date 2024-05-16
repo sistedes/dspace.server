@@ -2,6 +2,7 @@ package org.dspace.ctask.general;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.dspace.content.DSpaceObject;
@@ -56,7 +57,7 @@ public class RenameMetadataAttribute extends AbstractCurationTask {
 				Item item = (Item) dso;
 				List<MetadataValue> values = itemService.getMetadata(item, sourceField.schema, sourceField.element, sourceField.qualifier, language);
 				if (!values.isEmpty()) {
-					itemService.addMetadata(Curator.curationContext(), item, targetField.schema, targetField.element, targetField.qualifier, language, values.stream().map(v -> v.getValue()).toList());
+					itemService.addMetadata(Curator.curationContext(), item, targetField.schema, targetField.element, targetField.qualifier, language, values.stream().map(v -> v.getValue()).collect(Collectors.toList()));
 					itemService.clearMetadata(Curator.curationContext(), item, sourceField.schema, sourceField.element, sourceField.qualifier, language);
 					result = "Attribute succesfully renamed in Item " + dso.getID();
 					setResult(result);
