@@ -33,7 +33,7 @@ public class RenameMetadataAttribute extends AbstractCurationTask {
 
 		String source = taskProperty(CONF_SOURCE);
 		String target = taskProperty(CONF_TARGET);
-		String language = taskProperty(CONF_LANGUAGE, null);
+		String language = taskProperty(CONF_LANGUAGE, Item.ANY);
 		
 		if (StringUtils.isEmpty(source)) {
 			result = "No source metadata attribute specified!";
