@@ -20,7 +20,7 @@ curl --silent \
      --dump-header $headers \
      'http://localhost:8080/dspace.server/api/'
 
-token=$(csfr_token DSPACE-XSRF-TOKEN)
+token=$(get_header DSPACE-XSRF-TOKEN)
 
 curl --silent \
      --output /dev/null \
