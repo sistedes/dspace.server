@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.dspace.authorize.AuthorizeException;
+import org.dspace.authorize.ResourcePolicy;
 import org.dspace.authorize.factory.AuthorizeServiceFactory;
 import org.dspace.authorize.service.AuthorizeService;
 import org.dspace.authorize.service.ResourcePolicyService;
@@ -51,7 +52,11 @@ public class MakePublic extends AbstractCurationTask {
 			Context context = Curator.curationContext();
 			Group anonymous = groupService.findByName(context, Group.ANONYMOUS);
 			resourcePolicyService.removePolicies(context, dso, Constants.READ);
-			authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ, null);
+			if (dso instanceof Item) {
+				authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ, ResourcePolicy.TYPE_INHERITED);
+			} else {
+				authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ, null);
+			}
 			result = "DSpaceObject has been successfully made public: " + dso.getID();
 			setResult(result);
 			report(result);
