@@ -2,6 +2,8 @@ package org.dspace.ctask.general;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.authorize.ResourcePolicy;
@@ -12,6 +14,7 @@ import org.dspace.content.Bitstream;
 import org.dspace.content.Bundle;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
+import org.dspace.content.service.BundleService;
 import org.dspace.core.Constants;
 import org.dspace.core.Context;
 import org.dspace.curate.AbstractCurationTask;
@@ -21,8 +24,7 @@ import org.dspace.eperson.factory.EPersonServiceFactory;
 import org.dspace.eperson.service.GroupService;
 
 /**
- * Curation taks to make all {@link DSpaceObject}s admin-only with the exception
- * {@link Bundle}s and {@link Bitstream}s, that are left unchanged
+ * Curation taks to make all {@link DSpaceObject}s public
  * 
  * @author agomez
  */
@@ -53,7 +55,20 @@ public class MakePublic extends AbstractCurationTask {
 			Group anonymous = groupService.findByName(context, Group.ANONYMOUS);
 			resourcePolicyService.removePolicies(context, dso, Constants.READ);
 			if (dso instanceof Item) {
+				Item item = (Item) dso;
 				authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ, ResourcePolicy.TYPE_INHERITED);
+				List<Bundle> bundles = new ArrayList<Bundle>();
+				bundles.addAll(item.getBundles("ORIGINAL"));
+				bundles.addAll(item.getBundles("TEXT"));
+				bundles.addAll(item.getBundles("THUMBNAIL"));
+				for (Bundle bundle : bundles) {
+					resourcePolicyService.removePolicies(context, bundle, Constants.READ);
+					authorizeService.createResourcePolicy(context, bundle, anonymous, null, Constants.READ, ResourcePolicy.TYPE_INHERITED);
+					for (Bitstream bitstream: bundle.getBitstreams()) {
+						resourcePolicyService.removePolicies(context, bitstream, Constants.READ);
+						authorizeService.createResourcePolicy(context, bitstream, anonymous, null, Constants.READ, null);
+					}
+				}
 			} else {
 				authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ, null);
 			}
