@@ -2,6 +2,8 @@ package org.dspace.ctask.general;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.authorize.factory.AuthorizeServiceFactory;
@@ -16,8 +18,7 @@ import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
 
 /**
- * Curation taks to make all {@link DSpaceObject}s public with the exception
- * {@link Bundle}s and {@link Bitstream}s, that are left unchanged
+ * Curation taks to make all {@link DSpaceObject}s private
  * 
  * @author agomez
  */
@@ -44,6 +45,19 @@ public class MakeAdminOnly extends AbstractCurationTask {
 		try {
 			Context context = Curator.curationContext();
 			resourcePolicyService.removePolicies(context, dso, Constants.READ);
+			if (dso instanceof Item) {
+				Item item = (Item) dso;
+				List<Bundle> bundles = new ArrayList<Bundle>();
+				bundles.addAll(item.getBundles("ORIGINAL"));
+				bundles.addAll(item.getBundles("TEXT"));
+				bundles.addAll(item.getBundles("THUMBNAIL"));
+				for (Bundle bundle : bundles) {
+					resourcePolicyService.removePolicies(context, bundle, Constants.READ);
+					for (Bitstream bitstream: bundle.getBitstreams()) {
+						resourcePolicyService.removePolicies(context, bitstream, Constants.READ);
+					}
+				}
+			}
 			result = "DSpaceObject has been successfully made private only for Administrators: " + dso.getID();
 			setResult(result);
 			report(result);
