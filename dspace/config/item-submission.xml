@@ -63,7 +63,7 @@
         <name-map collection-entity-type="Journal" submission-name="Journal"/>
         <name-map collection-entity-type="JournalVolume" submission-name="JournalVolume"/>
         <name-map collection-entity-type="JournalIssue" submission-name="JournalIssue"/>
-
+        -->
         <!-- Example of configuration using a community handle to map an Item Submission Process.
 
             This configuration maps the submission process to the community's descendant
@@ -71,7 +71,12 @@
 
         <name-map community-handle="123456789/1234" submission-name="xxxx"/>
         -->
-
+        
+        <!-- BEGIN: Sistedes -->
+        <name-map collection-entity-type="Autor" submission-name="Author"/>
+        <name-map collection-entity-type="Seminario" submission-name="Seminar"/>
+        <name-map collection-entity-type="Boletín" submission-name="Bulletin"/>
+        <!-- END: Sistedes -->
     </submission-map>
 
 
@@ -254,6 +259,34 @@
             <type>duplicates</type>
         </step-definition>
 
+        <!-- BEGIN: Sistedes -->
+        <step-definition id="authorStep" mandatory="true">
+            <heading>submit.progressbar.describe.stepone</heading>
+            <processing-class>org.dspace.app.rest.submit.step.DescribeStep</processing-class>
+            <type>submission-form</type>
+        </step-definition>
+        <step-definition id="seminarPublicationAuthoring" mandatory="true">
+            <heading>submit.progressbar.describe.stepone</heading>
+            <processing-class>org.dspace.app.rest.submit.step.DescribeStep</processing-class>
+            <type>submission-form</type>
+        </step-definition>
+        <step-definition id="seminarPublicationMetadata" mandatory="true">
+            <heading>submit.progressbar.describe.steptwo</heading>
+            <processing-class>org.dspace.app.rest.submit.step.DescribeStep</processing-class>
+            <type>submission-form</type>
+        </step-definition>
+        <step-definition id="bulletinPublicationMetadata" mandatory="true">
+            <heading>submit.progressbar.describe.steptwo</heading>
+            <processing-class>org.dspace.app.rest.submit.step.DescribeStep</processing-class>
+            <type>submission-form</type>
+        </step-definition>
+        <step-definition id="sistedesLicense" mandatory="true">
+            <heading>submit.progressbar.CClicense</heading>
+            <processing-class>org.dspace.app.rest.submit.step.DescribeStep</processing-class>
+            <type>submission-form</type>
+        </step-definition>
+        <!-- END: Sistedes -->
+
     </step-definitions>
 
     <!-- The submission-definitions map lays out the detailed definition of -->
@@ -419,6 +452,27 @@
             <step id="collection"/>
             <step id="openaireOrganizationForm"/>
         </submission-process>
+
+        <!-- BEGIN: Sistedes -->
+        <submission-process name="Author">
+		    <step id="collection"/>
+            <step id="authorStep"/>
+        </submission-process>
+        <submission-process name="Seminar">
+            <step id="collection"/>
+            <step id="seminarPublicationAuthoring"/>
+            <step id="seminarPublicationMetadata"/>
+            <step id="upload"/>
+            <step id="sistedesLicense"/>
+        </submission-process>
+        <submission-process name="Bulletin">
+            <step id="collection"/>
+            <step id="bulletinPublicationMetadata"/>
+            <step id="upload"/>
+            <step id="sistedesLicense"/>
+        </submission-process>
+        <!-- END: Sistedes -->
+
     </submission-definitions>
 
 </item-submission>

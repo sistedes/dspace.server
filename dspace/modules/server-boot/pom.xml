@@ -100,7 +100,12 @@
             <artifactId>lucene-analyzers-icu</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <!-- Enforcing version used by Hibernate -->
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.13.0</version>
+        </dependency>
     </dependencies>
 
     <build>
