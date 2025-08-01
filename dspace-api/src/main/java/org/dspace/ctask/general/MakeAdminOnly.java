@@ -1,3 +1,10 @@
+/**
+ * The contents of this file are subject to the license and copyright
+ * detailed in the LICENSE and NOTICE files at the root of the source
+ * tree and available online at
+ *
+ * http://www.dspace.org/license/
+ */
 package org.dspace.ctask.general;
 
 import java.io.IOException;
@@ -24,49 +31,50 @@ import org.dspace.curate.Curator;
  */
 public class MakeAdminOnly extends AbstractCurationTask {
 
-	private ResourcePolicyService resourcePolicyService = AuthorizeServiceFactory.getInstance().getResourcePolicyService();
+    private ResourcePolicyService resourcePolicyService = AuthorizeServiceFactory
+                                                            .getInstance().getResourcePolicyService();
 
-	protected String result = null;
+    protected String result = null;
 
-	protected String taskProperty(String name, String defaultValue) {
-		return super.taskProperty(name) != null ? super.taskProperty(name) : defaultValue;
-	}
+    protected String taskProperty(String name, String defaultValue) {
+        return super.taskProperty(name) != null ? super.taskProperty(name) : defaultValue;
+    }
 
-	@Override
-	public int perform(DSpaceObject dso) throws IOException {
-		if (dso instanceof Item) {
-			if (!((Item) dso).isArchived()) {
-				result = "Skipping not archived Item: " + dso.getID();
-				setResult(result);
-				report(result);
-				return Curator.CURATE_SKIP;
-			}
-		}
-		try {
-			Context context = Curator.curationContext();
-			resourcePolicyService.removePolicies(context, dso, Constants.READ);
-			if (dso instanceof Item) {
-				Item item = (Item) dso;
-				List<Bundle> bundles = new ArrayList<Bundle>();
-				bundles.addAll(item.getBundles("ORIGINAL"));
-				bundles.addAll(item.getBundles("TEXT"));
-				bundles.addAll(item.getBundles("THUMBNAIL"));
-				for (Bundle bundle : bundles) {
-					resourcePolicyService.removePolicies(context, bundle, Constants.READ);
-					for (Bitstream bitstream: bundle.getBitstreams()) {
-						resourcePolicyService.removePolicies(context, bitstream, Constants.READ);
-					}
-				}
-			}
-			result = "DSpaceObject has been successfully made private only for Administrators: " + dso.getID();
-			setResult(result);
-			report(result);
-			return Curator.CURATE_SUCCESS;
-		} catch (SQLException | AuthorizeException e) {
-			result = "Unable to change authorization policy for " + dso.getID();
-			setResult(result);
-			report(result);
-			return Curator.CURATE_ERROR;
-		}
-	}
+    @Override
+    public int perform(DSpaceObject dso) throws IOException {
+        if (dso instanceof Item) {
+            if (!((Item) dso).isArchived()) {
+                result = "Skipping not archived Item: " + dso.getID();
+                setResult(result);
+                report(result);
+                return Curator.CURATE_SKIP;
+            }
+        }
+        try {
+            Context context = Curator.curationContext();
+            resourcePolicyService.removePolicies(context, dso, Constants.READ);
+            if (dso instanceof Item) {
+                Item item = (Item) dso;
+                List<Bundle> bundles = new ArrayList<Bundle>();
+                bundles.addAll(item.getBundles("ORIGINAL"));
+                bundles.addAll(item.getBundles("TEXT"));
+                bundles.addAll(item.getBundles("THUMBNAIL"));
+                for (Bundle bundle : bundles) {
+                    resourcePolicyService.removePolicies(context, bundle, Constants.READ);
+                    for (Bitstream bitstream: bundle.getBitstreams()) {
+                        resourcePolicyService.removePolicies(context, bitstream, Constants.READ);
+                    }
+                }
+            }
+            result = "DSpaceObject has been successfully made private only for Administrators: " + dso.getID();
+            setResult(result);
+            report(result);
+            return Curator.CURATE_SUCCESS;
+        } catch (SQLException | AuthorizeException e) {
+            result = "Unable to change authorization policy for " + dso.getID();
+            setResult(result);
+            report(result);
+            return Curator.CURATE_ERROR;
+        }
+    }
 }

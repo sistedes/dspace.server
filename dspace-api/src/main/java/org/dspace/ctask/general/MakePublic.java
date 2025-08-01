@@ -1,3 +1,10 @@
+/**
+ * The contents of this file are subject to the license and copyright
+ * detailed in the LICENSE and NOTICE files at the root of the source
+ * tree and available online at
+ *
+ * http://www.dspace.org/license/
+ */
 package org.dspace.ctask.general;
 
 import java.io.IOException;
@@ -29,57 +36,57 @@ import org.dspace.eperson.service.GroupService;
  */
 public class MakePublic extends AbstractCurationTask {
 
-	private ResourcePolicyService resourcePolicyService = AuthorizeServiceFactory.getInstance().getResourcePolicyService();
-	private AuthorizeService authorizeService = AuthorizeServiceFactory.getInstance().getAuthorizeService();
-	private GroupService groupService = EPersonServiceFactory.getInstance().getGroupService();
+    private ResourcePolicyService resourcePolicyService = AuthorizeServiceFactory.getInstance().getResourcePolicyService();
+    private AuthorizeService authorizeService = AuthorizeServiceFactory.getInstance().getAuthorizeService();
+    private GroupService groupService = EPersonServiceFactory.getInstance().getGroupService();
 
-	protected String result = null;
+    protected String result = null;
 
-	protected String taskProperty(String name, String defaultValue) {
-		return super.taskProperty(name) != null ? super.taskProperty(name) : defaultValue;
-	}
+    protected String taskProperty(String name, String defaultValue) {
+        return super.taskProperty(name) != null ? super.taskProperty(name) : defaultValue;
+    }
 
-	@Override
-	public int perform(DSpaceObject dso) throws IOException {
-		if (dso instanceof Item) {
-			if (!((Item) dso).isArchived()) {
-				result = "Skipping not archived Item: " + dso.getID();
-				setResult(result);
-				report(result);
-				return Curator.CURATE_SKIP;
-			}
-		}
-		try {
-			Context context = Curator.curationContext();
-			Group anonymous = groupService.findByName(context, Group.ANONYMOUS);
-			resourcePolicyService.removePolicies(context, dso, Constants.READ);
-			if (dso instanceof Item) {
-				Item item = (Item) dso;
-				authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ, ResourcePolicy.TYPE_INHERITED);
-				List<Bundle> bundles = new ArrayList<Bundle>();
-				bundles.addAll(item.getBundles("ORIGINAL"));
-				bundles.addAll(item.getBundles("TEXT"));
-				bundles.addAll(item.getBundles("THUMBNAIL"));
-				for (Bundle bundle : bundles) {
-					resourcePolicyService.removePolicies(context, bundle, Constants.READ);
-					authorizeService.createResourcePolicy(context, bundle, anonymous, null, Constants.READ, ResourcePolicy.TYPE_INHERITED);
-					for (Bitstream bitstream: bundle.getBitstreams()) {
-						resourcePolicyService.removePolicies(context, bitstream, Constants.READ);
-						authorizeService.createResourcePolicy(context, bitstream, anonymous, null, Constants.READ, null);
-					}
-				}
-			} else {
-				authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ, null);
-			}
-			result = "DSpaceObject has been successfully made public: " + dso.getID();
-			setResult(result);
-			report(result);
-			return Curator.CURATE_SUCCESS;
-		} catch (SQLException | AuthorizeException e) {
-			result = "Unable to change authorization policy for " + dso.getID();
-			setResult(result);
-			report(result);
-			return Curator.CURATE_ERROR;
-		}
-	}
+    @Override
+    public int perform(DSpaceObject dso) throws IOException {
+        if (dso instanceof Item) {
+            if (!((Item) dso).isArchived()) {
+                result = "Skipping not archived Item: " + dso.getID();
+                setResult(result);
+                report(result);
+                return Curator.CURATE_SKIP;
+            }
+        }
+        try {
+            Context context = Curator.curationContext();
+            Group anonymous = groupService.findByName(context, Group.ANONYMOUS);
+            resourcePolicyService.removePolicies(context, dso, Constants.READ);
+            if (dso instanceof Item) {
+                Item item = (Item) dso;
+                authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ, ResourcePolicy.TYPE_INHERITED);
+                List<Bundle> bundles = new ArrayList<Bundle>();
+                bundles.addAll(item.getBundles("ORIGINAL"));
+                bundles.addAll(item.getBundles("TEXT"));
+                bundles.addAll(item.getBundles("THUMBNAIL"));
+                for (Bundle bundle : bundles) {
+                    resourcePolicyService.removePolicies(context, bundle, Constants.READ);
+                    authorizeService.createResourcePolicy(context, bundle, anonymous, null, Constants.READ, ResourcePolicy.TYPE_INHERITED);
+                    for (Bitstream bitstream: bundle.getBitstreams()) {
+                        resourcePolicyService.removePolicies(context, bitstream, Constants.READ);
+                        authorizeService.createResourcePolicy(context, bitstream, anonymous, null, Constants.READ, null);
+                    }
+                }
+            } else {
+                authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ, null);
+            }
+            result = "DSpaceObject has been successfully made public: " + dso.getID();
+            setResult(result);
+            report(result);
+            return Curator.CURATE_SUCCESS;
+        } catch (SQLException | AuthorizeException e) {
+            result = "Unable to change authorization policy for " + dso.getID();
+            setResult(result);
+            report(result);
+            return Curator.CURATE_ERROR;
+        }
+    }
 }

@@ -1,3 +1,10 @@
+/**
+ * The contents of this file are subject to the license and copyright
+ * detailed in the LICENSE and NOTICE files at the root of the source
+ * tree and available online at
+ *
+ * http://www.dspace.org/license/
+ */
 package org.dspace.ctask.general;
 
 import java.io.IOException;
@@ -38,68 +45,68 @@ public class FilterMedia extends AbstractCurationTask {
     private static final String INPUT_FORMATS_SUFFIX = "inputFormats";
     
     // The MediaFilterService
-	private MediaFilterService mediaFilterService = MediaFilterServiceFactory.getInstance().getMediaFilterService();
+    private MediaFilterService mediaFilterService = MediaFilterServiceFactory.getInstance().getMediaFilterService();
 
-	protected String result = null;
+    protected String result = null;
 
-	// Static initializer
-	{
-		// Configure all enabled filters in the MediaFilterService
-		// Adapted from org.dspace.app.mediafilter.MediaFilterScript
-		String[] filterNames = DSpaceServicesFactory.getInstance().getConfigurationService().getArrayProperty(MEDIA_FILTER_PLUGINS_KEY);
+    // Static initializer
+    {
+        // Configure all enabled filters in the MediaFilterService
+        // Adapted from org.dspace.app.mediafilter.MediaFilterScript
+        String[] filterNames = DSpaceServicesFactory.getInstance().getConfigurationService().getArrayProperty(MEDIA_FILTER_PLUGINS_KEY);
 
         List<FormatFilter> filterList = new ArrayList<>();
         Map<String, List<String>> filterFormats = new HashMap<>();
-		
+        
         for (int i = 0; i < filterNames.length; i++) {
-			FormatFilter filter = (FormatFilter) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(FormatFilter.class, filterNames[i]);		            
+            FormatFilter filter = (FormatFilter) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(FormatFilter.class, filterNames[i]);                    
             filterList.add(filter);
             String filterClassName = filter.getClass().getName();
             String pluginName = null;
-			if (SelfNamedPlugin.class.isAssignableFrom(filter.getClass())) {
-				pluginName = ((SelfNamedPlugin) filter).getPluginInstanceName();
-			}
-			String[] formats = DSpaceServicesFactory.getInstance().getConfigurationService().getArrayProperty(
-					FILTER_PREFIX + "." + filterClassName + (pluginName != null ? "." + pluginName : "") + "." + INPUT_FORMATS_SUFFIX);
-			if (ArrayUtils.isNotEmpty(formats)) {
-				filterFormats.put(filterClassName + (pluginName != null ? MediaFilterService.FILTER_PLUGIN_SEPARATOR + pluginName : ""),
-						Arrays.asList(formats));
-			}
-		}
-		mediaFilterService.setFilterFormats(filterFormats);
-		mediaFilterService.setFilterClasses(filterList);
-	}
-	
-	protected String taskProperty(String name, String defaultValue) {
-		return super.taskProperty(name) != null ? super.taskProperty(name) : defaultValue;
-	}
+            if (SelfNamedPlugin.class.isAssignableFrom(filter.getClass())) {
+                pluginName = ((SelfNamedPlugin) filter).getPluginInstanceName();
+            }
+            String[] formats = DSpaceServicesFactory.getInstance().getConfigurationService().getArrayProperty(
+                    FILTER_PREFIX + "." + filterClassName + (pluginName != null ? "." + pluginName : "") + "." + INPUT_FORMATS_SUFFIX);
+            if (ArrayUtils.isNotEmpty(formats)) {
+                filterFormats.put(filterClassName + (pluginName != null ? MediaFilterService.FILTER_PLUGIN_SEPARATOR + pluginName : ""),
+                        Arrays.asList(formats));
+            }
+        }
+        mediaFilterService.setFilterFormats(filterFormats);
+        mediaFilterService.setFilterClasses(filterList);
+    }
+    
+    protected String taskProperty(String name, String defaultValue) {
+        return super.taskProperty(name) != null ? super.taskProperty(name) : defaultValue;
+    }
 
-	@Override
-	public int perform(DSpaceObject dso) throws IOException {
-		if (dso instanceof Item) {
-			try {
-				if (mediaFilterService.filterItem(Curator.curationContext(), (Item) dso)) {
-					result = "Media filters succesfully applied on Item " + dso.getID();
-					setResult(result);
-					report(result);
-					return Curator.CURATE_SUCCESS;
-				} else {
-					result = "No media filters applied on Item " + dso.getID();
-					setResult(result);
-					report(result);
-					return Curator.CURATE_SKIP;
-				}
-			} catch (Exception e) {
-				result = "Failed to filter media on Item " + dso.getID();
-				setResult(result);
-				report(result);
-				return Curator.CURATE_FAIL;
-			}
-		} else {
-			result = "Skipping element that cannot be media filtered: " + dso.getID() + "[" + Constants.typeText[dso.getType()] + "]";
-			setResult(result);
-			report(result);
-			return Curator.CURATE_SKIP;
-		}
-	}
+    @Override
+    public int perform(DSpaceObject dso) throws IOException {
+        if (dso instanceof Item) {
+            try {
+                if (mediaFilterService.filterItem(Curator.curationContext(), (Item) dso)) {
+                    result = "Media filters succesfully applied on Item " + dso.getID();
+                    setResult(result);
+                    report(result);
+                    return Curator.CURATE_SUCCESS;
+                } else {
+                    result = "No media filters applied on Item " + dso.getID();
+                    setResult(result);
+                    report(result);
+                    return Curator.CURATE_SKIP;
+                }
+            } catch (Exception e) {
+                result = "Failed to filter media on Item " + dso.getID();
+                setResult(result);
+                report(result);
+                return Curator.CURATE_FAIL;
+            }
+        } else {
+            result = "Skipping element that cannot be media filtered: " + dso.getID() + "[" + Constants.typeText[dso.getType()] + "]";
+            setResult(result);
+            report(result);
+            return Curator.CURATE_SKIP;
+        }
+    }
 }
