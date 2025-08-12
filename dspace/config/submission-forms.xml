@@ -1656,6 +1656,93 @@
                 </field>
             </row>
         </form>
+        <form name="minutesPublicationMetadata">
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>title</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Título</label>
+                    <input-type>onebox</input-type>
+                    <style>col-sm-10</style>
+                    <hint>Introduzca el título del acta.</hint>
+                    <required>Las actas deben tener un título.</required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>identifier</dc-element>
+                    <dc-qualifier>sistedes</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Identificador de Sistedes</label>
+                    <input-type>onebox</input-type>
+                    <style>col-sm-2</style>
+                    <hint>Indique un handle público en la forma 11705/ACTA/YYYY/XXX (donde YYYY es el año y XXX es un número correlativo de documento) como identificador en la Biblioteca Digital de Sistedes.</hint>
+                    <regex>11705/ACTA/20[0-9]{2}/[0-9]{3}</regex>
+                    <required>Se require un handle como identificador público en Sistedes.</required>
+                    <visibility>workflow</visibility>
+                    <readonly>readonly</readonly>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>description</dc-element>
+                    <dc-qualifier>abstract</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Resumen (HTML o Markdown)</label>
+                    <input-type>textarea</input-type>
+                    <hint>Introduzca una breve descripción del contenido del acta.</hint>
+                    <required></required>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>subject</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>Palabras clave</label>
+                    <input-type>onebox</input-type>
+                    <!--<style>col-sm-6</style>-->
+                    <hint>Especifique las palabras clave.</hint>
+                    <required></required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>date</dc-element>
+                    <dc-qualifier>issued</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Fecha de publicación</label>
+                    <input-type>date</input-type>
+                    <hint>Indique la fecha de publicación del acta.</hint>
+                    <required>Indique una fecha y hora válidas.</required>
+                </field>
+            </row>
+            <row>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>publisher</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Editorial</label>
+                    <input-type value-pairs-name="sistedes_publisher">dropdown</input-type>
+                    <hint>Indique quién publica el acta.</hint>
+                    <required>Los boletines deben incluir Sistedes como publicador.</required>
+                </field>
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>relation</dc-element>
+                    <dc-qualifier>ispartof</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Publicado en</label>
+                    <style>col-sm-6</style>
+                    <input-type value-pairs-name="ispartof_minutes">dropdown</input-type>
+                    <hint>Indique a qué colección de documentos de Sistedes pertenece el acta.</hint>
+                    <required>Las actas deben formar parte de las Actas de las Asambleas de Sistedes.</required>
+                </field>
+            </row>
+        </form>
         <form name="sistedesLicense">
             <row>
                 <field>
@@ -2336,6 +2423,12 @@
             <pair>
                 <displayed-value>Boletines Sistedes</displayed-value>
                 <stored-value>Boletines Sistedes</stored-value>
+            </pair>
+        </value-pairs>
+        <value-pairs value-pairs-name="ispartof_minutes" dc-term="ispartof">
+            <pair>
+                <displayed-value>Actas e Informes de las Asambleas de Sistedes</displayed-value>
+                <stored-value>Actas e Informes de las Asambleas de Sistedes</stored-value>
             </pair>
         </value-pairs>
         <value-pairs value-pairs-name="sistedes_license_types" dc-term="license">
