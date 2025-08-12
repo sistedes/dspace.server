@@ -42,7 +42,12 @@
         </rightCardinality>
         <copyToLeft>true</copyToLeft>
     </type>
-    <!-- Relationships below are not really used, but are required since DSpace expects entities with relationships -->
+    <!--
+    Relationships below are not really used, but the initialize-entities script (which registers the entities)
+    expects that entities have relationships in order to be added in the database
+    Entities below are only specified in one direction, since we don't expect to navigate from
+    Authors to Bulletins or Minutes
+    -->
     <type>
         <leftType>Boletín</leftType>
         <rightType>Autor</rightType>
@@ -54,7 +59,7 @@
         <rightCardinality>
             <min>0</min>
         </rightCardinality>
-        <copyToLeft>true</copyToLeft>
+        <copyToLeft>false</copyToLeft>
     </type>
     <type>
         <leftType>Acta</leftType>
@@ -67,6 +72,6 @@
         <rightCardinality>
             <min>0</min>
         </rightCardinality>
-        <copyToLeft>true</copyToLeft>
+        <copyToLeft>false</copyToLeft>
     </type>
 </relationships>
