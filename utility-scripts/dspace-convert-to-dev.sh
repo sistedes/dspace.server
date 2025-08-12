@@ -1,7 +1,7 @@
 #! /bin/bash
 
 prodsite=biblioteca.sistedes.es
-devsite=bdsistedes.dsic.upv.es
+devsite=bdsdev.dsic.upv.es
 cookies=/tmp/bdcookies.tmp
 headers=/tmp/bdheaders.tmp
 user=USER_EMAIL
@@ -49,5 +49,5 @@ curl --silent \
 
 rm -rf $cookies $headers
 
-systemctl restart tomcat9.service
+systemctl restart dspace.service
 pm2 restart all

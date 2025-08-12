@@ -4,8 +4,8 @@ sourceui=/root/git/dspace.ui
 ui=/opt/dspace.ui
 
 pushd $sourceui
-yarn merge-i18n -s src/themes/sistedes/assets/i18n
-yarn build:prod
+npm run merge-i18n -- -s src/themes/[theme-name]/assets/i18n
+npm run build:prod
 popd
 
 mkdir -p $ui/dist
