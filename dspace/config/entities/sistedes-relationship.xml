@@ -42,17 +42,4 @@
         </rightCardinality>
         <copyToLeft>true</copyToLeft>
     </type>
-    <type>
-        <leftType>Boletín</leftType>
-        <rightType>Autor</rightType>
-        <leftwardType>isAuthorOfBulletin</leftwardType>
-        <rightwardType>isBulletinOfAuthor</rightwardType>
-        <leftCardinality>
-            <min>0</min>
-        </leftCardinality>
-        <rightCardinality>
-            <min>0</min>
-        </rightCardinality>
-        <copyToLeft>true</copyToLeft>
-    </type>
 </relationships>
