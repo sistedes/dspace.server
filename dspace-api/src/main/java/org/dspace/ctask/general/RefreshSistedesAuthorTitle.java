@@ -28,7 +28,7 @@ public class RefreshSistedesAuthorTitle extends AbstractCurationTask {
 
     @Override
     public int perform(DSpaceObject dso) throws IOException {
-        if (dso instanceof Item && itemService.getMetadata((Item) dso, "dspace.entity.type").contains("Autor")) {
+        if (dso instanceof Item && "Autor".equals(itemService.getMetadata((Item) dso, "dspace.entity.type"))) {
             Item item = (Item) dso;
             try {
                 String familyName = itemService.getMetadataFirstValue(item, new MetadataFieldName("person.familyName"), Item.ANY);
