@@ -46,6 +46,13 @@
         <scope_note>Author biography, as specified in the publication (if any). It may be used in publications such as seminars, or keynotes, where the biography of the author at a given moment is relevant.</scope_note>
     </dc-type>
 
+    <dc-type>
+        <schema>dc</schema>
+        <element>identifier</element>
+        <qualifier>citation-bibtex</qualifier>
+        <scope_note>BibTeX-readable bibliographic citation of this item.</scope_note>
+    </dc-type>
+
     <!-- We also want to store authors' web pages -->
     <dc-type>
         <schema>person</schema>
