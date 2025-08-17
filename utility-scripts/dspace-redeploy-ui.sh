@@ -5,7 +5,7 @@ ui=/opt/dspace.ui
 
 pushd $sourceui
 npm run merge-i18n -- -s src/themes/sistedes/assets/i18n
-npm run build:prod
+NODE_OPTIONS='--max_old_space_size=4096' npm run build:prod
 popd
 
 mkdir -p $ui/dist
