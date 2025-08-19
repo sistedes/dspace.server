@@ -11,14 +11,14 @@ sed -i "s/$prodsite/$devsite/g" /opt/dspace.ui/config/config.prod.yml
 sed -i "s/$prodsite/$devsite/g" /opt/dspace.server/config/local.cfg
 
 function get_header() {
-  cat /tmp/bdheaders.tmp | grep $1 | cut -d ':' -f2 | xargs
+  cat $headers | grep $1 | cut -d ':' -f2 | tr -d '\r\n'
 }
 
 curl --silent \
      --output /dev/null \
      --cookie-jar $cookies \
      --dump-header $headers \
-     'http://localhost:8080/dspace.server/api/'
+     "http://localhost:8080/dspace.server/api/security/csrf"
 
 token=$(get_header DSPACE-XSRF-TOKEN)
 
@@ -27,7 +27,7 @@ curl --silent \
      --cookie $cookies \
      --cookie-jar $cookies \
      --dump-header $headers \
-     'http://localhost:8080/dspace.server/api/authn/login' \
+     "http://localhost:8080/dspace.server/api/authn/login" \
      -H "X-XSRF-TOKEN: $token" \
      --data-urlencode "user=$user" \
      --data-urlencode "password=$password"
@@ -41,7 +41,7 @@ curl --silent \
      --cookie-jar $cookies \
      --dump-header $headers \
      -X PUT \
-     'http://localhost:8080/dspace.server/api/system/systemwidealerts/1' \
+     "http://localhost:8080/dspace.server/api/system/systemwidealerts/1" \
      -H "Content-Type: application/json" \
      -H "X-XSRF-TOKEN: $token" \
      -H "Authorization: $auth" \
