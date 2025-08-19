@@ -8,7 +8,7 @@ devsite=bdsistedes.dsic.upv.es
 cookies=/tmp/bdcookies.tmp
 headers=/tmp/bdheaders.tmp
 user=$DSPACE_USER
-password=$DSPACE_PASSWORD
+password=$DSPACE_PASS
 
 sed -i "s/$prodsite/$devsite/g" /opt/dspace.ui/config/config.prod.yml
 sed -i "s/$prodsite/$devsite/g" /opt/dspace.server/config/local.cfg
