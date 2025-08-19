@@ -1,11 +1,14 @@
 #! /bin/bash
 
+dir=`dirname "$(realpath $0)"`
+source "$dir/environment.sh"
+
 prodsite=biblioteca.sistedes.es
 devsite=bdsistedes.dsic.upv.es
 cookies=/tmp/bdcookies.tmp
 headers=/tmp/bdheaders.tmp
-user=USER_EMAIL
-password=USER_PASSWORD
+user=$DSPACE_USER
+password=$DSPACE_PASSWORD
 
 sed -i "s/$prodsite/$devsite/g" /opt/dspace.ui/config/config.prod.yml
 sed -i "s/$prodsite/$devsite/g" /opt/dspace.server/config/local.cfg

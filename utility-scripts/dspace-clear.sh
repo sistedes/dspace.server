@@ -1,5 +1,8 @@
 #! /bin/bash
 
+dir=`dirname "$(realpath $0)"`
+source "$dir/environment.sh"
+
 server="/opt/dspace.server"
 
 systemctl stop tomcat10.service
