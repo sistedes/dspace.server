@@ -1666,8 +1666,8 @@
                     <label>Título</label>
                     <input-type>onebox</input-type>
                     <style>col-sm-10</style>
-                    <hint>Introduzca el título del documento.</hint>
-                    <required>Los documentos (actas, informes, etc.) deben tener un título.</required>
+                    <hint>Introduzca el título del acta.</hint>
+                    <required>Las actas deben tener un título.</required>
                 </field>
                 <field>
                     <dc-schema>dc</dc-schema>
@@ -1677,8 +1677,8 @@
                     <label>Identificador de Sistedes</label>
                     <input-type>onebox</input-type>
                     <style>col-sm-2</style>
-                    <hint>Indique un handle público en la forma 11705/SISTEDES/YYYY/XXX (donde YYYY es el año y XXX es un número correlativo de documento) como identificador en la Biblioteca Digital de Sistedes.</hint>
-                    <regex>11705/SISTEDES/20[0-9]{2}/[0-9]{3}</regex>
+                    <hint>Indique un handle público en la forma 11705/ACTA/YYYY/XXX (donde YYYY es el año y XXX es un número correlativo de documento) como identificador en la Biblioteca Digital de Sistedes.</hint>
+                    <regex>11705/ACTA/20[0-9]{2}/[0-9]{3}</regex>
                     <required>Se require un handle como identificador público en Sistedes.</required>
                     <visibility>workflow</visibility>
                     <readonly>readonly</readonly>
@@ -1692,7 +1692,7 @@
                     <repeatable>false</repeatable>
                     <label>Resumen (HTML o Markdown)</label>
                     <input-type>textarea</input-type>
-                    <hint>Introduzca una breve descripción del documento.</hint>
+                    <hint>Introduzca una breve descripción del contenido del acta.</hint>
                     <required></required>
                 </field>
             </row>
@@ -1715,7 +1715,7 @@
                     <repeatable>false</repeatable>
                     <label>Fecha de publicación</label>
                     <input-type>date</input-type>
-                    <hint>Indique la fecha de publicación del documento.</hint>
+                    <hint>Indique la fecha de publicación del acta.</hint>
                     <required>Indique una fecha y hora válidas.</required>
                 </field>
             </row>
@@ -1727,8 +1727,8 @@
                     <repeatable>false</repeatable>
                     <label>Editorial</label>
                     <input-type value-pairs-name="sistedes_publisher">dropdown</input-type>
-                    <hint>Indique quién publica el documento.</hint>
-                    <required>Los documentos de Sistedes deben incluir a la sociedad como publicador.</required>
+                    <hint>Indique quién publica el acta.</hint>
+                    <required>Los boletines deben incluir Sistedes como publicador.</required>
                 </field>
                 <field>
                     <dc-schema>dc</dc-schema>
@@ -1738,8 +1738,8 @@
                     <label>Publicado en</label>
                     <style>col-sm-6</style>
                     <input-type value-pairs-name="ispartof_minutes">dropdown</input-type>
-                    <hint>Indique a qué colección pertenece el documento.</hint>
-                    <required>Las documento deben formar parte de una colección de documentos de Sistedes.</required>
+                    <hint>Indique a qué colección de documentos de Sistedes pertenece el acta.</hint>
+                    <required>Las actas deben formar parte de las Actas de las Asambleas de Sistedes.</required>
                 </field>
             </row>
         </form>
@@ -2427,8 +2427,8 @@
         </value-pairs>
         <value-pairs value-pairs-name="ispartof_minutes" dc-term="ispartof">
             <pair>
-                <displayed-value>Actas de las asambleas de Sistedes</displayed-value>
-                <stored-value>Actas de las asambleas de Sistedes</stored-value>
+                <displayed-value>Actas e informes de las asambleas de Sistedes</displayed-value>
+                <stored-value>Actas e informes de las asambleas de Sistedes</stored-value>
             </pair>
         </value-pairs>
         <value-pairs value-pairs-name="sistedes_license_types" dc-term="license">
