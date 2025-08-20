@@ -74,7 +74,9 @@ public class GenerateBibTeXCitation extends GenerateCitation {
             return CitationUtilModule.escapeBibtex(
                 "@misc{" + getHandle().replace("/", ":") + ",\n"
                 + "  title     = {{" + getTitle() + "}},\n"
-                + "  author    = {" + StringUtils.join(getAuthors(), " and ") + "},\n"
+                + (  getAuthors().size() > 0
+                ? "  author    = {" + StringUtils.join(getAuthors(), " and ") + "},\n"
+                : "" )
                 + "  url       = {" + getUri() + "},\n"
                 + "  year      = {" + getYear() + "},\n"
                 + "  publisher = {{" + getPublisher() + "}},\n"
