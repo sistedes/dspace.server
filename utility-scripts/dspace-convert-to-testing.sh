@@ -12,6 +12,7 @@ password=$DSPACE_PASS
 
 sed -i "s/$prodsite/$devsite/g" /opt/dspace.ui/config/config.prod.yml
 sed -i "s/$prodsite/$devsite/g" /opt/dspace.server/config/local.cfg
+sed -i "s/^registerexternalhandle/#registerexternalhandle/g" /opt/dspace.server/config/local.cfg
 
 function get_header() {
   cat $headers | grep $1 | cut -d ':' -f2 | tr -d '\r\n'
