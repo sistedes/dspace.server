@@ -37,6 +37,12 @@ public class GenerateCitation extends AbstractCurationTask {
 
         if (dso instanceof Item) {
             Item item = (Item) dso;
+            if (StringUtils.equals("Autor", itemService.getMetadata(item, "dspace.entity.type"))) {
+                result = "Skipping Author element" + dso.getID();
+                setResult(result);
+                report(result);
+                return Curator.CURATE_SKIP;
+            }
             try {
                 if (StringUtils.isEmpty(itemService.getMetadata(item, "dc.identifier.citation")) || force) {
                     itemService.clearMetadata(Curator.curationContext(), item, "dc", "identifier", "citation", Item.ANY);
