@@ -285,14 +285,23 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
 
             
             var lines = splitTextInLines(pdfFont, fontSize, width, citation);
+
             for (int i = 0; i < lines.size(); i++) {
-                // We use absolute coordinates because thei are easier for centering text.
-                // Nevertheless, after trying,  left-aligned text seems to be more aesthetic...
-                Matrix matrix = Matrix.getRotateInstance(
+                Matrix matrix;
+                if (lines.size() == 1) {
+                    // If there's only one line, center it
+                    matrix = Matrix.getRotateInstance(
                                         Math.toRadians(90),
                                         marginX + (leading * i),
-                                        // (mediabox.getHeight() - getStringWidth(lines.get(i), pdfFont, fontSize)) / 2);
+                                        (mediabox.getHeight() - getStringWidth(lines.get(i), pdfFont, fontSize)) / 2);
+                } else {
+                    // If many lines, left-align the citation
+                    matrix = Matrix.getRotateInstance(
+                                        Math.toRadians(90),
+                                        marginX + (leading * i),
                                         marginY);
+
+                }
                 contentStream.beginText();
                 contentStream.setTextMatrix(matrix);
                 contentStream.setFont(pdfFont, fontSize);
