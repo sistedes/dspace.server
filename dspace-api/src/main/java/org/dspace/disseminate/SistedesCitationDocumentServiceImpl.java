@@ -124,16 +124,16 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
         VALID_TYPES.addAll(PDF_MIMES);
 
         // Global enabled?
-        citationEnabledGlobally = configurationService.getBooleanProperty("citation-page.enable_globally", false);
+        citationEnabledGlobally = configurationService.getBooleanProperty("citation-strip.enable_globally", false);
 
         //Load enabled collections
         String[] citationEnabledCollections = configurationService
-                .getArrayProperty("citation-page.enabled_collections");
+                .getArrayProperty("citation-strip.enabled_collections");
         citationEnabledCollectionsList = Arrays.asList(citationEnabledCollections);
 
         //Load enabled communities, and add to collection-list
         String[] citationEnabledCommunities = configurationService
-                .getArrayProperty("citation-page.enabled_communities");
+                .getArrayProperty("citation-strip.enabled_communities");
         if (citationEnabledCollectionsList == null) {
             citationEnabledCollectionsList = new ArrayList<>();
         }
