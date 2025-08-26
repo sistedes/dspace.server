@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -93,6 +94,8 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
 
     protected PDColor color = new PDColor(new float[] { 0.65f, 0.65f, 0.65f }, PDDeviceRGB.INSTANCE);
 
+    protected int maxDistance = Integer.MAX_VALUE;
+
     protected File tempDir;
 
     @Autowired(required = true)
@@ -162,6 +165,18 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
         } catch (NullPointerException | NumberFormatException e) {
             log.error("Unable to parse option 'citation-strip.color'");
         };
+
+        // Max distance
+        String maxDistanceStr = configurationService.getProperty("citation-strip.margin_max_distance", "none");
+        if (StringUtils.equals("none", maxDistanceStr)) {
+            maxDistance = Integer.MAX_VALUE;
+        } else {
+            try {
+                maxDistance = Integer.valueOf(maxDistanceStr);
+            } catch (NumberFormatException e) {
+                log.error("Unable to parse option 'citation-strip.margin_max_distance'");
+            };
+        }
 
         if (citationEnabledCommunities != null && citationEnabledCommunities.length > 0) {
             Context context = null;
@@ -311,12 +326,11 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
         float pageWidth = mediabox.getWidth();
         float pageHeight = mediabox.getHeight();
         float marginY = 60;
-        float marginX = leading * 1.5f;
         float currentMargin = calculateLeftMargin(source, 1, 2, pageHeight - marginY, marginY);
         float maxLineLength = pageHeight - (2 * marginY);
         List<String> lines = splitTextInLines(pdfFont, fontSize, maxLineLength, citation);
         float citationWidth = (leading * lines.size()) - (0.2f * fontSize);
-        marginX = ((currentMargin - citationWidth) / 2) + leading;
+        float marginX = ((currentMargin - citationWidth) / 2) + leading;
         
         float scaleFactor = (pageWidth - (citationWidth * 4)) / (pageWidth - (currentMargin * 2));
         float translateX = (pageWidth * (1 - scaleFactor)) / scaleFactor / 2;
@@ -344,7 +358,9 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
                 }
                 // Recalculate the left margin to set the citation strip based on the new scaled content
                 currentMargin = calculateLeftMargin(source, 1, 2, pageHeight - marginY, marginY);
-                marginX = ((currentMargin - citationWidth) / 2) + leading;
+                marginX = ((currentMargin - citationWidth) / 2) + fontSize;
+            } else if (marginX > maxDistance) {
+                marginX = maxDistance;
             }
 
             PDPageContentStream contentStream = new PDPageContentStream(result, page, PDPageContentStream.AppendMode.APPEND, true, true);
