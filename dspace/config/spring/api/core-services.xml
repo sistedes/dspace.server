@@ -97,7 +97,10 @@
 
     <bean class='org.dspace.curate.XmlWorkflowCuratorServiceImpl'/>
 
-    <bean class="org.dspace.disseminate.CitationDocumentServiceImpl"/>
+    <!-- BEGIN: Sistedes -->
+    <!-- <bean class="org.dspace.disseminate.CitationDocumentServiceImpl"/> -->
+    <bean class="org.dspace.disseminate.SistedesCitationDocumentServiceImpl"/>
+    <!-- END: Sistedes -->
     <bean class="org.dspace.disseminate.CoverPageService"/>
 
     <!-- Ensure EmbargoService and AccessStatusService are initialized properly via init() method -->
