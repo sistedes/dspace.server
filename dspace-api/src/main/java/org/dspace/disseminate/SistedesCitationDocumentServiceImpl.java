@@ -26,7 +26,14 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
+import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
+import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.pdfbox.text.TextPosition;
 import org.apache.pdfbox.util.Matrix;
+import org.apache.poi.ss.usermodel.Color;
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.authorize.service.AuthorizeService;
 import org.dspace.content.Bitstream;
@@ -272,19 +279,25 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
     }
 
     private void addCitationToDocument(PDDocument result, PDDocument source, String citation) throws IOException {
+        float currentMargin = calculateLeftMargin(source);
+        
+        PDFont pdfFont = PDType1Font.HELVETICA_OBLIQUE;
+        PDColor color = new PDColor(new float[] { 0.65f, 0.65f, 0.65f }, PDDeviceRGB.INSTANCE);
+        float fontSize = 8;
+        float leading = 1.2f * fontSize;
+
         for (PDPage page : source.getDocumentCatalog().getPages()) {
             PDPageContentStream contentStream = new PDPageContentStream(result, page, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDFont pdfFont = PDType1Font.HELVETICA_OBLIQUE;
-            float fontSize = 8;
-            float leading = 1.2f * fontSize;
-
             PDRectangle mediabox = page.getMediaBox();
-            float marginX = 32;
-            float marginY = 72;
+            float marginY = 60;
             float width = mediabox.getHeight() - (2 * marginY);
-
-            
             var lines = splitTextInLines(pdfFont, fontSize, width, citation);
+            float marginX = ((currentMargin - (leading * lines.size()) - (0.2f * fontSize)) / 2) + leading;
+
+            if (marginX < (leading * 1.5f)) {
+                // Avoid rendering the citation outside the paper margins
+                marginX = leading * 1.5f;
+            }
 
             for (int i = 0; i < lines.size(); i++) {
                 Matrix matrix;
@@ -305,7 +318,7 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
                 contentStream.beginText();
                 contentStream.setTextMatrix(matrix);
                 contentStream.setFont(pdfFont, fontSize);
-                contentStream.setNonStrokingColor(0.6f,0.6f,0.6f);
+                contentStream.setNonStrokingColor(color);
                 contentStream.newLineAtOffset(0, 0);
                 contentStream.showText(lines.get(i));
                 contentStream.endText(); 
@@ -345,5 +358,50 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
 
     private float getStringWidth(String text, PDFont font, float fontSize) throws IOException {
         return font.getStringWidth(text) * fontSize / 1000f;
+    }
+
+    private float calculateLeftMargin(PDDocument doc) throws IOException {
+        PDFMarginTextStripper stripper = new PDFMarginTextStripper();
+        stripper.setStartPage(1);
+        stripper.setEndPage(2);
+        stripper.getText(doc);
+        return stripper.getMargin();
+    }
+    private static class PDFMarginTextStripper extends PDFTextStripper {
+
+        private float margin = Float.MAX_VALUE;
+        private boolean startOfLine = true;
+
+        public PDFMarginTextStripper() throws IOException {
+            super();
+        }
+
+        @Override
+        protected void startPage(PDPage page) throws IOException {
+            startOfLine = true;
+            super.startPage(page);
+        }
+
+        @Override
+        protected void writeLineSeparator() throws IOException {
+            startOfLine = true;
+            super.writeLineSeparator();
+        }
+
+        @Override
+        protected void writeString(String text, List<TextPosition> textPositions) throws IOException {
+            if (startOfLine) {
+                TextPosition firstPosition = textPositions.get(0);
+                if (firstPosition.getXDirAdj() < margin) {
+                    margin = firstPosition.getXDirAdj();
+                }
+                startOfLine = false;
+            }
+            super.writeString(text, textPositions);
+        }
+
+        public float getMargin() {
+            return margin;
+        }
     }
 }
