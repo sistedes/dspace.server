@@ -30,6 +30,7 @@ import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
+import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;
 import org.apache.pdfbox.util.Matrix;
@@ -279,25 +280,58 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
     }
 
     private void addCitationToDocument(PDDocument result, PDDocument source, String citation) throws IOException {
-        float currentMargin = calculateLeftMargin(source);
-        
+
         PDFont pdfFont = PDType1Font.HELVETICA_OBLIQUE;
         PDColor color = new PDColor(new float[] { 0.65f, 0.65f, 0.65f }, PDDeviceRGB.INSTANCE);
         float fontSize = 8;
         float leading = 1.2f * fontSize;
 
-        for (PDPage page : source.getDocumentCatalog().getPages()) {
-            PDPageContentStream contentStream = new PDPageContentStream(result, page, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDRectangle mediabox = page.getMediaBox();
-            float marginY = 60;
-            float width = mediabox.getHeight() - (2 * marginY);
-            var lines = splitTextInLines(pdfFont, fontSize, width, citation);
-            float marginX = ((currentMargin - (leading * lines.size()) - (0.2f * fontSize)) / 2) + leading;
+        if (source.getNumberOfPages() == 0) {
+            log.error("Document does not have any pages");
+            return;
+        }
 
-            if (marginX < (leading * 1.5f)) {
-                // Avoid rendering the citation outside the paper margins
-                marginX = leading * 1.5f;
+        PDRectangle mediabox = source.getPages().get(0).getMediaBox();
+        float pageWidth = mediabox.getWidth();
+        float pageHeight = mediabox.getHeight();
+        float marginY = 60;
+        float marginX = leading * 1.5f;
+        float currentMargin = calculateLeftMargin(source, 1, 2, pageHeight - marginY, marginY);
+        float maxLineLength = pageHeight - (2 * marginY);
+        List<String> lines = splitTextInLines(pdfFont, fontSize, maxLineLength, citation);
+        float citationWidth = (leading * lines.size()) - (0.2f * fontSize);
+        marginX = ((currentMargin - citationWidth) / 2) + leading;
+        
+        float scaleFactor = (pageWidth - (citationWidth * 4)) / (pageWidth - (currentMargin * 2));
+        float translateX = (pageWidth * (1 - scaleFactor)) / scaleFactor / 2;
+        float translateY = (pageHeight * (1 - scaleFactor)) / scaleFactor / 2;
+        Matrix scaleMatrix = new Matrix();
+        scaleMatrix.scale(scaleFactor, scaleFactor);
+        scaleMatrix.translate(translateX, translateY);
+
+        for (PDPage page : source.getDocumentCatalog().getPages()) {
+            result.addPage(page);
+
+            if (currentMargin < citationWidth) {
+                // The citation does not fit in the margin
+                // Scale the page contents to make room
+                PDPageContentStream newPageContentStream = new PDPageContentStream(result, page, PDPageContentStream.AppendMode.PREPEND, true, true);
+                newPageContentStream.transform(scaleMatrix);
+                newPageContentStream.close();
+                for (PDAnnotation pdAnnotation : page.getAnnotations()) {
+                    PDRectangle rectangle = pdAnnotation.getRectangle();
+                    PDRectangle scaled = new PDRectangle(scaleFactor * rectangle.getLowerLeftX() + (translateX * scaleFactor),
+                                                            scaleFactor * rectangle.getLowerLeftY() + (translateY * scaleFactor),
+                                                            scaleFactor * rectangle.getWidth(),
+                                                            scaleFactor * rectangle.getHeight());
+                    pdAnnotation.setRectangle(scaled);
+                }
+                // Recalculate the left margin to set the citation strip based on the new scaled content
+                currentMargin = calculateLeftMargin(source, 1, 2, pageHeight - marginY, marginY);
+                marginX = ((currentMargin - citationWidth) / 2) + leading;
             }
+
+            PDPageContentStream contentStream = new PDPageContentStream(result, page, PDPageContentStream.AppendMode.APPEND, true, true);
 
             for (int i = 0; i < lines.size(); i++) {
                 Matrix matrix;
@@ -324,7 +358,6 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
                 contentStream.endText(); 
             }
             contentStream.close();
-            result.addPage(page);
         }
     }
 
@@ -360,10 +393,10 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
         return font.getStringWidth(text) * fontSize / 1000f;
     }
 
-    private float calculateLeftMargin(PDDocument doc) throws IOException {
-        PDFMarginTextStripper stripper = new PDFMarginTextStripper();
-        stripper.setStartPage(1);
-        stripper.setEndPage(2);
+    private float calculateLeftMargin(PDDocument doc, int start, int end, float upperLimit, float lowerLimit) throws IOException {
+        PDFMarginTextStripper stripper = new PDFMarginTextStripper(upperLimit, lowerLimit);
+        stripper.setStartPage(start);
+        stripper.setEndPage(end);
         stripper.getText(doc);
         return stripper.getMargin();
     }
@@ -371,9 +404,13 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
 
         private float margin = Float.MAX_VALUE;
         private boolean startOfLine = true;
+        private float upperLimit;
+        private float lowerLimit;
 
-        public PDFMarginTextStripper() throws IOException {
+        public PDFMarginTextStripper(float upperLimit, float lowerLimit) throws IOException {
             super();
+            this.upperLimit = upperLimit;
+            this.lowerLimit = lowerLimit;
         }
 
         @Override
@@ -392,8 +429,10 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
         protected void writeString(String text, List<TextPosition> textPositions) throws IOException {
             if (startOfLine) {
                 TextPosition firstPosition = textPositions.get(0);
-                if (firstPosition.getXDirAdj() < margin) {
-                    margin = firstPosition.getXDirAdj();
+                if (firstPosition.getX() < margin 
+                        && firstPosition.getY() < upperLimit
+                        && firstPosition.getY() > lowerLimit) {
+                    margin = firstPosition.getX();
                 }
                 startOfLine = false;
             }
