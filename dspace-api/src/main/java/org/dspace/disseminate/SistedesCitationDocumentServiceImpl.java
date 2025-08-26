@@ -91,6 +91,8 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
      */
     protected List<String> citationEnabledCollectionsList;
 
+    protected PDColor color = new PDColor(new float[] { 0.65f, 0.65f, 0.65f }, PDDeviceRGB.INSTANCE);
+
     protected File tempDir;
 
     @Autowired(required = true)
@@ -145,6 +147,21 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
         if (citationEnabledCollectionsList == null) {
             citationEnabledCollectionsList = new ArrayList<>();
         }
+
+        //Load citation strip color
+        String[] citationStripColor = configurationService
+                .getArrayProperty("citation-strip.color");
+        try {
+            if (citationStripColor.length == 3) {
+                color = new PDColor(new float[] { 
+                        Float.valueOf(citationStripColor[0]),
+                        Float.valueOf(citationStripColor[1]),
+                        Float.valueOf(citationStripColor[2])
+                    }, PDDeviceRGB.INSTANCE);
+            }
+        } catch (NullPointerException | NumberFormatException e) {
+            log.error("Unable to parse option 'citation-strip.color'");
+        };
 
         if (citationEnabledCommunities != null && citationEnabledCommunities.length > 0) {
             Context context = null;
@@ -282,7 +299,6 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
     private void addCitationToDocument(PDDocument result, PDDocument source, String citation) throws IOException {
 
         PDFont pdfFont = PDType1Font.HELVETICA_OBLIQUE;
-        PDColor color = new PDColor(new float[] { 0.65f, 0.65f, 0.65f }, PDDeviceRGB.INSTANCE);
         float fontSize = 8;
         float leading = 1.2f * fontSize;
 
