@@ -54,7 +54,7 @@ public class GenerateBibTeXCitation extends GenerateCitation {
                 return Curator.CURATE_FAIL;
             }
         } else {
-            result = "Skipping non-Item element" + dso.getID();
+            result = "Skipping non-Item element " + dso.getID();
             setResult(result);
             report(result);
             return Curator.CURATE_SKIP;
