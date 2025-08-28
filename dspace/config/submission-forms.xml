@@ -1739,7 +1739,7 @@
                     <style>col-sm-6</style>
                     <input-type value-pairs-name="ispartof_minutes">dropdown</input-type>
                     <hint>Indique a qué colección de documentos de Sistedes pertenece el acta.</hint>
-                    <required>Las actas deben formar parte de las Actas e informes de las asambleas de Sistedes.</required>
+                    <required>Las actas deben formar parte de las Actas de las asambleas de Sistedes.</required>
                 </field>
             </row>
         </form>
@@ -2427,8 +2427,8 @@
         </value-pairs>
         <value-pairs value-pairs-name="ispartof_minutes" dc-term="ispartof">
             <pair>
-                <displayed-value>Actas e informes de las asambleas de Sistedes</displayed-value>
-                <stored-value>Actas e informes de las asambleas de Sistedes</stored-value>
+                <displayed-value>Actas de las asambleas de Sistedes</displayed-value>
+                <stored-value>Actas de las asambleas de Sistedes</stored-value>
             </pair>
         </value-pairs>
         <value-pairs value-pairs-name="sistedes_license_types" dc-term="license">
