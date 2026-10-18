@@ -99,9 +99,9 @@
 
     <bean class='org.dspace.curate.XmlWorkflowCuratorServiceImpl'/>
 
+    <bean class="org.dspace.disseminate.CitationDocumentServiceImpl"/>
     <!-- BEGIN: Sistedes -->
-    <!-- <bean class="org.dspace.disseminate.CitationDocumentServiceImpl"/> -->
-    <bean class="org.dspace.disseminate.SistedesCitationDocumentServiceImpl"/>
+    <bean class="org.dspace.disseminate.SistedesCitationDocumentServiceImpl" primary="true"/>
     <!-- END: Sistedes -->
     <bean class="org.dspace.disseminate.CoverPageService"/>
 

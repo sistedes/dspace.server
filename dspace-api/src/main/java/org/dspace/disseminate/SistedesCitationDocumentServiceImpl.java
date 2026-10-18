@@ -54,10 +54,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * The Citation Document produces a dissemination package (DIP) that is different that the archival package (AIP).
- * In this case we append the descriptive metadata to the end (configurable) of the document. i.e. last page of PDF.
+ * In this case we append the descriptive metadata to the margin of the document in the first page of PDF.
  * So instead of getting the original PDF, you get a cPDF (with citation information added).
  *
  * @author Peter Dietz (peter@longsight.com)
+ * @author Abel Gómez (abgolla@gmail.com)
  */
 public class SistedesCitationDocumentServiceImpl implements CitationDocumentService, InitializingBean {
     /**
