@@ -13,6 +13,23 @@ import java.security.PrivateKey;
 import java.text.MessageFormat;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.dspace.content.Collection;
+import org.dspace.content.Community;
+import org.dspace.content.DSpaceObject;
+import org.dspace.content.Item;
+import org.dspace.content.MetadataValue;
+import org.dspace.content.Site;
+import org.dspace.content.factory.ContentServiceFactory;
+import org.dspace.content.service.CollectionService;
+import org.dspace.content.service.SiteService;
+import org.dspace.core.Context;
+import org.dspace.curate.AbstractCurationTask;
+import org.dspace.curate.Curator;
+
 import net.handle.hdllib.AbstractMessage;
 import net.handle.hdllib.AbstractRequest;
 import net.handle.hdllib.AbstractResponse;
@@ -24,23 +41,6 @@ import net.handle.hdllib.HandleResolver;
 import net.handle.hdllib.HandleValue;
 import net.handle.hdllib.PublicKeyAuthenticationInfo;
 import net.handle.hdllib.Util;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-import org.dspace.content.Collection;
-import org.dspace.content.Community;
-import org.dspace.content.DSpaceObject;
-import org.dspace.content.factory.ContentServiceFactory;
-import org.dspace.content.Item;
-import org.dspace.content.MetadataValue;
-import org.dspace.content.service.CollectionService;
-import org.dspace.content.service.SiteService;
-import org.dspace.core.Context;
-import org.dspace.content.Site;
-import org.dspace.curate.AbstractCurationTask;
-import org.dspace.curate.Curator;
 
 /**
  * Curation taks to register in an external Handle server

@@ -8,6 +8,7 @@
 package org.dspace.ctask.general;
 
 import java.io.IOException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
@@ -78,7 +79,7 @@ public class GenerateBibTeXCitation extends GenerateCitation {
         }
 
         String asBibTexCitation() {
-            return CitationUtilModule.escapeBibtex(
+            return CitationUtil.escapeBibtex(
                 "@misc{" + getHandle().replace("/", ":") + ",\n"
                 + "  title     = {{" + getTitle() + "}},\n"
                 + (  getAuthors().size() > 0
@@ -99,7 +100,7 @@ public class GenerateBibTeXCitation extends GenerateCitation {
         }
 
         String asBibTexCitation() {
-            return CitationUtilModule.escapeBibtex(
+            return CitationUtil.escapeBibtex(
                 "@inproceedings{" + getHandle().replace("/", ":") + ",\n"
                 + "  title     = {{" + getTitle() + "}},\n"
                 + "  author    = {" + StringUtils.join(getAuthors(), " and ") + "},\n"
@@ -115,7 +116,7 @@ public class GenerateBibTeXCitation extends GenerateCitation {
         }
     }
 
-    protected class CitationUtilModule {
+    protected class CitationUtil {
         public static String escapeBibtex(String text) {
             return text
                 .replace("á", "\\'{a}")
