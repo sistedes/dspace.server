@@ -17,25 +17,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColorSpace;
-import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;
 import org.apache.pdfbox.util.Matrix;
-import org.apache.poi.ss.usermodel.Color;
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.authorize.service.AuthorizeService;
 import org.dspace.content.Bitstream;
@@ -168,7 +167,7 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
 
         // Max distance
         String maxDistanceStr = configurationService.getProperty("citation-strip.margin_max_distance", "none");
-        if (StringUtils.equals("none", maxDistanceStr)) {
+        if ("none".equals(maxDistanceStr)) {
             maxDistance = Integer.MAX_VALUE;
         } else {
             try {
@@ -293,7 +292,7 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
 
     private PDDocument loadDocumentFromDB(Context context, Bitstream bitstream) {
         try (var inputStream = bitstreamService.retrieve(context, bitstream)) {
-            return PDDocument.load(inputStream);
+            return Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
         } catch (IOException | SQLException | AuthorizeException e) {
             throw new RuntimeException(e);
         }
@@ -313,7 +312,7 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
 
     private void addCitationToDocument(PDDocument result, PDDocument source, String citation) throws IOException {
 
-        PDFont pdfFont = PDType1Font.HELVETICA_OBLIQUE;
+        PDFont pdfFont = new PDType1Font(Standard14Fonts.FontName.HELVETICA_OBLIQUE);
         float fontSize = 8;
         float leading = 1.2f * fontSize;
 
