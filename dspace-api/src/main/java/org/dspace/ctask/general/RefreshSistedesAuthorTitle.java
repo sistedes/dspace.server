@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
 import org.dspace.content.MetadataFieldName;
+import org.dspace.core.Context;
 import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
 
@@ -27,7 +28,7 @@ public class RefreshSistedesAuthorTitle extends AbstractCurationTask {
     protected String result = null;
 
     @Override
-    public int perform(DSpaceObject dso) throws IOException {
+    public int perform(Context context, DSpaceObject dso) throws IOException {
         if (dso instanceof Item && "Autor".equals(itemService.getMetadata((Item) dso, "dspace.entity.type"))) {
             Item item = (Item) dso;
             try {
@@ -35,8 +36,8 @@ public class RefreshSistedesAuthorTitle extends AbstractCurationTask {
                 String givenName = itemService.getMetadataFirstValue(item, new MetadataFieldName("person.givenName"), Item.ANY);
                 String title = StringUtils.isNotBlank(familyName) && StringUtils.isNotBlank(givenName) ?
                                 familyName + ", " + givenName : StringUtils.trimToEmpty(familyName + givenName);
-                itemService.clearMetadata(Curator.curationContext(), item, "dc", "title", null, Item.ANY);
-                itemService.setMetadataSingleValue(Curator.curationContext(), item, "dc", "title", null, null, title);
+                itemService.clearMetadata(context, item, "dc", "title", null, Item.ANY);
+                itemService.setMetadataSingleValue(context, item, "dc", "title", null, null, title);
                 result = "Title succesfully set in Author " + dso.getID();
                 setResult(result);
                 report(result);

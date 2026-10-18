@@ -21,6 +21,7 @@ import org.dspace.app.mediafilter.service.MediaFilterService;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
 import org.dspace.core.Constants;
+import org.dspace.core.Context;
 import org.dspace.core.SelfNamedPlugin;
 import org.dspace.core.factory.CoreServiceFactory;
 import org.dspace.curate.AbstractCurationTask;
@@ -82,10 +83,10 @@ public class FilterMedia extends AbstractCurationTask {
     }
 
     @Override
-    public int perform(DSpaceObject dso) throws IOException {
+    public int perform(Context context, DSpaceObject dso) throws IOException {
         if (dso instanceof Item) {
             try {
-                if (mediaFilterService.filterItem(Curator.curationContext(), (Item) dso)) {
+                if (mediaFilterService.filterItem(context, (Item) dso)) {
                     result = "Media filters succesfully applied on Item " + dso.getID();
                     setResult(result);
                     report(result);

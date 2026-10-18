@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dspace.content.DCDate;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
+import org.dspace.core.Context;
 import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
 
@@ -31,13 +32,13 @@ public class GenerateCitation extends AbstractCurationTask {
     protected String result = null;
 
     @Override
-    public int perform(DSpaceObject dso) throws IOException {
+    public int perform(Context context, DSpaceObject dso) throws IOException {
 
         boolean force = taskBooleanProperty(CONF_FORCE, false);
 
         if (dso instanceof Item) {
             Item item = (Item) dso;
-            if (StringUtils.equals("Autor", itemService.getMetadata(item, "dspace.entity.type"))) {
+            if ("Autor".equals(itemService.getMetadata(item, "dspace.entity.type"))) {
                 result = "Skipping Author element" + dso.getID();
                 setResult(result);
                 report(result);
@@ -45,8 +46,8 @@ public class GenerateCitation extends AbstractCurationTask {
             }
             try {
                 if (StringUtils.isEmpty(itemService.getMetadata(item, "dc.identifier.citation")) || force) {
-                    itemService.clearMetadata(Curator.curationContext(), item, "dc", "identifier", "citation", Item.ANY);
-                    itemService.setMetadataSingleValue(Curator.curationContext(), item, "dc", "identifier", "citation", null, createCitation(item).asTextCitation());
+                    itemService.clearMetadata(context, item, "dc", "identifier", "citation", Item.ANY);
+                    itemService.setMetadataSingleValue(context, item, "dc", "identifier", "citation", null, createCitation(item).asTextCitation());
                     result = "Property 'dc.identifier.citation' succesfully set in Item " + dso.getID();
                     setResult(result);
                     report(result);

@@ -12,6 +12,7 @@ import java.io.IOException;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
 import org.dspace.content.MetadataFieldName;
+import org.dspace.core.Context;
 import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
 
@@ -25,14 +26,14 @@ public class SetOrcidAuthenticatedSistedesAuthor extends AbstractCurationTask {
     protected String result = null;
 
     @Override
-    public int perform(DSpaceObject dso) throws IOException {
+    public int perform(Context context, DSpaceObject dso) throws IOException {
         if (dso instanceof Item && "Autor".equals(itemService.getMetadata((Item) dso, "dspace.entity.type"))) {
             Item item = (Item) dso;
             try {
                 if (itemService.getMetadata(item, "person.identifier.orcid") != null 
                         && itemService.getMetadata(item, "dspace.orcid.authenticated") == null) {
                     String date = itemService.getMetadata(item, "dc.date.accessioned");
-                    itemService.setMetadataSingleValue(Curator.curationContext(), item, new MetadataFieldName("dspace.orcid.authenticated"), null, date);
+                    itemService.setMetadataSingleValue(context, item, new MetadataFieldName("dspace.orcid.authenticated"), null, date);
                 }
                 result = "Metadata 'dspace.orcid.authenticated' succesfully set in Author " + dso.getID();
                 setResult(result);

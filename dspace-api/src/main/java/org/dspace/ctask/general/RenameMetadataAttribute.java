@@ -16,6 +16,7 @@ import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
 import org.dspace.content.MetadataFieldName;
 import org.dspace.content.MetadataValue;
+import org.dspace.core.Context;
 import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
 
@@ -37,7 +38,7 @@ public class RenameMetadataAttribute extends AbstractCurationTask {
     }
 
     @Override
-    public int perform(DSpaceObject dso) throws IOException {
+    public int perform(Context context, DSpaceObject dso) throws IOException {
 
         String source = taskProperty(CONF_SOURCE);
         String target = taskProperty(CONF_TARGET);
@@ -67,13 +68,13 @@ public class RenameMetadataAttribute extends AbstractCurationTask {
                 if (!values.isEmpty()) {
                     values.forEach(v -> {
                         try {
-                            itemService.addMetadata(Curator.curationContext(), item, targetField.schema, 
+                            itemService.addMetadata(context, item, targetField.schema, 
 											targetField.element, targetField.qualifier, v.getLanguage(), v.getValue());
                         } catch (SQLException e) {
                             report("An error occurred: " + e.getMessage());
                         }
                     });
-                    itemService.clearMetadata(Curator.curationContext(), 
+                    itemService.clearMetadata(context, 
 									item, sourceField.schema, sourceField.element, sourceField.qualifier, language);
                     result = "Attribute succesfully renamed in Item " + dso.getID();
                     setResult(result);

@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
 import org.dspace.content.MetadataFieldName;
+import org.dspace.core.Context;
 import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
 
@@ -33,7 +34,7 @@ public class DeleteMetadataAttribute extends AbstractCurationTask {
     }
 
     @Override
-    public int perform(DSpaceObject dso) throws IOException {
+    public int perform(Context context, DSpaceObject dso) throws IOException {
 
         String field = taskProperty(CONF_FIELD);
         String language = taskProperty(CONF_LANGUAGE, Item.ANY);
@@ -48,7 +49,7 @@ public class DeleteMetadataAttribute extends AbstractCurationTask {
         MetadataFieldName metadataField = new MetadataFieldName(field);
         try {
             Item item = (Item) dso;
-            itemService.clearMetadata(Curator.curationContext(), 
+            itemService.clearMetadata(context, 
                             item, metadataField.schema, metadataField.element, metadataField.qualifier, language);
             result = "Attribute succesfully deleted in Item " + dso.getID();
             setResult(result);

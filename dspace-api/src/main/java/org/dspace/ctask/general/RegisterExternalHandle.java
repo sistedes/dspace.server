@@ -37,6 +37,7 @@ import org.dspace.content.Item;
 import org.dspace.content.MetadataValue;
 import org.dspace.content.service.CollectionService;
 import org.dspace.content.service.SiteService;
+import org.dspace.core.Context;
 import org.dspace.content.Site;
 import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
@@ -70,7 +71,7 @@ public class RegisterExternalHandle extends AbstractCurationTask {
     }
     
     @Override
-    public int perform(DSpaceObject dso) throws IOException {
+    public int perform(Context context, DSpaceObject dso) throws IOException {
 
         String prefix = taskProperty(CONF_PREFIX, configurationService.getProperty("handle.prefix"));
         File keyFile = new File(taskProperty(CONF_KEY, "admpriv.bin"));

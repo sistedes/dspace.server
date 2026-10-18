@@ -47,7 +47,7 @@ public class MakePublic extends AbstractCurationTask {
     }
 
     @Override
-    public int perform(DSpaceObject dso) throws IOException {
+    public int perform(Context context, DSpaceObject dso) throws IOException {
         if (dso instanceof Item) {
             if (!((Item) dso).isArchived()) {
                 result = "Skipping not archived Item: " + dso.getID();
@@ -57,7 +57,6 @@ public class MakePublic extends AbstractCurationTask {
             }
         }
         try {
-            Context context = Curator.curationContext();
             Group anonymous = groupService.findByName(context, Group.ANONYMOUS);
             resourcePolicyService.removePolicies(context, dso, Constants.READ);
             if (dso instanceof Item) {

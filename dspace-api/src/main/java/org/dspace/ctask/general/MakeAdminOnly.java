@@ -41,7 +41,7 @@ public class MakeAdminOnly extends AbstractCurationTask {
     }
 
     @Override
-    public int perform(DSpaceObject dso) throws IOException {
+    public int perform(Context context, DSpaceObject dso) throws IOException {
         if (dso instanceof Item) {
             if (!((Item) dso).isArchived()) {
                 result = "Skipping not archived Item: " + dso.getID();
@@ -51,7 +51,6 @@ public class MakeAdminOnly extends AbstractCurationTask {
             }
         }
         try {
-            Context context = Curator.curationContext();
             resourcePolicyService.removePolicies(context, dso, Constants.READ);
             if (dso instanceof Item) {
                 Item item = (Item) dso;

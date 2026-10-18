@@ -11,6 +11,7 @@ import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
+import org.dspace.core.Context;
 import org.dspace.curate.Curator;
 
 /**
@@ -21,13 +22,13 @@ import org.dspace.curate.Curator;
 public class GenerateBibTeXCitation extends GenerateCitation {
 
     @Override
-    public int perform(DSpaceObject dso) throws IOException {
+    public int perform(Context context, DSpaceObject dso) throws IOException {
 
         boolean force = taskBooleanProperty(CONF_FORCE, false);
 
         if (dso instanceof Item) {
             Item item = (Item) dso;
-            if (StringUtils.equals("Autor", itemService.getMetadata(item, "dspace.entity.type"))) {
+            if ("Autor".equals(itemService.getMetadata(item, "dspace.entity.type"))) {
                 result = "Skipping Author element" + dso.getID();
                 setResult(result);
                 report(result);
@@ -35,8 +36,8 @@ public class GenerateBibTeXCitation extends GenerateCitation {
             }
             try {
                 if (StringUtils.isEmpty(itemService.getMetadata(item, "dc.identifier.citation-bibtex")) || force) {
-                    itemService.clearMetadata(Curator.curationContext(), item, "dc", "identifier", "citation-bibtex", Item.ANY);
-                    itemService.setMetadataSingleValue(Curator.curationContext(), item, "dc", "identifier", "citation-bibtex", null, createCitation(item).asBibTexCitation());
+                    itemService.clearMetadata(context, item, "dc", "identifier", "citation-bibtex", Item.ANY);
+                    itemService.setMetadataSingleValue(context, item, "dc", "identifier", "citation-bibtex", null, createCitation(item).asBibTexCitation());
                     result = "Property 'dc.identifier.citation-bibtex' succesfully set in Item " + dso.getID();
                     setResult(result);
                     report(result);
