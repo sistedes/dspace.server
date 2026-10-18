@@ -155,7 +155,7 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
                 .getArrayProperty("citation-strip.color");
         try {
             if (citationStripColor.length == 3) {
-                color = new PDColor(new float[] { 
+                color = new PDColor(new float[] {
                         Float.valueOf(citationStripColor[0]),
                         Float.valueOf(citationStripColor[1]),
                         Float.valueOf(citationStripColor[2])
@@ -163,7 +163,7 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
             }
         } catch (NullPointerException | NumberFormatException e) {
             log.error("Unable to parse option 'citation-strip.color'");
-        };
+        }
 
         // Max distance
         String maxDistanceStr = configurationService.getProperty("citation-strip.margin_max_distance", "none");
@@ -174,7 +174,7 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
                 maxDistance = Integer.valueOf(maxDistanceStr);
             } catch (NumberFormatException e) {
                 log.error("Unable to parse option 'citation-strip.margin_max_distance'");
-            };
+            }
         }
 
         if (citationEnabledCommunities != null && citationEnabledCommunities.length > 0) {
@@ -330,7 +330,7 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
         List<String> lines = splitTextInLines(pdfFont, fontSize, maxLineLength, citation);
         float citationWidth = (leading * lines.size()) - (0.2f * fontSize);
         float marginX = ((currentMargin - citationWidth) / 2) + leading;
-        
+
         float scaleFactor = (pageWidth - (citationWidth * 4)) / (pageWidth - (currentMargin * 2));
         float translateX = (pageWidth * (1 - scaleFactor)) / scaleFactor / 2;
         float translateY = (pageHeight * (1 - scaleFactor)) / scaleFactor / 2;
@@ -344,15 +344,17 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
             if (currentMargin < citationWidth) {
                 // The citation does not fit in the margin
                 // Scale the page contents to make room
-                PDPageContentStream newPageContentStream = new PDPageContentStream(result, page, PDPageContentStream.AppendMode.PREPEND, true, true);
+                PDPageContentStream newPageContentStream = new PDPageContentStream(
+                    result, page, PDPageContentStream.AppendMode.PREPEND, true, true);
                 newPageContentStream.transform(scaleMatrix);
                 newPageContentStream.close();
                 for (PDAnnotation pdAnnotation : page.getAnnotations()) {
                     PDRectangle rectangle = pdAnnotation.getRectangle();
-                    PDRectangle scaled = new PDRectangle(scaleFactor * rectangle.getLowerLeftX() + (translateX * scaleFactor),
-                                                            scaleFactor * rectangle.getLowerLeftY() + (translateY * scaleFactor),
-                                                            scaleFactor * rectangle.getWidth(),
-                                                            scaleFactor * rectangle.getHeight());
+                    PDRectangle scaled = new PDRectangle(
+                            scaleFactor * rectangle.getLowerLeftX() + (translateX * scaleFactor),
+                            scaleFactor * rectangle.getLowerLeftY() + (translateY * scaleFactor),
+                            scaleFactor * rectangle.getWidth(),
+                            scaleFactor * rectangle.getHeight());
                     pdAnnotation.setRectangle(scaled);
                 }
                 // Recalculate the left margin to set the citation strip based on the new scaled content
@@ -378,7 +380,6 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
                                         Math.toRadians(90),
                                         marginX + (leading * i),
                                         marginY);
-
                 }
                 contentStream.beginText();
                 contentStream.setTextMatrix(matrix);
@@ -424,7 +425,8 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
         return font.getStringWidth(text) * fontSize / 1000f;
     }
 
-    private float calculateLeftMargin(PDDocument doc, int start, int end, float upperLimit, float lowerLimit) throws IOException {
+    private float calculateLeftMargin(
+            PDDocument doc, int start, int end, float upperLimit, float lowerLimit) throws IOException {
         PDFMarginTextStripper stripper = new PDFMarginTextStripper(upperLimit, lowerLimit);
         stripper.setStartPage(start);
         stripper.setEndPage(end);
@@ -460,7 +462,7 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
         protected void writeString(String text, List<TextPosition> textPositions) throws IOException {
             if (startOfLine) {
                 TextPosition firstPosition = textPositions.get(0);
-                if (firstPosition.getX() < margin 
+                if (firstPosition.getX() < margin
                         && firstPosition.getY() < upperLimit
                         && firstPosition.getY() > lowerLimit) {
                     margin = firstPosition.getX();

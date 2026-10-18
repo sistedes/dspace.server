@@ -64,18 +64,18 @@ public class RenameMetadataAttribute extends AbstractCurationTask {
             try {
                 Item item = (Item) dso;
                 List<MetadataValue> values = itemService
-						.getMetadata(item, sourceField.schema, sourceField.element, sourceField.qualifier, language);
+                        .getMetadata(item, sourceField.schema, sourceField.element, sourceField.qualifier, language);
                 if (!values.isEmpty()) {
                     values.forEach(v -> {
                         try {
                             itemService.addMetadata(context, item, targetField.schema, 
-											targetField.element, targetField.qualifier, v.getLanguage(), v.getValue());
+                                            targetField.element, targetField.qualifier, v.getLanguage(), v.getValue());
                         } catch (SQLException e) {
                             report("An error occurred: " + e.getMessage());
                         }
                     });
                     itemService.clearMetadata(context, 
-									item, sourceField.schema, sourceField.element, sourceField.qualifier, language);
+                                    item, sourceField.schema, sourceField.element, sourceField.qualifier, language);
                     result = "Attribute succesfully renamed in Item " + dso.getID();
                     setResult(result);
                     report(result);

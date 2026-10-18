@@ -159,13 +159,13 @@ public class GenerateCitation extends AbstractCurationTask {
         
         protected String asTextCitation() {
             return (this.getAuthors().size() > 0 ? StringUtils.join(this.getAuthors(), ", ") + ": " : "")
-            + this.getTitle() + ". "
-            + "In: "
-            + ( this.getEditors().size() > 0 ? ( StringUtils.join(this.getEditors(), ", ") + " (ed" + (this.getEditors().size() > 1 ? "s" : "") + ".) " ) : "" )
-            + StringUtils.join(this.getIsPartOf(), ", ") + ". "
-            + this.getPublisher()
-            + " (" + this.getYear() + "). "
-            + this.getUri();
+                + this.getTitle() + ". "
+                + "In: "
+                + ( this.getEditors().size() > 0 ? ( StringUtils.join(this.getEditors(), ", ") + " (ed" + (this.getEditors().size() > 1 ? "s" : "") + ".) " ) : "" )
+                + StringUtils.join(this.getIsPartOf(), ", ") + ". "
+                + this.getPublisher()
+                + " (" + this.getYear() + "). "
+                + this.getUri();
         }
     }
 

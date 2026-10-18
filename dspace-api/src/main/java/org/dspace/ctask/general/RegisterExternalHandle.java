@@ -179,7 +179,7 @@ public class RegisterExternalHandle extends AbstractCurationTask {
     }
 
     private static PublicKeyAuthenticationInfo getAuth(String prefix, File keyFile, String password) throws Exception {
-        byte key[] = IOUtils.toByteArray(keyFile.toURI());
+        byte[] key = IOUtils.toByteArray(keyFile.toURI());
         PrivateKey privkey = null;
         if (Util.requiresSecretKey(key) && StringUtils.isBlank(password)) {
             throw new Exception(MessageFormat.format("Private key in ''{0}'' requires a password", keyFile));

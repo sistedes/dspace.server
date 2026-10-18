@@ -18,7 +18,7 @@ import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
 
 /**
- * Curation task to set the 'dc.title' of an 'Autor' entity type out of its 
+ * Curation task to set the 'dc.title' of an 'Autor' entity type out of its
  * 'person.familyName' and 'person.givenName' fields
  * 
  * @author agomez
@@ -32,8 +32,10 @@ public class RefreshSistedesAuthorTitle extends AbstractCurationTask {
         if (dso instanceof Item && "Autor".equals(itemService.getMetadata((Item) dso, "dspace.entity.type"))) {
             Item item = (Item) dso;
             try {
-                String familyName = itemService.getMetadataFirstValue(item, new MetadataFieldName("person.familyName"), Item.ANY);
-                String givenName = itemService.getMetadataFirstValue(item, new MetadataFieldName("person.givenName"), Item.ANY);
+                String familyName = itemService.getMetadataFirstValue(item, 
+                    new MetadataFieldName("person.familyName"), Item.ANY);
+                String givenName = itemService.getMetadataFirstValue(item,
+                    new MetadataFieldName("person.givenName"), Item.ANY);
                 String title = StringUtils.isNotBlank(familyName) && StringUtils.isNotBlank(givenName) ?
                                 familyName + ", " + givenName : StringUtils.trimToEmpty(familyName + givenName);
                 itemService.clearMetadata(context, item, "dc", "title", null, Item.ANY);

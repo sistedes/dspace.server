@@ -117,6 +117,10 @@ public class GenerateBibTeXCitation extends GenerateCitation {
     }
 
     protected class CitationUtil {
+
+        private CitationUtil() {
+        }
+
         public static String escapeBibtex(String text) {
             return text
                 .replace("á", "\\'{a}")
