@@ -1,0 +1,7 @@
+#! /bin/bash
+
+# Copy this file to environment.sh and set the variables below as needed
+
+export DSPACE_USER=USER_EMAIL
+export DSPACE_PASSWORD=USER_PASSWORD
+

@@ -26,6 +26,11 @@
                 <entry key="isOrgUnitOfDataset" value-ref="isOrgUnitOfPublicationMap"/>
                 <entry key="isDatasetOfPublication" value-ref="isDatasetOfPublicationMap"/>
                 <entry key="isPublicationOfDataset" value-ref="isPublicationOfDatasetMap"/>
+                <!-- BEGIN: Sistedes -->
+                <entry key="isAuthorOfPaper" value-ref="isAuthorOfPublicationMap"/>
+                <entry key="isAuthorOfAbstract" value-ref="isAuthorOfPublicationMap"/>
+                <entry key="isAuthorOfSeminar" value-ref="isAuthorOfPublicationMap"/>
+                <!-- END: Sistedes -->
             </map>
         </property>
     </bean>
@@ -37,6 +42,11 @@
                 <entry key="Person" value="f.entityType=Person,equals"/>
                 <entry key="Journal" value="f.entityType=Journal,equals"/>
                 <entry key="Dataset" value="f.entityType=Dataset,equals"/>
+                <!-- BEGIN: Sistedes -->
+                <entry key="Paper" value="f.entityType=Artículo,equals"/>
+                <entry key="Abstract" value="f.entityType=Resumen,equals"/>
+                <entry key="Seminar" value="f.entityType=Seminario,equals"/>
+                <!-- END: Sistedes -->
             </map>
         </property>
     </bean>
