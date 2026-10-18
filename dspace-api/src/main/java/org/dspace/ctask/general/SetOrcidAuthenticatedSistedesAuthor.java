@@ -17,7 +17,7 @@ import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
 
 /**
- * Curation task to set the 'dspace.orcid.authenticated' of an 'Autor' entity type 
+ * Curation task to set the 'dspace.orcid.authenticated' of an 'Autor' entity type
  * 
  * @author agomez
  */
@@ -30,10 +30,11 @@ public class SetOrcidAuthenticatedSistedesAuthor extends AbstractCurationTask {
         if (dso instanceof Item && "Autor".equals(itemService.getMetadata((Item) dso, "dspace.entity.type"))) {
             Item item = (Item) dso;
             try {
-                if (itemService.getMetadata(item, "person.identifier.orcid") != null 
+                if (itemService.getMetadata(item, "person.identifier.orcid") != null
                         && itemService.getMetadata(item, "dspace.orcid.authenticated") == null) {
                     String date = itemService.getMetadata(item, "dc.date.accessioned");
-                    itemService.setMetadataSingleValue(context, item, new MetadataFieldName("dspace.orcid.authenticated"), null, date);
+                    itemService.setMetadataSingleValue(context, item,
+                                    new MetadataFieldName("dspace.orcid.authenticated"), null, date);
                 }
                 result = "Metadata 'dspace.orcid.authenticated' succesfully set in Author " + dso.getID();
                 setResult(result);

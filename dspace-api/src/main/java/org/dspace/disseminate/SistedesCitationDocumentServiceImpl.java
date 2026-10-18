@@ -364,7 +364,8 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
                 marginX = maxDistance;
             }
 
-            PDPageContentStream contentStream = new PDPageContentStream(result, page, PDPageContentStream.AppendMode.APPEND, true, true);
+            PDPageContentStream contentStream = new PDPageContentStream(
+                result, page, PDPageContentStream.AppendMode.APPEND, true, true);
 
             for (int i = 0; i < lines.size(); i++) {
                 Matrix matrix;
@@ -387,7 +388,7 @@ public class SistedesCitationDocumentServiceImpl implements CitationDocumentServ
                 contentStream.setNonStrokingColor(color);
                 contentStream.newLineAtOffset(0, 0);
                 contentStream.showText(lines.get(i));
-                contentStream.endText(); 
+                contentStream.endText();
             }
             contentStream.close();
         }

@@ -36,7 +36,8 @@ import org.dspace.eperson.service.GroupService;
  */
 public class MakePublic extends AbstractCurationTask {
 
-    private ResourcePolicyService resourcePolicyService = AuthorizeServiceFactory.getInstance().getResourcePolicyService();
+    private ResourcePolicyService resourcePolicyService = AuthorizeServiceFactory.getInstance()
+            .getResourcePolicyService();
     private AuthorizeService authorizeService = AuthorizeServiceFactory.getInstance().getAuthorizeService();
     private GroupService groupService = EPersonServiceFactory.getInstance().getGroupService();
 
@@ -61,17 +62,20 @@ public class MakePublic extends AbstractCurationTask {
             resourcePolicyService.removePolicies(context, dso, Constants.READ);
             if (dso instanceof Item) {
                 Item item = (Item) dso;
-                authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ, ResourcePolicy.TYPE_INHERITED);
+                authorizeService.createResourcePolicy(context, dso, anonymous, null, Constants.READ,
+                        ResourcePolicy.TYPE_INHERITED);
                 List<Bundle> bundles = new ArrayList<Bundle>();
                 bundles.addAll(item.getBundles("ORIGINAL"));
                 bundles.addAll(item.getBundles("TEXT"));
                 bundles.addAll(item.getBundles("THUMBNAIL"));
                 for (Bundle bundle : bundles) {
                     resourcePolicyService.removePolicies(context, bundle, Constants.READ);
-                    authorizeService.createResourcePolicy(context, bundle, anonymous, null, Constants.READ, ResourcePolicy.TYPE_INHERITED);
-                    for (Bitstream bitstream: bundle.getBitstreams()) {
+                    authorizeService.createResourcePolicy(context, bundle, anonymous, null, Constants.READ,
+                            ResourcePolicy.TYPE_INHERITED);
+                    for (Bitstream bitstream : bundle.getBitstreams()) {
                         resourcePolicyService.removePolicies(context, bitstream, Constants.READ);
-                        authorizeService.createResourcePolicy(context, bitstream, anonymous, null, Constants.READ, null);
+                        authorizeService.createResourcePolicy(context, bitstream, anonymous, null, Constants.READ,
+                                null);
                     }
                 }
             } else {

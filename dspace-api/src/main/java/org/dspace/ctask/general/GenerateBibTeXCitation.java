@@ -38,13 +38,16 @@ public class GenerateBibTeXCitation extends GenerateCitation {
             try {
                 if (StringUtils.isEmpty(itemService.getMetadata(item, "dc.identifier.citation-bibtex")) || force) {
                     itemService.clearMetadata(context, item, "dc", "identifier", "citation-bibtex", Item.ANY);
-                    itemService.setMetadataSingleValue(context, item, "dc", "identifier", "citation-bibtex", null, createCitation(item).asBibTexCitation());
+                    itemService.setMetadataSingleValue(context, item, "dc", "identifier", "citation-bibtex", null,
+                            createCitation(item).asBibTexCitation());
                     result = "Property 'dc.identifier.citation-bibtex' succesfully set in Item " + dso.getID();
                     setResult(result);
                     report(result);
                     return Curator.CURATE_SUCCESS;
                 } else {
-                    result = "Property 'dc.identifier.citation-bibtex' already exists (maybe you forgot the 'force=true' parameter?). Skipping Item " + dso.getID();
+                    result = "Property 'dc.identifier.citation-bibtex' already exists "
+                            + "(maybe you forgot the 'force=true' parameter?). Skipping Item "
+                            + dso.getID();
                     setResult(result);
                     report(result);
                     return Curator.CURATE_SKIP;
@@ -62,7 +65,7 @@ public class GenerateBibTeXCitation extends GenerateCitation {
             return Curator.CURATE_SKIP;
         }
     }
-    
+
     protected Citation createCitation(Item item) {
         String entityType = itemService.getMetadata(item, "dspace.entity.type");
         if ("Resumen".equals(entityType) || "Artículo".equals(entityType)) {
@@ -80,16 +83,16 @@ public class GenerateBibTeXCitation extends GenerateCitation {
 
         String asBibTexCitation() {
             return CitationUtil.escapeBibtex(
-                "@misc{" + getHandle().replace("/", ":") + ",\n"
-                + "  title     = {{" + getTitle() + "}},\n"
-                + (  getAuthors().size() > 0
-                ? "  author    = {" + StringUtils.join(getAuthors(), " and ") + "},\n"
-                : "" )
-                + "  url       = {" + getUri() + "},\n"
-                + "  year      = {" + getYear() + "},\n"
-                + "  publisher = {{" + getPublisher() + "}},\n"
-                + "  booktitle = {{" + StringUtils.join(getIsPartOf(), ", ") + "}}\n"
-                + "}");
+                    "@misc{" + getHandle().replace("/", ":") + ",\n"
+                            + "  title     = {{" + getTitle() + "}},\n"
+                            + (getAuthors().size() > 0
+                                    ? "  author    = {" + StringUtils.join(getAuthors(), " and ") + "},\n"
+                                    : "")
+                            + "  url       = {" + getUri() + "},\n"
+                            + "  year      = {" + getYear() + "},\n"
+                            + "  publisher = {{" + getPublisher() + "}},\n"
+                            + "  booktitle = {{" + StringUtils.join(getIsPartOf(), ", ") + "}}\n"
+                            + "}");
         }
     }
 
@@ -101,18 +104,20 @@ public class GenerateBibTeXCitation extends GenerateCitation {
 
         String asBibTexCitation() {
             return CitationUtil.escapeBibtex(
-                "@inproceedings{" + getHandle().replace("/", ":") + ",\n"
-                + "  title     = {{" + getTitle() + "}},\n"
-                + "  author    = {" + StringUtils.join(getAuthors(), " and ") + "},\n"
-                + "  url       = {" + getUri() + "},\n"
-                + "  crossref  = {" + getHandle().split("/")[0] + ':' + this.getConferenceAcronym() + ':' + this.getEditionYear() + "}\n"
-                + "}\n\n"
-                + "@proceedings{" + getHandle().split("/")[0] + ':' + this.getConferenceAcronym() + ':' + this.getEditionYear() + ",\n"
-                + "  title     = {{" + StringUtils.join(getIsPartOf(), ", ") + "}},\n"
-                + "  author    = {" + StringUtils.join(getEditors(), " and ") + "},\n"
-                + "  year      = {" + getYear() + "},\n"
-                + "  publisher = {{" + getPublisher() + "}},\n"
-                + "}");
+                    "@inproceedings{" + getHandle().replace("/", ":") + ",\n"
+                            + "  title     = {{" + getTitle() + "}},\n"
+                            + "  author    = {" + StringUtils.join(getAuthors(), " and ") + "},\n"
+                            + "  url       = {" + getUri() + "},\n"
+                            + "  crossref  = {" + getHandle().split("/")[0] + ':' + this.getConferenceAcronym() + ':'
+                            + this.getEditionYear() + "}\n"
+                            + "}\n\n"
+                            + "@proceedings{" + getHandle().split("/")[0] + ':' + this.getConferenceAcronym() + ':'
+                            + this.getEditionYear() + ",\n"
+                            + "  title     = {{" + StringUtils.join(getIsPartOf(), ", ") + "}},\n"
+                            + "  author    = {" + StringUtils.join(getEditors(), " and ") + "},\n"
+                            + "  year      = {" + getYear() + "},\n"
+                            + "  publisher = {{" + getPublisher() + "}},\n"
+                            + "}");
         }
     }
 
@@ -123,56 +128,56 @@ public class GenerateBibTeXCitation extends GenerateCitation {
 
         public static String escapeBibtex(String text) {
             return text
-                .replace("á", "\\'{a}")
-                .replace("é", "\\'{e}")
-                .replace("í", "\\'{i}")
-                .replace("ó", "\\'{o}")
-                .replace("ú", "\\'{u}")
-                .replace("Á", "\\'{A}")
-                .replace("É", "\\'{E}")
-                .replace("Í", "\\'{I}")
-                .replace("Ó", "\\'{O}")
-                .replace("Ú", "\\'{U}")
-                .replace("à", "\\`{a}")
-                .replace("à", "\\`{e}")
-                .replace("ì", "\\`{i}")
-                .replace("ò", "\\`{o}")
-                .replace("ù", "\\`{u}")
-                .replace("À", "\\`{A}")
-                .replace("È", "\\`{E}")
-                .replace("Ì", "\\`{I}")
-                .replace("Ò", "\\`{O}")
-                .replace("Ù", "\\`{U}")
-                .replace("â", "\\^{a}")
-                .replace("ê", "\\^{e}")
-                .replace("î", "\\^{i}")
-                .replace("ô", "\\^{o}")
-                .replace("û", "\\^{u}")
-                .replace("Â", "\\^{A}")
-                .replace("Ê", "\\^{E}")
-                .replace("Î", "\\^{I}")
-                .replace("Ô", "\\^{O}")
-                .replace("Û", "\\^{U}")
-                .replace("ä", "\\\"{a}")
-                .replace("ë", "\\\"{e}")
-                .replace("ï", "\\\"{i}")
-                .replace("ö", "\\\"{o}")
-                .replace("ü", "\\\"{u}")
-                .replace("Ä", "\\\"{A}")
-                .replace("Ë", "\\\"{E}")
-                .replace("Ï", "\\\"{I}")
-                .replace("Ö", "\\\"{O}")
-                .replace("Ü", "\\\"{U}")
-                .replace("ã", "\\~{a}")
-                .replace("ẽ", "\\~{e}")
-                .replace("ĩ", "\\~{i}")
-                .replace("õ", "\\~{o}")
-                .replace("ũ", "\\~{u}")
-                .replace("Ã", "\\~{A}")
-                .replace("Ẽ", "\\~{E}")
-                .replace("Ĩ", "\\~{I}")
-                .replace("Õ", "\\~{O}")
-                .replace("Ũ", "\\~{U}");
+                    .replace("á", "\\'{a}")
+                    .replace("é", "\\'{e}")
+                    .replace("í", "\\'{i}")
+                    .replace("ó", "\\'{o}")
+                    .replace("ú", "\\'{u}")
+                    .replace("Á", "\\'{A}")
+                    .replace("É", "\\'{E}")
+                    .replace("Í", "\\'{I}")
+                    .replace("Ó", "\\'{O}")
+                    .replace("Ú", "\\'{U}")
+                    .replace("à", "\\`{a}")
+                    .replace("à", "\\`{e}")
+                    .replace("ì", "\\`{i}")
+                    .replace("ò", "\\`{o}")
+                    .replace("ù", "\\`{u}")
+                    .replace("À", "\\`{A}")
+                    .replace("È", "\\`{E}")
+                    .replace("Ì", "\\`{I}")
+                    .replace("Ò", "\\`{O}")
+                    .replace("Ù", "\\`{U}")
+                    .replace("â", "\\^{a}")
+                    .replace("ê", "\\^{e}")
+                    .replace("î", "\\^{i}")
+                    .replace("ô", "\\^{o}")
+                    .replace("û", "\\^{u}")
+                    .replace("Â", "\\^{A}")
+                    .replace("Ê", "\\^{E}")
+                    .replace("Î", "\\^{I}")
+                    .replace("Ô", "\\^{O}")
+                    .replace("Û", "\\^{U}")
+                    .replace("ä", "\\\"{a}")
+                    .replace("ë", "\\\"{e}")
+                    .replace("ï", "\\\"{i}")
+                    .replace("ö", "\\\"{o}")
+                    .replace("ü", "\\\"{u}")
+                    .replace("Ä", "\\\"{A}")
+                    .replace("Ë", "\\\"{E}")
+                    .replace("Ï", "\\\"{I}")
+                    .replace("Ö", "\\\"{O}")
+                    .replace("Ü", "\\\"{U}")
+                    .replace("ã", "\\~{a}")
+                    .replace("ẽ", "\\~{e}")
+                    .replace("ĩ", "\\~{i}")
+                    .replace("õ", "\\~{o}")
+                    .replace("ũ", "\\~{u}")
+                    .replace("Ã", "\\~{A}")
+                    .replace("Ẽ", "\\~{E}")
+                    .replace("Ĩ", "\\~{I}")
+                    .replace("Õ", "\\~{O}")
+                    .replace("Ũ", "\\~{U}");
         }
     }
 }

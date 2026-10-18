@@ -32,7 +32,7 @@ public class RefreshSistedesAuthorTitle extends AbstractCurationTask {
         if (dso instanceof Item && "Autor".equals(itemService.getMetadata((Item) dso, "dspace.entity.type"))) {
             Item item = (Item) dso;
             try {
-                String familyName = itemService.getMetadataFirstValue(item, 
+                String familyName = itemService.getMetadataFirstValue(item,
                     new MetadataFieldName("person.familyName"), Item.ANY);
                 String givenName = itemService.getMetadataFirstValue(item,
                     new MetadataFieldName("person.givenName"), Item.ANY);

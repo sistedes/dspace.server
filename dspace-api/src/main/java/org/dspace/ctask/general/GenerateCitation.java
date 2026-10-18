@@ -48,13 +48,15 @@ public class GenerateCitation extends AbstractCurationTask {
             try {
                 if (StringUtils.isEmpty(itemService.getMetadata(item, "dc.identifier.citation")) || force) {
                     itemService.clearMetadata(context, item, "dc", "identifier", "citation", Item.ANY);
-                    itemService.setMetadataSingleValue(context, item, "dc", "identifier", "citation", null, createCitation(item).asTextCitation());
+                    itemService.setMetadataSingleValue(context, item, "dc", "identifier", "citation",
+                            null, createCitation(item).asTextCitation());
                     result = "Property 'dc.identifier.citation' succesfully set in Item " + dso.getID();
                     setResult(result);
                     report(result);
                     return Curator.CURATE_SUCCESS;
                 } else {
-                    result = "Property 'dc.identifier.citation' already exists (maybe you forgot the 'force=true' parameter?). Skipping Item " + dso.getID();
+                    result = "Property 'dc.identifier.citation' already exists"
+                            + "(maybe you forgot the 'force=true' parameter?). Skipping Item " + dso.getID();
                     setResult(result);
                     report(result);
                     return Curator.CURATE_SKIP;
@@ -72,7 +74,7 @@ public class GenerateCitation extends AbstractCurationTask {
             return Curator.CURATE_SKIP;
         }
     }
-    
+
     protected Citation createCitation(Item item) {
         String entityType = itemService.getMetadata(item, "dspace.entity.type");
         if ("Resumen".equals(entityType) || "Artículo".equals(entityType)) {
@@ -98,10 +100,10 @@ public class GenerateCitation extends AbstractCurationTask {
                 } else {
                     String surname = fullname.split(",")[0];
                     String name = Arrays
-                                    .asList(fullname.split(",")[1].trim().split("\\s+"))
-                                    .stream()
-                                    .map(n -> n.substring(0, 1) + '.')
-                                    .collect(Collectors.joining(" "));
+                            .asList(fullname.split(",")[1].trim().split("\\s+"))
+                            .stream()
+                            .map(n -> n.substring(0, 1) + '.')
+                            .collect(Collectors.joining(" "));
                     result.add(surname + ", " + name);
                 }
             }
@@ -113,15 +115,18 @@ public class GenerateCitation extends AbstractCurationTask {
         }
 
         protected List<String> getAuthors() {
-            List<String> signatures = itemService.getMetadata(item, "dc.contributor.signature", Item.ANY).stream().map(s -> s.getValue()).toList();
+            List<String> signatures = itemService.getMetadata(item, "dc.contributor.signature", Item.ANY).stream()
+                    .map(s -> s.getValue()).toList();
             return Citation.abbreviateNames(
-                signatures.size() > 0 
-                ? signatures
-                : itemService.getMetadata(item, "dc.contributor.author", Item.ANY).stream().map(s -> s.getValue()).toList());
+                    signatures.size() > 0
+                            ? signatures
+                            : itemService.getMetadata(item, "dc.contributor.author", Item.ANY)
+                                    .stream().map(s -> s.getValue()).toList());
         }
 
         protected List<String> getIsPartOf() {
-            return itemService.getMetadata(item, "dc.relation.ispartof", Item.ANY).stream().map(s -> s.getValue()).toList();
+            return itemService.getMetadata(item, "dc.relation.ispartof", Item.ANY)
+                    .stream().map(s -> s.getValue()).toList();
         }
 
         protected String getPublisher() {
@@ -145,7 +150,8 @@ public class GenerateCitation extends AbstractCurationTask {
         }
 
         protected List<String> getEditors() {
-            return Citation.abbreviateNames(itemService.getMetadata(item, "bs.proceedings.editor", Item.ANY).stream().map(s -> s.getValue()).toList());
+            return Citation.abbreviateNames(itemService.getMetadata(item, "bs.proceedings.editor", Item.ANY).stream()
+                    .map(s -> s.getValue()).toList());
         }
 
         protected String getUri() {
@@ -153,19 +159,23 @@ public class GenerateCitation extends AbstractCurationTask {
         }
 
         protected String getHandle() {
-            return StringUtils.isNotBlank(itemService.getMetadata(item, "dc.identifier.sistedes")) ? itemService.getMetadata(item, "dc.identifier.sistedes") : this.item.getHandle();
+            return StringUtils.isNotBlank(itemService.getMetadata(item, "dc.identifier.sistedes"))
+                    ? itemService.getMetadata(item, "dc.identifier.sistedes")
+                    : this.item.getHandle();
         }
 
-        
         protected String asTextCitation() {
             return (this.getAuthors().size() > 0 ? StringUtils.join(this.getAuthors(), ", ") + ": " : "")
-                + this.getTitle() + ". "
-                + "In: "
-                + ( this.getEditors().size() > 0 ? ( StringUtils.join(this.getEditors(), ", ") + " (ed" + (this.getEditors().size() > 1 ? "s" : "") + ".) " ) : "" )
-                + StringUtils.join(this.getIsPartOf(), ", ") + ". "
-                + this.getPublisher()
-                + " (" + this.getYear() + "). "
-                + this.getUri();
+                    + this.getTitle() + ". "
+                    + "In: "
+                    + (this.getEditors().size() > 0
+                            ? (StringUtils.join(this.getEditors(), ", ") + " (ed"
+                                    + (this.getEditors().size() > 1 ? "s" : "") + ".) ")
+                            : "")
+                    + StringUtils.join(this.getIsPartOf(), ", ") + ". "
+                    + this.getPublisher()
+                    + " (" + this.getYear() + "). "
+                    + this.getUri();
         }
     }
 

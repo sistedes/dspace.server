@@ -43,7 +43,7 @@ public class RenameMetadataAttribute extends AbstractCurationTask {
         String source = taskProperty(CONF_SOURCE);
         String target = taskProperty(CONF_TARGET);
         String language = taskProperty(CONF_LANGUAGE, Item.ANY);
-        
+
         if (StringUtils.isEmpty(source)) {
             result = "No source metadata attribute specified!";
             setResult(result);
@@ -68,13 +68,13 @@ public class RenameMetadataAttribute extends AbstractCurationTask {
                 if (!values.isEmpty()) {
                     values.forEach(v -> {
                         try {
-                            itemService.addMetadata(context, item, targetField.schema, 
+                            itemService.addMetadata(context, item, targetField.schema,
                                             targetField.element, targetField.qualifier, v.getLanguage(), v.getValue());
                         } catch (SQLException e) {
                             report("An error occurred: " + e.getMessage());
                         }
                     });
-                    itemService.clearMetadata(context, 
+                    itemService.clearMetadata(context,
                                     item, sourceField.schema, sourceField.element, sourceField.qualifier, language);
                     result = "Attribute succesfully renamed in Item " + dso.getID();
                     setResult(result);

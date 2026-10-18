@@ -13,6 +13,17 @@ import java.security.PrivateKey;
 import java.text.MessageFormat;
 import java.util.List;
 
+import net.handle.hdllib.AbstractMessage;
+import net.handle.hdllib.AbstractRequest;
+import net.handle.hdllib.AbstractResponse;
+import net.handle.hdllib.AdminRecord;
+import net.handle.hdllib.CreateHandleRequest;
+import net.handle.hdllib.DeleteHandleRequest;
+import net.handle.hdllib.Encoder;
+import net.handle.hdllib.HandleResolver;
+import net.handle.hdllib.HandleValue;
+import net.handle.hdllib.PublicKeyAuthenticationInfo;
+import net.handle.hdllib.Util;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -29,18 +40,6 @@ import org.dspace.content.service.SiteService;
 import org.dspace.core.Context;
 import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
-
-import net.handle.hdllib.AbstractMessage;
-import net.handle.hdllib.AbstractRequest;
-import net.handle.hdllib.AbstractResponse;
-import net.handle.hdllib.AdminRecord;
-import net.handle.hdllib.CreateHandleRequest;
-import net.handle.hdllib.DeleteHandleRequest;
-import net.handle.hdllib.Encoder;
-import net.handle.hdllib.HandleResolver;
-import net.handle.hdllib.HandleValue;
-import net.handle.hdllib.PublicKeyAuthenticationInfo;
-import net.handle.hdllib.Util;
 
 /**
  * Curation taks to register in an external Handle server
@@ -69,7 +68,7 @@ public class RegisterExternalHandle extends AbstractCurationTask {
     protected String taskProperty(String name, String defaultValue) {
         return super.taskProperty(name) != null ? super.taskProperty(name) : defaultValue;
     }
-    
+
     @Override
     public int perform(Context context, DSpaceObject dso) throws IOException {
 
@@ -85,14 +84,18 @@ public class RegisterExternalHandle extends AbstractCurationTask {
             report(result);
             return Curator.CURATE_SKIP;
         }
-        
+
         if (!keyFile.exists()) {
-            result = "Key file " + keyFile.getAbsolutePath() + " to authenticate in prefix " + prefix + " does not exist";
+            result = "Key file "
+                    + keyFile.getAbsolutePath()
+                    + " to authenticate in prefix "
+                    + prefix
+                    + " does not exist";
             setResult(result);
             report(result);
             return Curator.CURATE_ERROR;
         }
-        
+
         PublicKeyAuthenticationInfo auth;
         try {
             auth = getAuth(prefix, keyFile, password);
@@ -118,7 +121,7 @@ public class RegisterExternalHandle extends AbstractCurationTask {
             report(result);
             return Curator.CURATE_SKIP;
         }
-        
+
         if (metadataList.isEmpty()) {
             result = "No metadata property " + property + " found for " + dso.getID();
             setResult(result);
@@ -129,7 +132,11 @@ public class RegisterExternalHandle extends AbstractCurationTask {
         try {
             for (MetadataValue sistedesIdMetadata : metadataList) {
                 if (!sistedesIdMetadata.getValue().startsWith(prefix + "/")) {
-                    report("Handle " + sistedesIdMetadata.getValue() + " does not reside in prefix " + prefix + ". Skiping." );
+                    report("Handle "
+                            + sistedesIdMetadata.getValue()
+                            + " does not reside in prefix "
+                            + prefix
+                            + ". Skiping.");
                     continue;
                 }
                 registerHandleMapping(dso, prefix, sistedesIdMetadata.getValue(), auth, force);
@@ -146,15 +153,17 @@ public class RegisterExternalHandle extends AbstractCurationTask {
         }
     }
 
-    private void registerHandleMapping(DSpaceObject object, String externalPrefix, String externalHandle, PublicKeyAuthenticationInfo auth, boolean force)
+    private void registerHandleMapping(DSpaceObject object, String externalPrefix,
+            String externalHandle, PublicKeyAuthenticationInfo auth, boolean force)
             throws Exception {
         String targetUrl = handleService.getCanonicalForm(object.getHandle());
         logger.debug(MessageFormat.format("Creating handle ''{0}'' -> ''{1}''", externalHandle, object.getHandle()));
         HandleResolver resolver = new HandleResolver();
         int timestamp = (int) (System.currentTimeMillis() / 1000);
 
-        HandleValue urlVal = new HandleValue(1, Util.encodeString("URL"), Util.encodeString(targetUrl), HandleValue.TTL_TYPE_RELATIVE, 86400, timestamp, null,
-                true, true, true, false);
+        HandleValue urlVal = new HandleValue(1, Util.encodeString("URL"),
+                Util.encodeString(targetUrl), HandleValue.TTL_TYPE_RELATIVE, 86400, timestamp,
+                null, true, true, true, false);
 
         if (force) {
             AbstractRequest request = new DeleteHandleRequest(Util.encodeString(externalHandle), auth);
@@ -164,10 +173,13 @@ public class RegisterExternalHandle extends AbstractCurationTask {
             }
         }
 
-        AdminRecord adminRecord = new AdminRecord(Util.encodeString("0.NA/" + externalPrefix), 300, true, true, true, true, true, true, true, true, true, true,
-                true, true);
-        HandleValue[] values = { urlVal, new HandleValue(100, Util.encodeString("HS_ADMIN"), Encoder.encodeAdminRecord(adminRecord),
-                HandleValue.TTL_TYPE_RELATIVE, 86400, timestamp, null, true, true, true, false) };
+        AdminRecord adminRecord = new AdminRecord(Util.encodeString("0.NA/" + externalPrefix),
+                300, true, true, true, true, true, true, true, true, true, true, true, true);
+        HandleValue[] values = {
+            urlVal,
+            new HandleValue(100, Util.encodeString("HS_ADMIN"), Encoder.encodeAdminRecord(adminRecord),
+                    HandleValue.TTL_TYPE_RELATIVE, 86400, timestamp, null, true, true, true, false)
+        };
         AbstractRequest request = new CreateHandleRequest(Util.encodeString(externalHandle), values, auth);
 
         AbstractResponse response = resolver.processRequest(request);

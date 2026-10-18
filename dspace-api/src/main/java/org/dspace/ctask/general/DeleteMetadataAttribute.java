@@ -38,7 +38,7 @@ public class DeleteMetadataAttribute extends AbstractCurationTask {
 
         String field = taskProperty(CONF_FIELD);
         String language = taskProperty(CONF_LANGUAGE, Item.ANY);
-        
+
         if (StringUtils.isEmpty(field)) {
             result = "No metadata attribute specified!";
             setResult(result);
@@ -49,7 +49,7 @@ public class DeleteMetadataAttribute extends AbstractCurationTask {
         MetadataFieldName metadataField = new MetadataFieldName(field);
         try {
             Item item = (Item) dso;
-            itemService.clearMetadata(context, 
+            itemService.clearMetadata(context,
                             item, metadataField.schema, metadataField.element, metadataField.qualifier, language);
             result = "Attribute succesfully deleted in Item " + dso.getID();
             setResult(result);
