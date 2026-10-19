@@ -4,8 +4,8 @@
 <relationships>
 
     <type>
-        <leftType>Artículo</leftType>
-        <rightType>Autor</rightType>
+        <leftType>Paper</leftType>
+        <rightType>Author</rightType>
         <leftwardType>isAuthorOfPaper</leftwardType>
         <rightwardType>isPaperOfAuthor</rightwardType>
         <leftCardinality>
@@ -17,8 +17,8 @@
         <copyToLeft>true</copyToLeft>
     </type>
     <type>
-        <leftType>Resumen</leftType>
-        <rightType>Autor</rightType>
+        <leftType>Abstract</leftType>
+        <rightType>Author</rightType>
         <leftwardType>isAuthorOfAbstract</leftwardType>
         <rightwardType>isAbstractOfAuthor</rightwardType>
         <leftCardinality>
@@ -30,10 +30,23 @@
         <copyToLeft>true</copyToLeft>
     </type>
     <type>
-        <leftType>Seminario</leftType>
-        <rightType>Autor</rightType>
+        <leftType>Seminar</leftType>
+        <rightType>Author</rightType>
         <leftwardType>isAuthorOfSeminar</leftwardType>
         <rightwardType>isSeminarOfAuthor</rightwardType>
+        <leftCardinality>
+            <min>0</min>
+        </leftCardinality>
+        <rightCardinality>
+            <min>0</min>
+        </rightCardinality>
+        <copyToLeft>true</copyToLeft>
+    </type>
+    <type>
+        <leftType>Paratext</leftType>
+        <rightType>Author</rightType>
+        <leftwardType>isAuthorOfParatext</leftwardType>
+        <rightwardType>isParatextOfAuthor</rightwardType>
         <leftCardinality>
             <min>0</min>
         </leftCardinality>
@@ -49,8 +62,8 @@
     Authors to Bulletins or Minutes
     -->
     <type>
-        <leftType>Boletín</leftType>
-        <rightType>Autor</rightType>
+        <leftType>Bulletin</leftType>
+        <rightType>Author</rightType>
         <leftwardType>isAuthorOfBulletin</leftwardType>
         <rightwardType>isBulletinOfAuthor</rightwardType>
         <leftCardinality>
@@ -62,8 +75,8 @@
         <copyToLeft>false</copyToLeft>
     </type>
     <type>
-        <leftType>Acta</leftType>
-        <rightType>Autor</rightType>
+        <leftType>Minutes</leftType>
+        <rightType>Author</rightType>
         <leftwardType>isAuthorOfMinutes</leftwardType>
         <rightwardType>isMinutesOfAuthor</rightwardType>
         <leftCardinality>

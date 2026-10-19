@@ -18,7 +18,7 @@ import org.dspace.curate.AbstractCurationTask;
 import org.dspace.curate.Curator;
 
 /**
- * Curation task to set the 'dc.title' of an 'Autor' entity type out of its
+ * Curation task to set the 'dc.title' of an 'Author' entity type out of its
  * 'person.familyName' and 'person.givenName' fields
  * 
  * @author agomez
@@ -29,7 +29,7 @@ public class RefreshSistedesAuthorTitle extends AbstractCurationTask {
 
     @Override
     public int perform(Context context, DSpaceObject dso) throws IOException {
-        if (dso instanceof Item && "Autor".equals(itemService.getMetadata((Item) dso, "dspace.entity.type"))) {
+        if (dso instanceof Item && "Author".equals(itemService.getMetadata((Item) dso, "dspace.entity.type"))) {
             Item item = (Item) dso;
             try {
                 String familyName = itemService.getMetadataFirstValue(item,

@@ -220,5 +220,57 @@
         <qualifier>latestForDiscovery</qualifier>
         <scope_note>(Sistedes specific) Contains all uuids of AUTHORS which link to the current MINUTES via a "latest" relationship. In other words, this stores all relationships pointing to the current MINUTES from an AUTHOR, implying that the MINUTES is marked as "latest". Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
     </dc-type>
-    
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isMinutesOfAuthor</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" MINUTES that the current AUTHOR links to via a relationship. Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isMinutesOfAuthor</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of MINUTES which link to the current AUTHOR via a "latest" relationship. Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isBulletinOfAuthor</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" BULLETINS that the current AUTHOR links to via a relationship. Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isBulletinOfAuthor</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of BULLETINS which link to the current AUTHOR via a "latest" relationship. Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfParatext</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" AUTHORS linked to the current PARATEXT. Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isAuthorOfParatext</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of AUTHORS linked to the current PARATEXT via a "latest" relationship. Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isParatextOfAuthor</element>
+        <scope_note>(Sistedes specific) Contains all uuids of the "latest" PARATEXTS linked to the current AUTHOR. Internally used by DSpace. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
+    <dc-type>
+        <schema>relation</schema>
+        <element>isParatextOfAuthor</element>
+        <qualifier>latestForDiscovery</qualifier>
+        <scope_note>(Sistedes specific) Contains all uuids of PARATEXTS linked to the current AUTHOR via a "latest" relationship. Internally used by DSpace to support versioning. Do not manually add, remove or edit values.</scope_note>
+    </dc-type>
+
 </dspace-dc-types>

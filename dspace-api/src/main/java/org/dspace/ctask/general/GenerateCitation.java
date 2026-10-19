@@ -39,7 +39,7 @@ public class GenerateCitation extends AbstractCurationTask {
 
         if (dso instanceof Item) {
             Item item = (Item) dso;
-            if ("Autor".equals(itemService.getMetadata(item, "dspace.entity.type"))) {
+            if ("Author".equals(itemService.getMetadata(item, "dspace.entity.type"))) {
                 result = "Skipping Author element" + dso.getID();
                 setResult(result);
                 report(result);
@@ -77,7 +77,7 @@ public class GenerateCitation extends AbstractCurationTask {
 
     protected Citation createCitation(Item item) {
         String entityType = itemService.getMetadata(item, "dspace.entity.type");
-        if ("Resumen".equals(entityType) || "Artículo".equals(entityType)) {
+        if ("Abstract".equals(entityType) || "Paper".equals(entityType)) {
             return new ConferenceCitation(item);
         } else {
             return new Citation(item);

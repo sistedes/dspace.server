@@ -216,16 +216,20 @@
                 <entry key="NOTIFY.outgoing.involvedItems" value-ref="NOTIFY.outgoing.involvedItems"/>
                 
                 <!-- BEGIN: Sistedes -->
-                <entry key="autor" value-ref="author"/>
-                <entry key="autor-relationships" value-ref="authorRelationships"/>
-                <entry key="artículo" value-ref="paper"/>
-                <entry key="artículo-relationships" value-ref="paperRelationships"/>
-                <entry key="resumen" value-ref="abstract"/>
-                <entry key="resumen-relationships" value-ref="abstractRelationships"/>
-                <entry key="seminario" value-ref="seminar"/>
-                <entry key="seminario-relationships" value-ref="seminarRelationships"/>
-                <entry key="boletín" value-ref="bulletin"/>
-                <entry key="boletín-relationships" value-ref="bulletinRelationships"/>
+                <entry key="author" value-ref="author"/>
+                <entry key="author-relationships" value-ref="authorRelationships"/>
+                <entry key="paper" value-ref="paper"/>
+                <entry key="paper-relationships" value-ref="paperRelationships"/>
+                <entry key="abstract" value-ref="abstract"/>
+                <entry key="abstract-relationships" value-ref="abstractRelationships"/>
+                <entry key="seminar" value-ref="seminar"/>
+                <entry key="seminar-relationships" value-ref="seminarRelationships"/>
+                <entry key="bulletin" value-ref="bulletin"/>
+                <entry key="bulletin-relationships" value-ref="bulletinRelationships"/>
+                <entry key="minutes" value-ref="minutes"/>
+                <entry key="minutes-relationships" value-ref="minutesRelationships"/>
+                <entry key="paratext" value-ref="paratext"/>
+                <entry key="paratext-relationships" value-ref="paratextRelationships"/>
                 <!-- END: Sistedes -->
             </map>
         </property>
@@ -306,6 +310,8 @@
                 <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
                 <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
                 <ref bean="searchFilterIsAuthorOfBulletinRelation"/>
+                <ref bean="searchFilterIsAuthorOfMinutesRelation"/>
+                <ref bean="searchFilterIsAuthorOfParatextRelation"/>
                 <!-- END: Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
@@ -495,6 +501,8 @@
                 <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
                 <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
                 <ref bean="searchFilterIsAuthorOfBulletinRelation"/>
+                <ref bean="searchFilterIsAuthorOfMinutesRelation"/>
+                <ref bean="searchFilterIsAuthorOfParatextRelation"/>
                 <!-- END: Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
@@ -640,6 +648,8 @@
                 <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
                 <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
                 <ref bean="searchFilterIsAuthorOfBulletinRelation"/>
+                <ref bean="searchFilterIsAuthorOfMinutesRelation"/>
+                <ref bean="searchFilterIsAuthorOfParatextRelation"/>
                 <!-- END: Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
@@ -792,6 +802,8 @@
                 <ref bean="searchFilterIsAuthorOfAbstractRelation"/>
                 <ref bean="searchFilterIsAuthorOfSeminarRelation"/>
                 <ref bean="searchFilterIsAuthorOfBulletinRelation"/>
+                <ref bean="searchFilterIsAuthorOfMinutesRelation"/>
+                <ref bean="searchFilterIsAuthorOfParatextRelation"/>
                 <!-- END: Sistedes -->
                 <ref bean="searchFilterIsProjectOfPublicationRelation"/>
                 <ref bean="searchFilterIsOrgUnitOfPublicationRelation"/>
@@ -2004,6 +2016,8 @@
                 <ref bean="searchFilterIsAbstractOfAuthorRelation"/>
                 <ref bean="searchFilterIsSeminarOfAuthorRelation"/>
                 <ref bean="searchFilterIsBulletinOfAuthorRelation"/>
+                <ref bean="searchFilterIsMinutesOfAuthorRelation"/>
+                <ref bean="searchFilterIsParatextOfAuthorRelation"/>
             </list>
         </property>
         <!--The sort filters for the discovery search-->
@@ -2026,7 +2040,7 @@
             <list>
                 <!--Only find items, communities and collections-->
                 <!-- NOTE: NOT filtered on latestVersion = true -->
-                <value>search.resourcetype:Item AND entityType_keyword:Autor</value>
+                <value>search.resourcetype:Item AND entityType_keyword:Author</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -2068,6 +2082,8 @@
                 <ref bean="searchFilterIsAbstractOfAuthorRelation"/>
                 <ref bean="searchFilterIsSeminarOfAuthorRelation"/>
                 <ref bean="searchFilterIsBulletinOfAuthorRelation"/>
+                <ref bean="searchFilterIsMinutesOfAuthorRelation"/>
+                <ref bean="searchFilterIsParatextOfAuthorRelation"/>
             </list>
         </property>
         <!--The sort filters for the discovery search-->
@@ -2089,7 +2105,7 @@
         <property name="defaultFilterQueries">
             <list>
                 <!--Only find items, communities and collections-->
-                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Autor</value>
+                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Author</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -2155,7 +2171,7 @@
         <property name="defaultFilterQueries">
             <list>
                 <!--Only find items, communities and collections-->
-                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Artículo</value>
+                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Paper</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -2222,7 +2238,7 @@
             <list>
                 <!--Only find items, communities and collections-->
                 <!-- NOTE: NOT filtered on latestVersion = true -->
-                <value>search.resourcetype:Item AND entityType_keyword:Artículo</value>
+                <value>search.resourcetype:Item AND entityType_keyword:Paper</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -2288,7 +2304,7 @@
         <property name="defaultFilterQueries">
             <list>
                 <!--Only find items, communities and collections-->
-                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Resumen</value>
+                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Abstract</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -2355,7 +2371,7 @@
             <list>
                 <!--Only find items, communities and collections-->
                 <!-- NOTE: NOT filtered on latestVersion = true -->
-                <value>search.resourcetype:Item AND entityType_keyword:Resumen</value>
+                <value>search.resourcetype:Item AND entityType_keyword:Abstract</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -2421,7 +2437,7 @@
         <property name="defaultFilterQueries">
             <list>
                 <!--Only find items, communities and collections-->
-                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Seminario</value>
+                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Seminar</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -2488,7 +2504,7 @@
             <list>
                 <!--Only find items, communities and collections-->
                 <!-- NOTE: NOT filtered on latestVersion = true -->
-                <value>search.resourcetype:Item AND entityType_keyword:Seminario</value>
+                <value>search.resourcetype:Item AND entityType_keyword:Seminar</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -2554,7 +2570,7 @@
         <property name="defaultFilterQueries">
             <list>
                 <!--Only find items, communities and collections-->
-                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Boletín</value>
+                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Bulletin</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -2621,7 +2637,7 @@
             <list>
                 <!--Only find items, communities and collections-->
                 <!-- NOTE: NOT filtered on latestVersion = true -->
-                <value>search.resourcetype:Item AND entityType_keyword:Boletín</value>
+                <value>search.resourcetype:Item AND entityType_keyword:Bulletin</value>
                 <value>-withdrawn:true AND -discoverable:false</value>
             </list>
         </property>
@@ -2637,6 +2653,226 @@
         </property>
 
         <!-- When true a "did you mean" example will be displayed, value can be true or false -->
+        <property name="spellCheckEnabled" value="true"/>
+    </bean>
+
+    <bean id="minutes" class="org.dspace.discovery.configuration.DiscoveryConfiguration" scope="prototype">
+        <property name="id" value="minutes"/>
+        <property name="indexAlways" value="true"/>
+        <property name="sidebarFacets">
+            <list>
+                <ref bean="searchFilterAuthor"/>
+                <ref bean="searchFilterSubject"/>
+                <ref bean="searchFilterIssued"/>
+                <ref bean="searchFilterContentInOriginalBundle"/>
+                <ref bean="searchFilterEntityType"/>
+            </list>
+        </property>
+        <property name="tagCloudFacetConfiguration" ref="defaultTagCloudFacetConfiguration"/>
+        <property name="searchFilters">
+            <list>
+                <ref bean="searchFilterTitle"/>
+                <ref bean="searchFilterAuthor"/>
+                <ref bean="searchFilterSubject"/>
+                <ref bean="searchFilterIssued"/>
+                <ref bean="searchFilterContentInOriginalBundle"/>
+                <ref bean="searchFilterFileNameInOriginalBundle"/>
+                <ref bean="searchFilterFileDescriptionInOriginalBundle"/>
+                <ref bean="searchFilterEntityType"/>
+                <ref bean="searchFilterIsAuthorOfMinutesRelation"/>
+            </list>
+        </property>
+        <property name="searchSortConfiguration">
+            <bean class="org.dspace.discovery.configuration.DiscoverySortConfiguration">
+                <property name="sortFields">
+                    <list>
+                        <ref bean="sortScore"/>
+                        <ref bean="sortTitle"/>
+                        <ref bean="sortDateIssued"/>
+                        <ref bean="sortDateAccessioned"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="defaultFilterQueries">
+            <list>
+                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Minutes</value>
+                <value>-withdrawn:true AND -discoverable:false</value>
+            </list>
+        </property>
+        <property name="recentSubmissionConfiguration">
+            <bean class="org.dspace.discovery.configuration.DiscoveryRecentSubmissionsConfiguration">
+                <property name="metadataSortField" value="dc.date.accessioned"/>
+                <property name="type" value="date"/>
+                <property name="max" value="20"/>
+                <property name="useAsHomePage" value="false"/>
+            </bean>
+        </property>
+        <property name="spellCheckEnabled" value="true"/>
+    </bean>
+
+    <bean id="minutesRelationships" class="org.dspace.discovery.configuration.DiscoveryConfiguration" scope="prototype">
+        <property name="id" value="minutesRelationships"/>
+        <property name="indexAlways" value="true"/>
+        <property name="sidebarFacets">
+            <list>
+                <ref bean="searchFilterAuthor"/>
+                <ref bean="searchFilterSubject"/>
+                <ref bean="searchFilterIssued"/>
+                <ref bean="searchFilterContentInOriginalBundle"/>
+                <ref bean="searchFilterEntityType"/>
+            </list>
+        </property>
+        <property name="tagCloudFacetConfiguration" ref="defaultTagCloudFacetConfiguration"/>
+        <property name="searchFilters">
+            <list>
+                <ref bean="searchFilterTitle"/>
+                <ref bean="searchFilterAuthor"/>
+                <ref bean="searchFilterSubject"/>
+                <ref bean="searchFilterIssued"/>
+                <ref bean="searchFilterContentInOriginalBundle"/>
+                <ref bean="searchFilterFileNameInOriginalBundle"/>
+                <ref bean="searchFilterFileDescriptionInOriginalBundle"/>
+                <ref bean="searchFilterEntityType"/>
+                <ref bean="searchFilterIsAuthorOfMinutesRelation"/>
+            </list>
+        </property>
+        <property name="searchSortConfiguration">
+            <bean class="org.dspace.discovery.configuration.DiscoverySortConfiguration">
+                <property name="sortFields">
+                    <list>
+                        <ref bean="sortScore"/>
+                        <ref bean="sortTitle"/>
+                        <ref bean="sortDateIssued"/>
+                        <ref bean="sortDateAccessioned"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="defaultFilterQueries">
+            <list>
+                <value>search.resourcetype:Item AND entityType_keyword:Minutes</value>
+                <value>-withdrawn:true AND -discoverable:false</value>
+            </list>
+        </property>
+        <property name="recentSubmissionConfiguration">
+            <bean class="org.dspace.discovery.configuration.DiscoveryRecentSubmissionsConfiguration">
+                <property name="metadataSortField" value="dc.date.accessioned"/>
+                <property name="type" value="date"/>
+                <property name="max" value="20"/>
+                <property name="useAsHomePage" value="false"/>
+            </bean>
+        </property>
+        <property name="spellCheckEnabled" value="true"/>
+    </bean>
+
+    <bean id="paratext" class="org.dspace.discovery.configuration.DiscoveryConfiguration" scope="prototype">
+        <property name="id" value="paratext"/>
+        <property name="indexAlways" value="true"/>
+        <property name="sidebarFacets">
+            <list>
+                <ref bean="searchFilterAuthor"/>
+                <ref bean="searchFilterSubject"/>
+                <ref bean="searchFilterIssued"/>
+                <ref bean="searchFilterContentInOriginalBundle"/>
+                <ref bean="searchFilterEntityType"/>
+            </list>
+        </property>
+        <property name="tagCloudFacetConfiguration" ref="defaultTagCloudFacetConfiguration"/>
+        <property name="searchFilters">
+            <list>
+                <ref bean="searchFilterTitle"/>
+                <ref bean="searchFilterAuthor"/>
+                <ref bean="searchFilterSubject"/>
+                <ref bean="searchFilterIssued"/>
+                <ref bean="searchFilterContentInOriginalBundle"/>
+                <ref bean="searchFilterFileNameInOriginalBundle"/>
+                <ref bean="searchFilterFileDescriptionInOriginalBundle"/>
+                <ref bean="searchFilterEntityType"/>
+                <ref bean="searchFilterIsAuthorOfParatextRelation"/>
+            </list>
+        </property>
+        <property name="searchSortConfiguration">
+            <bean class="org.dspace.discovery.configuration.DiscoverySortConfiguration">
+                <property name="sortFields">
+                    <list>
+                        <ref bean="sortScore"/>
+                        <ref bean="sortTitle"/>
+                        <ref bean="sortDateIssued"/>
+                        <ref bean="sortDateAccessioned"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="defaultFilterQueries">
+            <list>
+                <value>search.resourcetype:Item AND latestVersion:true AND entityType_keyword:Paratext</value>
+                <value>-withdrawn:true AND -discoverable:false</value>
+            </list>
+        </property>
+        <property name="recentSubmissionConfiguration">
+            <bean class="org.dspace.discovery.configuration.DiscoveryRecentSubmissionsConfiguration">
+                <property name="metadataSortField" value="dc.date.accessioned"/>
+                <property name="type" value="date"/>
+                <property name="max" value="20"/>
+                <property name="useAsHomePage" value="false"/>
+            </bean>
+        </property>
+        <property name="spellCheckEnabled" value="true"/>
+    </bean>
+
+    <bean id="paratextRelationships" class="org.dspace.discovery.configuration.DiscoveryConfiguration" scope="prototype">
+        <property name="id" value="paratextRelationships"/>
+        <property name="indexAlways" value="true"/>
+        <property name="sidebarFacets">
+            <list>
+                <ref bean="searchFilterAuthor"/>
+                <ref bean="searchFilterSubject"/>
+                <ref bean="searchFilterIssued"/>
+                <ref bean="searchFilterContentInOriginalBundle"/>
+                <ref bean="searchFilterEntityType"/>
+            </list>
+        </property>
+        <property name="tagCloudFacetConfiguration" ref="defaultTagCloudFacetConfiguration"/>
+        <property name="searchFilters">
+            <list>
+                <ref bean="searchFilterTitle"/>
+                <ref bean="searchFilterAuthor"/>
+                <ref bean="searchFilterSubject"/>
+                <ref bean="searchFilterIssued"/>
+                <ref bean="searchFilterContentInOriginalBundle"/>
+                <ref bean="searchFilterFileNameInOriginalBundle"/>
+                <ref bean="searchFilterFileDescriptionInOriginalBundle"/>
+                <ref bean="searchFilterEntityType"/>
+                <ref bean="searchFilterIsAuthorOfParatextRelation"/>
+            </list>
+        </property>
+        <property name="searchSortConfiguration">
+            <bean class="org.dspace.discovery.configuration.DiscoverySortConfiguration">
+                <property name="sortFields">
+                    <list>
+                        <ref bean="sortScore"/>
+                        <ref bean="sortTitle"/>
+                        <ref bean="sortDateIssued"/>
+                        <ref bean="sortDateAccessioned"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="defaultFilterQueries">
+            <list>
+                <value>search.resourcetype:Item AND entityType_keyword:Paratext</value>
+                <value>-withdrawn:true AND -discoverable:false</value>
+            </list>
+        </property>
+        <property name="recentSubmissionConfiguration">
+            <bean class="org.dspace.discovery.configuration.DiscoveryRecentSubmissionsConfiguration">
+                <property name="metadataSortField" value="dc.date.accessioned"/>
+                <property name="type" value="date"/>
+                <property name="max" value="20"/>
+                <property name="useAsHomePage" value="false"/>
+            </bean>
+        </property>
         <property name="spellCheckEnabled" value="true"/>
     </bean>
 
@@ -3822,6 +4058,26 @@
         <property name="isOpenByDefault" value="false"/>
         <property name="pageSize" value="10"/>
     </bean>
+    <bean id="searchFilterIsAuthorOfMinutesRelation" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
+        <property name="indexFieldName" value="isAuthorOfMinutes"/>
+        <property name="metadataFields">
+            <list>
+                <value>relation.isAuthorOfMinutes.latestForDiscovery</value>
+            </list>
+        </property>
+        <property name="isOpenByDefault" value="false"/>
+        <property name="pageSize" value="10"/>
+    </bean>
+    <bean id="searchFilterIsAuthorOfParatextRelation" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
+        <property name="indexFieldName" value="isAuthorOfParatext"/>
+        <property name="metadataFields">
+            <list>
+                <value>relation.isAuthorOfParatext.latestForDiscovery</value>
+            </list>
+        </property>
+        <property name="isOpenByDefault" value="false"/>
+        <property name="pageSize" value="10"/>
+    </bean>
     <!-- END: Sistedes -->
 
     <bean id="searchFilterIsProjectOfPublicationRelation" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
@@ -4237,6 +4493,28 @@
         <property name="metadataFields">
             <list>
                 <value>relation.isBulletinOfAuthor.latestForDiscovery</value>
+            </list>
+        </property>
+        <property name="isOpenByDefault" value="false"/>
+        <property name="pageSize" value="10"/>
+    </bean>
+    <bean id="searchFilterIsMinutesOfAuthorRelation"
+          class="org.dspace.discovery.configuration.DiscoverySearchFilter">
+        <property name="indexFieldName" value="isMinutesOfAuthor"/>
+        <property name="metadataFields">
+            <list>
+                <value>relation.isMinutesOfAuthor.latestForDiscovery</value>
+            </list>
+        </property>
+        <property name="isOpenByDefault" value="false"/>
+        <property name="pageSize" value="10"/>
+    </bean>
+    <bean id="searchFilterIsParatextOfAuthorRelation"
+          class="org.dspace.discovery.configuration.DiscoverySearchFilter">
+        <property name="indexFieldName" value="isParatextOfAuthor"/>
+        <property name="metadataFields">
+            <list>
+                <value>relation.isParatextOfAuthor.latestForDiscovery</value>
             </list>
         </property>
         <property name="isOpenByDefault" value="false"/>

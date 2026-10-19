@@ -30,6 +30,9 @@
                 <entry key="isAuthorOfPaper" value-ref="isAuthorOfPublicationMap"/>
                 <entry key="isAuthorOfAbstract" value-ref="isAuthorOfPublicationMap"/>
                 <entry key="isAuthorOfSeminar" value-ref="isAuthorOfPublicationMap"/>
+                <entry key="isAuthorOfParatext" value-ref="isAuthorOfPublicationMap"/>
+                <entry key="isAuthorOfBulletin" value-ref="isAuthorOfPublicationMap"/>
+                <entry key="isAuthorOfMinutes" value-ref="isAuthorOfPublicationMap"/>
                 <!-- END: Sistedes -->
             </map>
         </property>
@@ -43,9 +46,13 @@
                 <entry key="Journal" value="f.entityType=Journal,equals"/>
                 <entry key="Dataset" value="f.entityType=Dataset,equals"/>
                 <!-- BEGIN: Sistedes -->
-                <entry key="Paper" value="f.entityType=Artículo,equals"/>
-                <entry key="Abstract" value="f.entityType=Resumen,equals"/>
-                <entry key="Seminar" value="f.entityType=Seminario,equals"/>
+                <entry key="Paper" value="f.entityType=Paper,equals"/>
+                <entry key="Abstract" value="f.entityType=Abstract,equals"/>
+                <entry key="Seminar" value="f.entityType=Seminar,equals"/>
+                <entry key="Author"   value="f.entityType=Author,equals"/>
+                <entry key="Bulletin" value="f.entityType=Bulletin,equals"/>
+                <entry key="Minutes"  value="f.entityType=Minutes,equals"/>
+                <entry key="Paratext" value="f.entityType=Paratext,equals"/>
                 <!-- END: Sistedes -->
             </map>
         </property>
